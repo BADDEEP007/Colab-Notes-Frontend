@@ -1,0 +1,166 @@
+.card {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-6);
+  cursor: pointer;
+  position: relative;
+  transition: all var(--duration-fast) var(--easing);
+}
+
+.card:hover {
+  transform: scale(1.02);
+  box-shadow: var(--glass-shadow-hover);
+}
+
+.card:active {
+  transform: scale(0.98);
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-4);
+}
+
+.titleContainer {
+  flex: 1;
+  min-width: 0;
+}
+
+.title {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--color-muted-navy);
+  margin-bottom: var(--spacing-2);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: color var(--duration-fast) var(--easing);
+}
+
+.roleBadge {
+  display: inline-block;
+  padding: var(--spacing-1) var(--spacing-3);
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  color: white;
+  border-radius: var(--radius-full);
+}
+
+.menuContainer {
+  position: relative;
+}
+
+.menuButton {
+  padding: var(--spacing-2);
+  border-radius: var(--radius-md);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--easing);
+}
+
+.menuButton:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.menuIcon {
+  width: 20px;
+  height: 20px;
+  color: var(--color-muted-navy);
+}
+
+.menu {
+  position: absolute;
+  right: 0;
+  margin-top: var(--spacing-2);
+  width: 192px;
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-2);
+  animation: scaleIn var(--duration-fast) var(--easing);
+  z-index: var(--z-dropdown);
+}
+
+.menuItem {
+  width: 100%;
+  text-align: left;
+  padding: var(--spacing-2) var(--spacing-4);
+  font-size: var(--font-size-sm);
+  color: var(--color-muted-navy);
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--easing);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+}
+
+.menuItem:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.menuItemDelete {
+  color: var(--color-light-coral-dark);
+}
+
+.menuItemIcon {
+  width: 20px;
+  height: 20px;
+}
+
+.stats {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-6);
+  margin-top: var(--spacing-6);
+  padding-top: var(--spacing-6);
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.stat {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  color: var(--color-muted-navy);
+  opacity: 0.8;
+}
+
+.statIcon {
+  width: 20px;
+  height: 20px;
+}
+
+.statText {
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+}
+
+.hoverArrow {
+  position: absolute;
+  bottom: var(--spacing-6);
+  right: var(--spacing-6);
+  opacity: 0;
+  transition: opacity var(--duration-fast) var(--easing);
+}
+
+.card:hover .hoverArrow {
+  opacity: 1;
+}
+
+.arrowIcon {
+  width: 24px;
+  height: 24px;
+  color: var(--color-sky-blue);
+}

@@ -5,7 +5,7 @@ import { useState } from 'react';
  * Bottom toolbar with action buttons (Undo, Redo, Share, AI Assist, Export)
  * Includes tooltips with fade-in animation
  * Requirements: 6.4
- * 
+ *
  * @param {Object} props
  * @param {Function} props.onUndo - Callback for undo action
  * @param {Function} props.onRedo - Callback for redo action

@@ -1,0 +1,268 @@
+/* FriendRequests Component Styles */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.count {
+  font-size: var(--font-size-sm);
+  color: #4b5563;
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-12) 0;
+}
+
+.spinner {
+  animation: spin 0.8s linear infinite;
+  border-radius: 50%;
+  height: 32px;
+  width: 32px;
+  border: 2px solid transparent;
+  border-bottom-color: #2563eb;
+}
+
+.error {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-4);
+}
+
+.errorText {
+  font-size: var(--font-size-sm);
+  color: #dc2626;
+}
+
+/* Empty State */
+.empty {
+  text-align: center;
+  padding: var(--spacing-12) 0;
+}
+
+.emptyIcon {
+  margin: 0 auto;
+  height: 48px;
+  width: 48px;
+  color: #9ca3af;
+}
+
+.emptyTitle {
+  margin-top: var(--spacing-2);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--color-muted-navy);
+}
+
+.emptyDescription {
+  margin-top: var(--spacing-1);
+  font-size: var(--font-size-sm);
+  color: var(--color-slate-600);
+}
+
+/* Request List */
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+}
+
+.requestCard {
+  background: white;
+  border-radius: var(--radius-lg);
+  border: 1px solid #e5e7eb;
+  padding: var(--spacing-4);
+  transition: box-shadow var(--duration-fast) var(--easing);
+}
+
+.requestCard:hover {
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.requestContent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Request Info */
+.requestInfo {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  flex: 1;
+  min-width: 0;
+}
+
+.avatarWrapper {
+  flex-shrink: 0;
+}
+
+.avatar {
+  height: 48px;
+  width: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.avatarFallback {
+  height: 48px;
+  width: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #3b82f6 0%, #9333ea 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 600;
+  font-size: var(--font-size-base);
+}
+
+.userInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.userName {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-muted-navy);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.userEmail {
+  font-size: var(--font-size-xs);
+  color: var(--color-slate-600);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.requestTime {
+  font-size: var(--font-size-xs);
+  color: #9ca3af;
+  margin-top: 2px;
+}
+
+/* Action Buttons */
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  margin-left: var(--spacing-4);
+}
+
+.acceptButton {
+  padding: var(--spacing-2) var(--spacing-4);
+  background: #2563eb;
+  color: white;
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  border: none;
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: background var(--duration-fast) var(--easing);
+}
+
+.acceptButton:hover {
+  background: #1d4ed8;
+}
+
+.acceptButton:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.rejectButton {
+  padding: var(--spacing-2) var(--spacing-4);
+  background: #e5e7eb;
+  color: var(--color-slate-700);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  border: none;
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: background var(--duration-fast) var(--easing);
+}
+
+.rejectButton:hover {
+  background: #d1d5db;
+}
+
+.rejectButton:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(107, 114, 128, 0.1);
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .count {
+    color: #9ca3af;
+  }
+
+  .error {
+    background: rgba(239, 68, 68, 0.1);
+    border-color: #7f1d1d;
+  }
+
+  .errorText {
+    color: #f87171;
+  }
+
+  .emptyTitle {
+    color: white;
+  }
+
+  .emptyDescription {
+    color: #9ca3af;
+  }
+
+  .requestCard {
+    background: #1f2937;
+    border-color: #374151;
+  }
+
+  .userName {
+    color: white;
+  }
+
+  .userEmail {
+    color: #9ca3af;
+  }
+
+  .requestTime {
+    color: #6b7280;
+  }
+
+  .acceptButton:focus {
+    box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.1);
+  }
+
+  .rejectButton {
+    background: #374151;
+    color: #d1d5db;
+  }
+
+  .rejectButton:hover {
+    background: #4b5563;
+  }
+
+  .rejectButton:focus {
+    box-shadow: 0 0 0 3px rgba(107, 114, 128, 0.1);
+  }
+}

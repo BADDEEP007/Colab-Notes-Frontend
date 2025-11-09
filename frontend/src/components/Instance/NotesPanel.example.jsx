@@ -13,13 +13,10 @@ export default function InstancePageExample() {
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4">Instance Page</h1>
-      
+
       {/* NotesPanel Component */}
       <div className="max-w-2xl">
-        <NotesPanel 
-          instanceId={instanceId} 
-          containerId={containerId} 
-        />
+        <NotesPanel instanceId={instanceId} containerId={containerId} />
       </div>
     </div>
   );
@@ -27,16 +24,16 @@ export default function InstancePageExample() {
 
 /**
  * Component Features:
- * 
+ *
  * 1. Two Tabs:
  *    - "My Notes": Displays notes created by the current user
  *    - "Collaborated Notes": Displays notes shared with the current user
- * 
+ *
  * 2. Note Filtering:
  *    - My Notes: Filters by authorId === current user's id
  *    - Collaborated Notes: Filters by sharedWith array containing current user's id
  *                          AND excludes notes created by current user
- * 
+ *
  * 3. Features:
  *    - Tab navigation with visual indicators
  *    - Note count badges on each tab
@@ -46,7 +43,7 @@ export default function InstancePageExample() {
  *    - Responsive design with hover effects
  *    - Keyboard navigation support
  *    - Accessibility features (ARIA labels, roles)
- * 
+ *
  * 4. Requirements Satisfied:
  *    - Requirement 12.3: Display shared notes in Collaborated Notes tab
  *    - Requirement 12.4: Display notes created by user in My Notes tab

@@ -97,20 +97,23 @@ export default function AIPanel({ noteId, noteContent, onInsertContent, canEdit 
    */
   const copyToClipboard = () => {
     if (aiResult) {
-      const textToCopy = typeof aiResult === 'string' ? aiResult : JSON.stringify(aiResult, null, 2);
-      navigator.clipboard.writeText(textToCopy)
+      const textToCopy =
+        typeof aiResult === 'string' ? aiResult : JSON.stringify(aiResult, null, 2);
+      navigator.clipboard
+        .writeText(textToCopy)
         .then(() => {
           // Show temporary success feedback
           const button = document.getElementById('ai-copy-button');
           if (button) {
             const originalText = button.innerHTML;
-            button.innerHTML = '<svg class="h-4 w-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Copied!';
+            button.innerHTML =
+              '<svg class="h-4 w-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Copied!';
             setTimeout(() => {
               button.innerHTML = originalText;
             }, 2000);
           }
         })
-        .catch(err => {
+        .catch((err) => {
           console.error('Failed to copy:', err);
           setError('Failed to copy to clipboard');
         });
@@ -122,14 +125,16 @@ export default function AIPanel({ noteId, noteContent, onInsertContent, canEdit 
    */
   const handleInsertToNote = () => {
     if (aiResult && onInsertContent) {
-      const textToInsert = typeof aiResult === 'string' ? aiResult : JSON.stringify(aiResult, null, 2);
+      const textToInsert =
+        typeof aiResult === 'string' ? aiResult : JSON.stringify(aiResult, null, 2);
       onInsertContent(textToInsert);
-      
+
       // Show success feedback
       const button = document.getElementById('ai-insert-button');
       if (button) {
         const originalText = button.innerHTML;
-        button.innerHTML = '<svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Inserted!';
+        button.innerHTML =
+          '<svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Inserted!';
         setTimeout(() => {
           button.innerHTML = originalText;
         }, 2000);
@@ -254,11 +259,7 @@ export default function AIPanel({ noteId, noteContent, onInsertContent, canEdit 
                 aria-label="Submit prompt"
               >
                 {isLoading && aiResultType === 'assist' ? (
-                  <svg
-                    className="animate-spin h-5 w-5"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                  >
+                  <svg className="animate-spin h-5 w-5" fill="none" viewBox="0 0 24 24">
                     <circle
                       className="opacity-25"
                       cx="12"
@@ -368,7 +369,9 @@ export default function AIPanel({ noteId, noteContent, onInsertContent, canEdit 
                       />
                     </svg>
                     <p className="text-sm text-gray-600 dark:text-gray-400">
-                      {aiResultType === 'summary' ? 'Analyzing content...' : 'Generating content...'}
+                      {aiResultType === 'summary'
+                        ? 'Analyzing content...'
+                        : 'Generating content...'}
                     </p>
                   </div>
                 </div>

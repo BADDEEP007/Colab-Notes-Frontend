@@ -68,9 +68,7 @@ export const dummyInstances = [
     id: 'instance-3',
     name: 'Study Notes',
     ownerId: 'user-1',
-    members: [
-      { userId: 'user-1', role: 'Owner', joinedAt: new Date('2024-02-01').toISOString() },
-    ],
+    members: [{ userId: 'user-1', role: 'Owner', joinedAt: new Date('2024-02-01').toISOString() }],
     createdAt: new Date('2024-02-01').toISOString(),
     updatedAt: new Date(Date.now() - 86400000).toISOString(),
   },
@@ -167,10 +165,10 @@ export const dummyNotes = [
     title: 'CSS Architecture',
     content: `# CSS Architecture
 
-## Tailwind CSS
-- Utility-first approach
-- Responsive design utilities
-- Custom configuration
+## CSS Modules
+- Component-scoped styling
+- Locally scoped class names
+- CSS variables for design tokens
 
 ## Best Practices
 - Use consistent naming conventions
@@ -352,43 +350,43 @@ export const dummyNotifications = [
 
 // Helper function to get user by email
 export const getUserByEmail = (email) => {
-  return dummyUsers.find(user => user.email === email);
+  return dummyUsers.find((user) => user.email === email);
 };
 
 // Helper function to get user by id
 export const getUserById = (id) => {
-  return dummyUsers.find(user => user.id === id);
+  return dummyUsers.find((user) => user.id === id);
 };
 
 // Helper function to get instances for user
 export const getInstancesForUser = (userId) => {
-  return dummyInstances.filter(instance => 
-    instance.members.some(member => member.userId === userId)
+  return dummyInstances.filter((instance) =>
+    instance.members.some((member) => member.userId === userId)
   );
 };
 
 // Helper function to get containers for instance
 export const getContainersForInstance = (instanceId) => {
-  return dummyContainers.filter(container => container.instanceId === instanceId);
+  return dummyContainers.filter((container) => container.instanceId === instanceId);
 };
 
 // Helper function to get notes for container
 export const getNotesForContainer = (containerId) => {
-  return dummyNotes.filter(note => note.containerId === containerId);
+  return dummyNotes.filter((note) => note.containerId === containerId);
 };
 
 // Helper function to get friends for user
 export const getFriendsForUser = (userId) => {
   return dummyFriends
-    .filter(friend => friend.userId === userId && friend.status === 'accepted')
-    .map(friend => getUserById(friend.friendId));
+    .filter((friend) => friend.userId === userId && friend.status === 'accepted')
+    .map((friend) => getUserById(friend.friendId));
 };
 
 // Helper function to get friend requests for user
 export const getFriendRequestsForUser = (userId) => {
   return dummyFriends
-    .filter(friend => friend.friendId === userId && friend.status === 'pending')
-    .map(friend => ({
+    .filter((friend) => friend.friendId === userId && friend.status === 'pending')
+    .map((friend) => ({
       ...friend,
       user: getUserById(friend.userId),
     }));
@@ -396,5 +394,5 @@ export const getFriendRequestsForUser = (userId) => {
 
 // Helper function to get notifications for user
 export const getNotificationsForUser = (userId) => {
-  return dummyNotifications.filter(notif => notif.userId === userId);
+  return dummyNotifications.filter((notif) => notif.userId === userId);
 };

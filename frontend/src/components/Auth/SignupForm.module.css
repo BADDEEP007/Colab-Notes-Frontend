@@ -1,0 +1,252 @@
+.container {
+  width: 100%;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: var(--spacing-16);
+}
+
+.title {
+  font-size: var(--font-size-4xl);
+  font-weight: 700;
+  margin-bottom: var(--spacing-6);
+  color: var(--color-slate-800);
+}
+
+.subtitle {
+  color: var(--color-slate-700);
+  font-size: var(--font-size-lg);
+  font-weight: 500;
+}
+
+.errorMessage {
+  margin-bottom: var(--spacing-10);
+  padding: var(--spacing-5);
+  border-radius: var(--radius-xl);
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  animation: fadeIn var(--duration-normal) var(--easing);
+}
+
+.errorContent {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+}
+
+.errorIcon {
+  width: 24px;
+  height: 24px;
+  color: #ef4444;
+  flex-shrink: 0;
+}
+
+.errorText {
+  font-size: var(--font-size-base);
+  color: #b91c1c;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+}
+
+.passwordHint {
+  font-size: var(--font-size-xs);
+  color: var(--color-slate-600);
+  margin-top: 0.375rem;
+  opacity: 0.75;
+}
+
+.termsWrapper {
+  padding-top: var(--spacing-2);
+}
+
+.termsLabel {
+  display: flex;
+  align-items: start;
+  gap: var(--spacing-3);
+  cursor: pointer;
+}
+
+.termsCheckbox {
+  margin-top: 0.25rem;
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  border: 2px solid #94a3b8;
+  color: #2563eb;
+  cursor: pointer;
+}
+
+.termsCheckbox:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 0;
+}
+
+.termsText {
+  font-size: var(--font-size-sm);
+  color: var(--color-slate-700);
+}
+
+.termsLink {
+  color: #2563eb;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color var(--duration-fast) var(--easing);
+}
+
+.termsLink:hover {
+  color: #1d4ed8;
+}
+
+.termsError {
+  margin-top: 0.625rem;
+  font-size: var(--font-size-sm);
+  color: #ef4444;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  animation: fadeIn var(--duration-normal) var(--easing);
+}
+
+.termsErrorIcon {
+  width: 16px;
+  height: 16px;
+}
+
+.submitButtonWrapper {
+  padding-top: 0.75rem;
+}
+
+.submitButton {
+  width: 100%;
+  padding: var(--spacing-4) 0;
+  font-weight: 600;
+  border-radius: var(--radius-xl);
+}
+
+.divider {
+  position: relative;
+  margin: var(--spacing-10) 0;
+}
+
+.dividerLine {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+}
+
+.dividerBorder {
+  width: 100%;
+  border-top: 1px solid #cbd5e1;
+}
+
+.dividerText {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  font-size: var(--font-size-sm);
+}
+
+.dividerLabel {
+  padding: 0 var(--spacing-5);
+  background: rgba(255, 255, 255, 0.5);
+  color: var(--color-slate-600);
+  font-weight: 500;
+}
+
+.oauthButtons {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  margin-bottom: var(--spacing-10);
+}
+
+.oauthButton {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-3);
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--easing);
+  min-height: 48px;
+}
+
+.oauthButton:hover:not(:disabled) {
+  transform: scale(1.05);
+  background: var(--glass-bg-light);
+}
+
+.oauthButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.oauthIcon {
+  width: 20px;
+  height: 20px;
+}
+
+.oauthLabel {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-slate-800);
+}
+
+.loginPrompt {
+  text-align: center;
+}
+
+.loginText {
+  font-size: var(--font-size-base);
+  color: var(--color-slate-700);
+}
+
+.loginLink {
+  font-weight: 700;
+  color: #2563eb;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  transition: color var(--duration-fast) var(--easing);
+}
+
+.loginLink:hover {
+  color: #1d4ed8;
+}
+
+.loginLink:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Responsive Styles */
+@media (min-width: 640px) {
+  .title {
+    font-size: var(--font-size-5xl);
+  }
+
+  .oauthButtons {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

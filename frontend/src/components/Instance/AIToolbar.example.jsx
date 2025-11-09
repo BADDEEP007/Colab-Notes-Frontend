@@ -2,7 +2,7 @@ import AIToolbar from './AIToolbar';
 
 /**
  * Example usage of AIToolbar component
- * 
+ *
  * This component should be placed at the bottom of the Instance page
  * to provide AI-powered tools for instance-level operations.
  */
@@ -35,9 +35,7 @@ function InstancePageWithStore() {
       <nav>...</nav>
 
       {/* Main content area */}
-      <div className="flex-1 overflow-auto">
-        {/* Content */}
-      </div>
+      <div className="flex-1 overflow-auto">{/* Content */}</div>
 
       {/* AI Toolbar - will use currentInstance from useInstanceStore */}
       <AIToolbar />
@@ -57,19 +55,13 @@ function ResponsiveInstancePage() {
       {/* Main content with sidebar */}
       <div className="flex flex-1 overflow-hidden">
         {/* Left sidebar - Notes Panel */}
-        <aside className="w-64 overflow-y-auto">
-          {/* NotesPanel */}
-        </aside>
+        <aside className="w-64 overflow-y-auto">{/* NotesPanel */}</aside>
 
         {/* Center - Containers Grid */}
-        <main className="flex-1 overflow-y-auto p-6">
-          {/* ContainersGrid */}
-        </main>
+        <main className="flex-1 overflow-y-auto p-6">{/* ContainersGrid */}</main>
 
         {/* Right sidebar - Friends Online */}
-        <aside className="w-72 overflow-y-auto">
-          {/* FriendsOnlinePanel */}
-        </aside>
+        <aside className="w-72 overflow-y-auto">{/* FriendsOnlinePanel */}</aside>
       </div>
 
       {/* AI Toolbar - Fixed at bottom */}
@@ -82,25 +74,25 @@ function ResponsiveInstancePage() {
 
 /**
  * Features demonstrated:
- * 
+ *
  * 1. AI Summary Button:
  *    - Click to summarize all notes in the instance
  *    - Shows loading state while processing
  *    - Displays results in expandable panel
- * 
+ *
  * 2. AI Assist Button:
  *    - Click to show prompt input
  *    - Enter custom prompt for content generation
  *    - Press Ctrl+Enter or click Generate
  *    - Results shown in panel with copy functionality
- * 
+ *
  * 3. Results Panel:
  *    - Automatically expands when AI operation starts
  *    - Shows loading spinner during processing
  *    - Displays error messages if operation fails
  *    - Copy button to copy results to clipboard
  *    - Close button to hide panel
- * 
+ *
  * 4. Responsive Design:
  *    - Works on mobile, tablet, and desktop
  *    - Buttons stack appropriately on small screens

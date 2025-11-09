@@ -4,19 +4,14 @@ import useSocketStore from '../store/useSocketStore';
 /**
  * Custom hook for real-time whiteboard synchronization
  * Handles emitting and receiving drawing updates via WebSocket with debouncing
- * 
+ *
  * @param {Object} fabricCanvas - Fabric.js canvas instance
  * @param {string} noteId - Note ID for the whiteboard
  * @param {Function} onRemoteUpdate - Callback when remote update is received
  * @param {number} debounceMs - Debounce delay for emitting updates (default: 100ms)
  * @returns {Object} Sync functions
  */
-export default function useWhiteboardSync(
-  fabricCanvas,
-  noteId,
-  onRemoteUpdate,
-  debounceMs = 100
-) {
+export default function useWhiteboardSync(fabricCanvas, noteId, onRemoteUpdate, debounceMs = 100) {
   const { emit, on, off, isConnected } = useSocketStore();
   const debounceTimer = useRef(null);
   const isApplyingRemoteUpdate = useRef(false);
@@ -131,7 +126,7 @@ export default function useWhiteboardSync(
     return () => {
       // Cleanup event listener
       off('draw:update', handleRemoteDrawingUpdate);
-      
+
       // Clear debounce timer
       if (debounceTimer.current) {
         clearTimeout(debounceTimer.current);

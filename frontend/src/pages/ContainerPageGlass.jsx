@@ -9,6 +9,7 @@ import AnimatedBackground from '../components/AnimatedBackground';
 import useNoteStore from '../store/useNoteStore';
 import useAuthStore from '../store/useAuthStore';
 import useInstanceStore from '../store/useInstanceStore';
+import styles from './ContainerPageGlass.module.css';
 
 /**
  * Container Page Component with Glassmorphism Design
@@ -45,17 +46,17 @@ export default function ContainerPageGlass() {
   const insertContentRef = useRef(null);
 
   // Get the instance to determine user role
-  const instance = currentInstance || instances.find(inst => inst.id === instanceId);
+  const instance = currentInstance || instances.find((inst) => inst.id === instanceId);
 
   // Determine user's role in the instance
   const getUserRole = useCallback(() => {
     if (!instance || !user) return 'Viewer';
-    
+
     // Check if user is the owner
     if (instance.ownerId === user.id) return 'Owner';
-    
+
     // Check member role
-    const member = instance.members?.find(m => m.userId === user.id);
+    const member = instance.members?.find((m) => m.userId === user.id);
     return member?.role || 'Viewer';
   }, [instance, user]);
 
@@ -103,11 +104,14 @@ export default function ContainerPageGlass() {
   };
 
   // Handle whiteboard drawing change
-  const handleDrawingChange = useCallback((whiteboardData) => {
-    if (noteId && canEdit) {
-      updateNote(noteId, { whiteboardData }, false);
-    }
-  }, [noteId, canEdit, updateNote]);
+  const handleDrawingChange = useCallback(
+    (whiteboardData) => {
+      if (noteId && canEdit) {
+        updateNote(noteId, { whiteboardData }, false);
+      }
+    },
+    [noteId, canEdit, updateNote]
+  );
 
   // Handle note content change
   const handleContentChange = useCallback((content) => {
@@ -167,18 +171,18 @@ export default function ContainerPageGlass() {
   // Loading state
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-bg flex items-center justify-center">
+      <div className={styles.loadingContainer}>
         <AnimatedBackground variant="minimal" />
-        <div className="text-center glass-container p-8 scale-in">
-          <div className="spin rounded-full h-16 w-16 border-b-2 mx-auto mb-4" style={{ borderColor: 'var(--color-sky-blue)' }}></div>
-          <p className="text-navy">Loading note...</p>
+        <div className={`${styles.loadingContent} glass-container scale-in`}>
+          <div className={styles.spinner} style={{ borderColor: 'var(--color-sky-blue)' }}></div>
+          <p className={styles.loadingText}>Loading note...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-bg flex flex-col relative overflow-hidden">
+    <div className={styles.pageContainer}>
       {/* Animated Background */}
       <AnimatedBackground variant="minimal" />
 
@@ -191,10 +195,10 @@ export default function ContainerPageGlass() {
       />
 
       {/* Main Content Area */}
-      <div className="flex flex-col md:flex-row flex-1 overflow-hidden relative z-base">
+      <div className={styles.mainContent}>
         {/* Tools Panel - Only show for whiteboard view on desktop, horizontal on mobile */}
         {activeMode === 'whiteboard' && (
-          <div className="md:block">
+          <div>
             <ToolsPanel
               selectedTool={selectedTool}
               onToolChange={handleToolChange}
@@ -211,7 +215,7 @@ export default function ContainerPageGlass() {
         )}
 
         {/* Editor Area */}
-        <main className="flex-1 overflow-hidden p-4">
+        <main className={styles.editorMain}>
           <EditorArea
             noteId={noteId}
             initialContent={currentNote?.content || ''}
@@ -247,10 +251,10 @@ export default function ContainerPageGlass() {
 
       {/* Read-only indicator for viewers */}
       {!canEdit && (
-        <div className="fixed top-20 right-4 glass-container px-4 py-2 z-sticky fade-in">
-          <div className="flex items-center gap-2">
+        <div className={`${styles.readOnlyIndicator} glass-container`}>
+          <div className={styles.readOnlyContent}>
             <svg
-              className="w-5 h-5 text-coral"
+              className={styles.readOnlyIcon}
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -262,9 +266,7 @@ export default function ContainerPageGlass() {
                 d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
               />
             </svg>
-            <span className="text-sm font-medium text-navy">
-              View Only Mode
-            </span>
+            <span className={styles.readOnlyText}>View Only Mode</span>
           </div>
         </div>
       )}

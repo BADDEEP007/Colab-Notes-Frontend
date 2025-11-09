@@ -1,24 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styles from './GlassButton.module.css';
 
 /**
  * GlassButton Component
- * 
+ *
  * A reusable button component with glassmorphism styling and shimmer effect.
  * Supports multiple variants, loading state, and disabled state.
- * 
+ *
  * @component
  * @example
  * <GlassButton variant="primary" onClick={handleClick}>
  *   Click Me
  * </GlassButton>
- * 
+ *
  * <GlassButton variant="secondary" loading>
  *   Loading...
  * </GlassButton>
  */
-const GlassButton = ({ 
-  children, 
+const GlassButton = ({
+  children,
   variant = 'primary',
   loading = false,
   disabled = false,
@@ -27,24 +28,16 @@ const GlassButton = ({
   className = '',
   ariaLabel,
   ariaPressed,
-  ...props 
+  ...props
 }) => {
-  // Determine the variant class
-  const variantClasses = {
-    primary: 'btn-primary',
-    secondary: 'btn-secondary',
-    ghost: 'btn-ghost'
-  };
-
-  const baseClass = variantClasses[variant] || variantClasses.primary;
   const isDisabled = disabled || loading;
-  
-  const combinedClasses = `${baseClass} ${className}`.trim();
+
+  const buttonClasses = [styles.button, styles[variant], className].filter(Boolean).join(' ');
 
   return (
     <button
       type={type}
-      className={combinedClasses}
+      className={buttonClasses}
       onClick={onClick}
       disabled={isDisabled}
       aria-label={ariaLabel}
@@ -53,20 +46,8 @@ const GlassButton = ({
       {...props}
     >
       {loading ? (
-        <span className="flex items-center justify-center gap-2">
-          <span 
-            className="spin" 
-            role="status"
-            aria-label="Loading"
-            style={{
-              display: 'inline-block',
-              width: '16px',
-              height: '16px',
-              border: '2px solid currentColor',
-              borderTopColor: 'transparent',
-              borderRadius: '50%'
-            }} 
-          />
+        <span className={styles.loadingContainer}>
+          <span className={styles.loadingSpinner} role="status" aria-label="Loading" />
           {children}
         </span>
       ) : (

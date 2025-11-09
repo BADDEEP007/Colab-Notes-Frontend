@@ -97,13 +97,13 @@ export function getUserRole(resource, userId) {
 
   // Check if resource has members array (for instances)
   if (resource.members) {
-    const member = resource.members.find(m => m.userId === userId);
+    const member = resource.members.find((m) => m.userId === userId);
     return member?.role || null;
   }
 
   // Check if resource has sharedWith array (for notes)
   if (resource.sharedWith) {
-    const sharedAccess = resource.sharedWith.find(s => s.userId === userId);
+    const sharedAccess = resource.sharedWith.find((s) => s.userId === userId);
     return sharedAccess?.role || null;
   }
 

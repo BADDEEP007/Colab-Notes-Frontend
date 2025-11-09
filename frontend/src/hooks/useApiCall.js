@@ -22,18 +22,14 @@ export function useApiCall() {
    */
   const execute = useCallback(
     async (apiFunction, options = {}) => {
-      const {
-        showErrorToast = true,
-        retry = false,
-        maxRetries = 3,
-      } = options;
+      const { showErrorToast = true, retry = false, maxRetries = 3 } = options;
 
       setLoading(true);
       setError(null);
 
       try {
         let result;
-        
+
         if (retry) {
           result = await retryWithBackoff(apiFunction, maxRetries);
         } else {
@@ -103,7 +99,7 @@ export function useApiMutation() {
 
       try {
         let result;
-        
+
         if (retry) {
           result = await retryWithBackoff(mutationFn, maxRetries);
         } else {

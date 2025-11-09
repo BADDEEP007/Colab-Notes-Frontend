@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useNoteStore from '../../store/useNoteStore';
 import useAuthStore from '../../store/useAuthStore';
+import styles from './NotesPanel.module.css';
+import clsx from 'clsx';
 
 /**
  * Notes Panel Component
@@ -26,9 +28,7 @@ export default function NotesPanel({ instanceId, containerId, searchQuery = '' }
   // Filter notes shared with the current user (collaborated notes)
   const collaboratedNotes = notes.filter((note) => {
     // Check if note is shared with current user
-    const isShared = note.sharedWith?.some(
-      (share) => share.userId === user?.id
-    );
+    const isShared = note.sharedWith?.some((share) => share.userId === user?.id);
     // Exclude notes created by current user
     const isNotAuthor = note.authorId !== user?.id;
     return isShared && isNotAuthor;
@@ -53,11 +53,11 @@ export default function NotesPanel({ instanceId, containerId, searchQuery = '' }
   // Highlight matching text in search results
   const highlightText = (text, query) => {
     if (!query.trim() || !text) return text;
-    
+
     const parts = text.split(new RegExp(`(${query})`, 'gi'));
-    return parts.map((part, index) => 
+    return parts.map((part, index) =>
       part.toLowerCase() === query.toLowerCase() ? (
-        <mark key={index} className="bg-yellow-200 dark:bg-yellow-600 text-gray-900 dark:text-white">
+        <mark key={index} className={styles.highlight}>
           {part}
         </mark>
       ) : (
@@ -92,17 +92,17 @@ export default function NotesPanel({ instanceId, containerId, searchQuery = '' }
   const renderNotesList = (notesList, emptyMessage) => {
     if (isLoading) {
       return (
-        <div className="flex items-center justify-center py-8">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+        <div className={styles.loadingContainer}>
+          <div className={styles.loadingSpinner}></div>
         </div>
       );
     }
 
     if (notesList.length === 0) {
       return (
-        <div className="text-center py-8 text-gray-500 dark:text-gray-400">
+        <div className={styles.emptyState}>
           <svg
-            className="mx-auto h-12 w-12 text-gray-400 dark:text-gray-600 mb-3"
+            className={styles.emptyIcon}
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -115,18 +115,18 @@ export default function NotesPanel({ instanceId, containerId, searchQuery = '' }
               d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
             />
           </svg>
-          <p className="text-sm">{emptyMessage}</p>
+          <p className={styles.emptyText}>{emptyMessage}</p>
         </div>
       );
     }
 
     return (
-      <div className="space-y-2">
+      <div className={styles.notesList}>
         {notesList.map((note) => (
           <div
             key={note.id}
             onClick={() => handleNoteClick(note.id)}
-            className="group p-4 glass-container-light cursor-pointer transition-all duration-300 hover-scale slide-in"
+            className={styles.noteItem}
             role="button"
             tabIndex={0}
             onKeyDown={(e) => {
@@ -137,27 +137,22 @@ export default function NotesPanel({ instanceId, containerId, searchQuery = '' }
             }}
             aria-label={`Open note ${note.title}`}
           >
-            <div className="flex items-start justify-between">
-              <div className="flex-1 min-w-0">
-                <h4 
-                  className="text-sm font-medium truncate transition-colors"
-                  style={{ color: 'var(--color-muted-navy)' }}
-                >
+            <div className={styles.noteHeader}>
+              <div className={styles.noteInfo}>
+                <h4 className={styles.noteTitle}>
                   {searchQuery ? highlightText(note.title, searchQuery) : note.title}
                 </h4>
                 {note.content && (
-                  <p 
-                    className="mt-1 text-xs line-clamp-2"
-                    style={{ color: 'var(--color-muted-navy)', opacity: 0.7 }}
-                  >
-                    {searchQuery ? highlightText(note.content.substring(0, 100), searchQuery) : note.content.substring(0, 100)}
+                  <p className={styles.noteContent}>
+                    {searchQuery
+                      ? highlightText(note.content.substring(0, 100), searchQuery)
+                      : note.content.substring(0, 100)}
                   </p>
                 )}
               </div>
-              <div className="ml-3 shrink-0">
+              <div className={styles.noteArrow}>
                 <svg
-                  className="h-5 w-5 transition-colors"
-                  style={{ color: 'var(--color-sky-blue)' }}
+                  className={styles.noteArrowIcon}
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -172,12 +167,9 @@ export default function NotesPanel({ instanceId, containerId, searchQuery = '' }
                 </svg>
               </div>
             </div>
-            <div 
-              className="mt-2 flex items-center text-xs"
-              style={{ color: 'var(--color-muted-navy)', opacity: 0.6 }}
-            >
+            <div className={styles.noteMeta}>
               <svg
-                className="h-3.5 w-3.5 mr-1"
+                className={styles.noteMetaIcon}
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -199,26 +191,18 @@ export default function NotesPanel({ instanceId, containerId, searchQuery = '' }
   };
 
   return (
-    <div className="glass-container overflow-hidden fade-in">
+    <div className={styles.container}>
       {/* Tab Headers */}
-      <div style={{ borderBottom: '1px solid var(--glass-border)' }}>
-        <nav className="flex -mb-px" aria-label="Notes tabs">
+      <div className={styles.tabsHeader}>
+        <nav className={styles.tabsNav} aria-label="Notes tabs">
           <button
             onClick={() => setActiveTab('my-notes')}
-            className={`flex-1 py-3 px-4 text-sm font-medium text-center border-b-2 transition-all duration-300 ${
-              activeTab === 'my-notes'
-                ? 'border-b-2'
-                : 'border-transparent hover:bg-white/20'
-            }`}
-            style={{
-              color: activeTab === 'my-notes' ? 'var(--color-sky-blue)' : 'var(--color-muted-navy)',
-              borderBottomColor: activeTab === 'my-notes' ? 'var(--color-sky-blue)' : 'transparent',
-            }}
+            className={clsx(styles.tab, activeTab === 'my-notes' && styles.active)}
             aria-current={activeTab === 'my-notes' ? 'page' : undefined}
           >
-            <div className="flex items-center justify-center">
+            <div className={styles.tabContent}>
               <svg
-                className="h-4 w-4 mr-2"
+                className={styles.tabIcon}
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -233,13 +217,7 @@ export default function NotesPanel({ instanceId, containerId, searchQuery = '' }
               </svg>
               My Notes
               {(searchQuery ? filteredMyNotes : myNotes).length > 0 && (
-                <span 
-                  className="ml-2 text-xs font-semibold px-2 py-0.5 rounded-full"
-                  style={{
-                    background: 'var(--glass-bg)',
-                    color: 'var(--color-sky-blue)',
-                  }}
-                >
+                <span className={styles.tabBadge}>
                   {searchQuery ? filteredMyNotes.length : myNotes.length}
                 </span>
               )}
@@ -247,20 +225,12 @@ export default function NotesPanel({ instanceId, containerId, searchQuery = '' }
           </button>
           <button
             onClick={() => setActiveTab('collaborated')}
-            className={`flex-1 py-3 px-4 text-sm font-medium text-center border-b-2 transition-all duration-300 ${
-              activeTab === 'collaborated'
-                ? 'border-b-2'
-                : 'border-transparent hover:bg-white/20'
-            }`}
-            style={{
-              color: activeTab === 'collaborated' ? 'var(--color-sky-blue)' : 'var(--color-muted-navy)',
-              borderBottomColor: activeTab === 'collaborated' ? 'var(--color-sky-blue)' : 'transparent',
-            }}
+            className={clsx(styles.tab, activeTab === 'collaborated' && styles.active)}
             aria-current={activeTab === 'collaborated' ? 'page' : undefined}
           >
-            <div className="flex items-center justify-center">
+            <div className={styles.tabContent}>
               <svg
-                className="h-4 w-4 mr-2"
+                className={styles.tabIcon}
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -275,13 +245,7 @@ export default function NotesPanel({ instanceId, containerId, searchQuery = '' }
               </svg>
               Collaborated Notes
               {(searchQuery ? filteredCollaboratedNotes : collaboratedNotes).length > 0 && (
-                <span 
-                  className="ml-2 text-xs font-semibold px-2 py-0.5 rounded-full"
-                  style={{
-                    background: 'var(--glass-bg)',
-                    color: 'var(--color-sky-blue)',
-                  }}
-                >
+                <span className={styles.tabBadge}>
                   {searchQuery ? filteredCollaboratedNotes.length : collaboratedNotes.length}
                 </span>
               )}
@@ -291,13 +255,13 @@ export default function NotesPanel({ instanceId, containerId, searchQuery = '' }
       </div>
 
       {/* Tab Content */}
-      <div className="p-4">
+      <div className={styles.panelContent}>
         {activeTab === 'my-notes' && (
           <div role="tabpanel" aria-labelledby="my-notes-tab">
             {searchQuery && filteredMyNotes.length === 0 && myNotes.length > 0 ? (
-              <div className="text-center py-8 text-gray-500 dark:text-gray-400">
+              <div className={styles.emptyState}>
                 <svg
-                  className="mx-auto h-12 w-12 text-gray-400 dark:text-gray-600 mb-3"
+                  className={styles.emptyIcon}
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -310,7 +274,7 @@ export default function NotesPanel({ instanceId, containerId, searchQuery = '' }
                     d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
                   />
                 </svg>
-                <p className="text-sm">No notes match &quot;{searchQuery}&quot;</p>
+                <p className={styles.emptyText}>No notes match &quot;{searchQuery}&quot;</p>
               </div>
             ) : (
               renderNotesList(
@@ -322,10 +286,12 @@ export default function NotesPanel({ instanceId, containerId, searchQuery = '' }
         )}
         {activeTab === 'collaborated' && (
           <div role="tabpanel" aria-labelledby="collaborated-tab">
-            {searchQuery && filteredCollaboratedNotes.length === 0 && collaboratedNotes.length > 0 ? (
-              <div className="text-center py-8 text-gray-500 dark:text-gray-400">
+            {searchQuery &&
+            filteredCollaboratedNotes.length === 0 &&
+            collaboratedNotes.length > 0 ? (
+              <div className={styles.emptyState}>
                 <svg
-                  className="mx-auto h-12 w-12 text-gray-400 dark:text-gray-600 mb-3"
+                  className={styles.emptyIcon}
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -338,7 +304,7 @@ export default function NotesPanel({ instanceId, containerId, searchQuery = '' }
                     d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
                   />
                 </svg>
-                <p className="text-sm">No notes match &quot;{searchQuery}&quot;</p>
+                <p className={styles.emptyText}>No notes match &quot;{searchQuery}&quot;</p>
               </div>
             ) : (
               renderNotesList(

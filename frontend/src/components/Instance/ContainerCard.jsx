@@ -1,5 +1,7 @@
 import { memo, useCallback, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
+import styles from './ContainerCard.module.css';
+import clsx from 'clsx';
 
 /**
  * Container Card Component
@@ -38,11 +40,7 @@ const ContainerCard = memo(function ContainerCard({ container, instanceId, canEd
   return (
     <div
       onClick={handleCardClick}
-      className={`group relative glass-container p-6 transition-all duration-300 fade-in ${
-        canEdit
-          ? 'cursor-pointer hover-scale'
-          : 'cursor-not-allowed opacity-60'
-      }`}
+      className={clsx(styles.card, canEdit ? styles.editable : styles.disabled)}
       role="button"
       tabIndex={canEdit ? 0 : -1}
       onKeyDown={(e) => {
@@ -55,14 +53,11 @@ const ContainerCard = memo(function ContainerCard({ container, instanceId, canEd
       aria-disabled={!canEdit}
     >
       {/* Container Icon and Title */}
-      <div className="flex items-start mb-4">
-        <div className="shrink-0 mr-3">
-          <div 
-            className="w-12 h-12 rounded-lg flex items-center justify-center"
-            style={{ background: 'var(--gradient-primary)' }}
-          >
+      <div className={styles.header}>
+        <div className={styles.iconContainer}>
+          <div className={styles.icon}>
             <svg
-              className="h-6 w-6 text-white"
+              className={styles.iconSvg}
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -77,25 +72,17 @@ const ContainerCard = memo(function ContainerCard({ container, instanceId, canEd
             </svg>
           </div>
         </div>
-        <div className="flex-1 min-w-0">
-          <h3
-            className="text-lg font-semibold truncate transition-colors"
-            style={{ color: 'var(--color-muted-navy)' }}
-          >
-            {name}
-          </h3>
+        <div className={styles.titleContainer}>
+          <h3 className={styles.title}>{name}</h3>
         </div>
       </div>
 
       {/* Container Info */}
-      <div className="space-y-2">
+      <div className={styles.info}>
         {/* Note Count */}
-        <div 
-          className="flex items-center text-sm"
-          style={{ color: 'var(--color-muted-navy)', opacity: 0.8 }}
-        >
+        <div className={styles.infoItem}>
           <svg
-            className="h-4 w-4 mr-1.5"
+            className={styles.infoIcon}
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -114,12 +101,9 @@ const ContainerCard = memo(function ContainerCard({ container, instanceId, canEd
         </div>
 
         {/* Last Modified */}
-        <div 
-          className="flex items-center text-sm"
-          style={{ color: 'var(--color-muted-navy)', opacity: 0.6 }}
-        >
+        <div className={styles.lastModified}>
           <svg
-            className="h-4 w-4 mr-1.5"
+            className={styles.lastModifiedIcon}
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -138,26 +122,13 @@ const ContainerCard = memo(function ContainerCard({ container, instanceId, canEd
 
       {/* Disabled State Indicator */}
       {!canEdit && (
-        <div className="absolute top-4 right-4">
-          <div 
-            className="text-xs px-2 py-1 rounded"
-            style={{
-              background: 'var(--glass-bg)',
-              color: 'var(--color-light-coral)',
-            }}
-          >
-            View Only
-          </div>
+        <div className={styles.viewOnlyBadge}>
+          <div className={styles.viewOnlyText}>View Only</div>
         </div>
       )}
 
       {/* Hover indicator (only when editable) */}
-      {canEdit && (
-        <div 
-          className="absolute bottom-0 left-0 right-0 h-1 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 rounded-b-lg"
-          style={{ background: 'var(--gradient-primary)' }}
-        ></div>
-      )}
+      {canEdit && <div className={styles.hoverIndicator}></div>}
     </div>
   );
 });

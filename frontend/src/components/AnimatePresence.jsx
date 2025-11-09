@@ -4,10 +4,10 @@ import { useState, useEffect, useRef, Children, cloneElement } from 'react';
  * AnimatePresence - Wrapper component for mount/unmount animations
  * Allows children to animate out before being removed from the DOM
  */
-const AnimatePresence = ({ 
-  children, 
+const AnimatePresence = ({
+  children,
   exitDuration = 300,
-  mode = 'wait' // 'wait' | 'sync'
+  mode = 'wait', // 'wait' | 'sync'
 }) => {
   const [visibleChildren, setVisibleChildren] = useState(children);
   const [isExiting, setIsExiting] = useState(false);
@@ -24,7 +24,7 @@ const AnimatePresence = ({
       if (!children && visibleChildren) {
         // Children removed - trigger exit animation
         setIsExiting(true);
-        
+
         timeoutRef.current = setTimeout(() => {
           setVisibleChildren(null);
           setIsExiting(false);
@@ -34,7 +34,7 @@ const AnimatePresence = ({
         if (mode === 'wait' && visibleChildren) {
           // Wait for exit before showing new children
           setIsExiting(true);
-          
+
           timeoutRef.current = setTimeout(() => {
             setVisibleChildren(children);
             setIsExiting(false);
@@ -58,11 +58,11 @@ const AnimatePresence = ({
 
   // Add exit class to children if exiting
   if (isExiting && visibleChildren) {
-    return Children.map(visibleChildren, child => {
+    return Children.map(visibleChildren, (child) => {
       if (!child) return null;
       return cloneElement(child, {
         className: `${child.props.className || ''} animate-exit`,
-        'data-exiting': 'true'
+        'data-exiting': 'true',
       });
     });
   }

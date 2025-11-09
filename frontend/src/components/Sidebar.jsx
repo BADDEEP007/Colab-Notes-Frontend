@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
-import './Sidebar.css';
+import styles from './Sidebar.module.css';
+import clsx from 'clsx';
 
 /**
  * Sidebar Component
@@ -23,15 +24,15 @@ export default function Sidebar({ isOpen, onToggle }) {
     <>
       {/* Sidebar */}
       <aside
-        className={`sidebar ${isOpen ? 'open' : ''}`}
+        className={clsx(styles.sidebar, isOpen && styles.open)}
         role="navigation"
         aria-label="Main navigation"
         aria-expanded={isOpen}
       >
-        <div className="sidebar-header">
+        <div className={styles.sidebarHeader}>
           <h3 id="sidebar-title">Menu</h3>
           <button
-            className="close-btn"
+            className={styles.closeBtn}
             onClick={onToggle}
             aria-label="Close sidebar"
             aria-controls="sidebar-nav"
@@ -40,7 +41,7 @@ export default function Sidebar({ isOpen, onToggle }) {
           </button>
         </div>
 
-        <nav className="sidebar-nav" id="sidebar-nav" aria-labelledby="sidebar-title">
+        <nav className={styles.sidebarNav} id="sidebar-nav" aria-labelledby="sidebar-title">
           <ul role="list">
             <li>
               <a href="/" aria-label="Go to Dashboard">
@@ -75,14 +76,14 @@ export default function Sidebar({ isOpen, onToggle }) {
           </ul>
         </nav>
 
-        <div className="sidebar-footer">
-          <div className="user-info" role="region" aria-label="User information">
-            <div className="avatar" aria-hidden="true">
+        <div className={styles.sidebarFooter}>
+          <div className={styles.userInfo} role="region" aria-label="User information">
+            <div className={styles.avatar} aria-hidden="true">
               👤
             </div>
-            <div className="user-details">
-              <span className="username">John Doe</span>
-              <span className="status" role="status" aria-live="polite">
+            <div className={styles.userDetails}>
+              <span className={styles.username}>John Doe</span>
+              <span className={styles.status} role="status" aria-live="polite">
                 Online
               </span>
             </div>
@@ -93,7 +94,7 @@ export default function Sidebar({ isOpen, onToggle }) {
       {/* Overlay */}
       {isOpen && (
         <div
-          className="sidebar-overlay"
+          className={styles.sidebarOverlay}
           onClick={onToggle}
           role="button"
           tabIndex={0}

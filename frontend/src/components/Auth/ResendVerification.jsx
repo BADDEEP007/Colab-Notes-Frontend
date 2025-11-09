@@ -16,8 +16,7 @@ const ResendVerification = ({ email }) => {
       setMessage('Verification email sent! Please check your inbox.');
     } catch (err) {
       setError(
-        err.response?.data?.message || 
-        'Failed to send verification email. Please try again.'
+        err.response?.data?.message || 'Failed to send verification email. Please try again.'
       );
     } finally {
       setIsLoading(false);
@@ -41,26 +40,24 @@ const ResendVerification = ({ email }) => {
           />
         </svg>
         <div className="flex-1">
-          <h3 className="text-sm font-medium text-yellow-800 mb-1">
-            Email not verified
-          </h3>
+          <h3 className="text-sm font-medium text-yellow-800 mb-1">Email not verified</h3>
           <p className="text-sm text-yellow-700 mb-3">
             Please verify your email address to access all features.
             {email && ` We sent a verification link to ${email}.`}
           </p>
-          
+
           {message && (
             <div className="mb-3 p-2 bg-green-50 border border-green-200 rounded text-sm text-green-700">
               {message}
             </div>
           )}
-          
+
           {error && (
             <div className="mb-3 p-2 bg-red-50 border border-red-200 rounded text-sm text-red-700">
               {error}
             </div>
           )}
-          
+
           <button
             onClick={handleResend}
             disabled={isLoading}

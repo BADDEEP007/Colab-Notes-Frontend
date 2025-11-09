@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import aiApi from '../../api/aiApi';
 import useInstanceStore from '../../store/useInstanceStore';
+import styles from './AIToolbar.module.css';
 
 /**
  * AI Toolbar Component
@@ -18,8 +19,8 @@ export default function AIToolbar({ instanceId }) {
   const [error, setError] = useState(null);
 
   // Get the instance to work with
-  const instance = instanceId 
-    ? instances.find(inst => inst.id === instanceId) || currentInstance
+  const instance = instanceId
+    ? instances.find((inst) => inst.id === instanceId) || currentInstance
     : currentInstance;
 
   /**
@@ -103,20 +104,25 @@ export default function AIToolbar({ instanceId }) {
    */
   const copyToClipboard = () => {
     if (aiResult) {
-      const textToCopy = typeof aiResult === 'string' ? aiResult : JSON.stringify(aiResult, null, 2);
-      navigator.clipboard.writeText(textToCopy)
+      const textToCopy =
+        typeof aiResult === 'string' ? aiResult : JSON.stringify(aiResult, null, 2);
+      navigator.clipboard
+        .writeText(textToCopy)
         .then(() => {
           // Show temporary success feedback
           const button = document.getElementById('copy-button');
           if (button) {
             const originalText = button.innerHTML;
-            button.innerHTML = '<svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>';
+            button.innerHTML =
+              '<svg class="' +
+              styles.copyIcon +
+              '" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>';
             setTimeout(() => {
               button.innerHTML = originalText;
             }, 2000);
           }
         })
-        .catch(err => {
+        .catch((err) => {
           console.error('Failed to copy:', err);
           setError('Failed to copy to clipboard');
         });
@@ -124,28 +130,20 @@ export default function AIToolbar({ instanceId }) {
   };
 
   return (
-    <div 
-      className="sticky bottom-0 z-sticky shadow-glass-hover"
-      style={{
-        background: 'var(--glass-bg)',
-        backdropFilter: 'var(--glass-blur)',
-        WebkitBackdropFilter: 'var(--glass-blur)',
-        borderTop: '1px solid var(--glass-border)',
-      }}
-    >
+    <div className={styles.toolbar}>
       {/* Toolbar */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between py-3">
-          <div className="flex items-center space-x-3">
+      <div className={styles.toolbarContent}>
+        <div className={styles.toolbarActions}>
+          <div className={styles.toolbarButtons}>
             {/* AI Summary Button */}
             <button
               onClick={handleSummarize}
               disabled={isLoading || !instance}
-              className="glass-button inline-flex items-center"
+              className={styles.toolbarButton}
               aria-label="Summarize instance"
             >
               <svg
-                className="h-5 w-5 mr-2"
+                className={styles.toolbarIcon}
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -159,29 +157,24 @@ export default function AIToolbar({ instanceId }) {
                 />
               </svg>
               {isLoading && aiResultType === 'summary' ? (
-                <span className="flex items-center">
-                  <span className="spin mr-2" style={{
-                    display: 'inline-block',
-                    width: '16px',
-                    height: '16px',
-                    border: '2px solid currentColor',
-                    borderTopColor: 'transparent',
-                    borderRadius: '50%'
-                  }} />
+                <span>
+                  <span className={styles.spinner} />
                   Summarizing...
                 </span>
-              ) : 'Summarize Instance Notes'}
+              ) : (
+                'Summarize Instance Notes'
+              )}
             </button>
 
             {/* AI Assist Button */}
             <button
               onClick={toggleAssistInput}
               disabled={isLoading}
-              className="glass-button inline-flex items-center"
+              className={styles.toolbarButton}
               aria-label="AI assist"
             >
               <svg
-                className="h-5 w-5 mr-2"
+                className={styles.toolbarIcon}
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -200,14 +193,9 @@ export default function AIToolbar({ instanceId }) {
 
           {/* Close Panel Button - Only show when panel is open */}
           {showPanel && (
-            <button
-              onClick={closePanel}
-              className="p-2 rounded-lg hover:bg-white/30 transition-all duration-300"
-              style={{ color: 'var(--color-muted-navy)' }}
-              aria-label="Close AI panel"
-            >
+            <button onClick={closePanel} className={styles.closeButton} aria-label="Close AI panel">
               <svg
-                className="h-5 w-5"
+                className={styles.closeIcon}
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -226,14 +214,10 @@ export default function AIToolbar({ instanceId }) {
 
         {/* AI Assist Input - Expandable */}
         {showAssistInput && (
-          <div className="pb-4 scale-in">
-            <div className="flex items-end space-x-2">
-              <div className="flex-1">
-                <label
-                  htmlFor="assist-prompt"
-                  className="block text-sm font-medium mb-1"
-                  style={{ color: 'var(--color-muted-navy)' }}
-                >
+          <div className={styles.assistInputContainer}>
+            <div className={styles.assistInputWrapper}>
+              <div className={styles.assistInputGroup}>
+                <label htmlFor="assist-prompt" className={styles.assistLabel}>
                   What would you like help with?
                 </label>
                 <textarea
@@ -247,31 +231,19 @@ export default function AIToolbar({ instanceId }) {
                   }}
                   placeholder="E.g., Generate a meeting agenda, Create a project outline..."
                   rows={2}
-                  className="glass-input resize-none"
+                  className={styles.assistTextarea}
                   aria-label="AI assistance prompt"
                 />
-                <p 
-                  className="mt-1 text-xs"
-                  style={{ color: 'var(--color-muted-navy)', opacity: 0.6 }}
-                >
-                  Press Ctrl+Enter to submit
-                </p>
+                <p className={styles.assistHint}>Press Ctrl+Enter to submit</p>
               </div>
               <button
                 onClick={handleAssist}
                 disabled={isLoading || !assistPrompt.trim()}
-                className="btn-primary h-fit"
+                className={styles.submitButton}
                 aria-label="Submit prompt"
               >
                 {isLoading && aiResultType === 'assist' ? (
-                  <span className="spin" style={{
-                    display: 'inline-block',
-                    width: '20px',
-                    height: '20px',
-                    border: '2px solid currentColor',
-                    borderTopColor: 'transparent',
-                    borderRadius: '50%'
-                  }} />
+                  <span className={styles.spinner} />
                 ) : (
                   'Generate'
                 )}
@@ -283,32 +255,23 @@ export default function AIToolbar({ instanceId }) {
 
       {/* AI Results Panel */}
       {showPanel && (
-        <div 
-          className="scale-in"
-          style={{
-            borderTop: '1px solid var(--glass-border)',
-            background: 'var(--glass-bg-light)',
-          }}
-        >
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-            <div className="glass-container p-4">
+        <div className={styles.resultsPanel}>
+          <div className={styles.resultsPanelContent}>
+            <div className={styles.resultsContainer}>
               {/* Panel Header */}
-              <div className="flex items-center justify-between mb-3">
-                <h3 
-                  className="text-lg font-semibold"
-                  style={{ color: 'var(--color-muted-navy)' }}
-                >
+              <div className={styles.resultsHeader}>
+                <h3 className={styles.resultsTitle}>
                   {aiResultType === 'summary' ? 'Instance Summary' : 'AI Generated Content'}
                 </h3>
                 {aiResult && (
                   <button
                     id="copy-button"
                     onClick={copyToClipboard}
-                    className="glass-button inline-flex items-center px-3 py-1.5 text-sm"
+                    className={styles.copyButton}
                     aria-label="Copy to clipboard"
                   >
                     <svg
-                      className="h-4 w-4 mr-1.5"
+                      className={styles.copyIcon}
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -328,20 +291,10 @@ export default function AIToolbar({ instanceId }) {
 
               {/* Loading State */}
               {isLoading && (
-                <div className="flex items-center justify-center py-8">
-                  <div className="flex flex-col items-center space-y-3">
-                    <div 
-                      className="spin h-8 w-8"
-                      style={{
-                        border: '3px solid var(--glass-border)',
-                        borderTopColor: 'var(--color-sky-blue)',
-                        borderRadius: '50%'
-                      }}
-                    />
-                    <p 
-                      className="text-sm shimmer"
-                      style={{ color: 'var(--color-muted-navy)' }}
-                    >
+                <div className={styles.loadingState}>
+                  <div className={styles.loadingContent}>
+                    <div className={styles.loadingSpinner} />
+                    <p className={styles.loadingText}>
                       {aiResultType === 'summary' ? 'Analyzing notes...' : 'Generating content...'}
                     </p>
                   </div>
@@ -350,14 +303,10 @@ export default function AIToolbar({ instanceId }) {
 
               {/* Error State */}
               {error && !isLoading && (
-                <div 
-                  className="glass-container-light rounded-lg p-4"
-                  style={{ borderColor: 'var(--color-light-coral)' }}
-                >
-                  <div className="flex items-start">
+                <div className={styles.errorState}>
+                  <div className={styles.errorContent}>
                     <svg
-                      className="h-5 w-5 mt-0.5 mr-3 shrink-0"
-                      style={{ color: 'var(--color-light-coral)' }}
+                      className={styles.errorIcon}
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -370,23 +319,15 @@ export default function AIToolbar({ instanceId }) {
                         d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                       />
                     </svg>
-                    <p 
-                      className="text-sm"
-                      style={{ color: 'var(--color-light-coral)' }}
-                    >
-                      {error}
-                    </p>
+                    <p className={styles.errorText}>{error}</p>
                   </div>
                 </div>
               )}
 
               {/* AI Result */}
               {aiResult && !isLoading && (
-                <div className="prose max-w-none fade-in">
-                  <div 
-                    className="whitespace-pre-wrap"
-                    style={{ color: 'var(--color-muted-navy)' }}
-                  >
+                <div className={styles.resultContent}>
+                  <div className={styles.resultText}>
                     {typeof aiResult === 'string' ? aiResult : JSON.stringify(aiResult, null, 2)}
                   </div>
                 </div>
@@ -395,23 +336,6 @@ export default function AIToolbar({ instanceId }) {
           </div>
         </div>
       )}
-
-      {/* Animation styles */}
-      <style jsx>{`
-        @keyframes slideDown {
-          from {
-            opacity: 0;
-            transform: translateY(-10px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        .animate-slideDown {
-          animation: slideDown 0.3s ease-out;
-        }
-      `}</style>
     </div>
   );
 }

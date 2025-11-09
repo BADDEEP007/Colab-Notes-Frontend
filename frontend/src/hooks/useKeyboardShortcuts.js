@@ -3,10 +3,10 @@ import { useEffect, useCallback } from 'react';
 /**
  * Custom hook for managing keyboard shortcuts
  * Provides a centralized way to handle keyboard navigation and shortcuts
- * 
+ *
  * @param {Object} shortcuts - Object mapping key combinations to handlers
  * @param {boolean} enabled - Whether shortcuts are enabled (default: true)
- * 
+ *
  * @example
  * useKeyboardShortcuts({
  *   'ctrl+s': handleSave,
@@ -50,7 +50,7 @@ export default function useKeyboardShortcuts(shortcuts = {}, enabled = true) {
 /**
  * Hook for managing focus trap in modals
  * Keeps focus within a container element
- * 
+ *
  * @param {React.RefObject} containerRef - Reference to the container element
  * @param {boolean} isActive - Whether the focus trap is active
  */
@@ -96,7 +96,7 @@ export function useFocusTrap(containerRef, isActive = true) {
 /**
  * Hook for managing focus restoration
  * Restores focus to the previously focused element when component unmounts
- * 
+ *
  * @param {boolean} shouldRestore - Whether to restore focus (default: true)
  */
 export function useFocusRestore(shouldRestore = true) {

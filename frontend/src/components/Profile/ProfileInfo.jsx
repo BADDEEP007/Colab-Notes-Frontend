@@ -3,6 +3,7 @@ import useAuthStore from '../../store/useAuthStore';
 import authApi from '../../api/authApi';
 import { useToast } from '../ToastContainer';
 import LoadingSpinner from '../LoadingSpinner';
+import styles from './ProfileInfo.module.css';
 
 /**
  * ProfileInfo Component
@@ -62,10 +63,7 @@ export default function ProfileInfo() {
       showToast('Profile updated successfully', 'success');
       setIsEditing(false);
     } catch (error) {
-      showToast(
-        error.response?.data?.message || 'Failed to update profile',
-        'error'
-      );
+      showToast(error.response?.data?.message || 'Failed to update profile', 'error');
     } finally {
       setIsLoading(false);
     }
@@ -77,54 +75,36 @@ export default function ProfileInfo() {
       await authApi.sendVerificationEmail();
       showToast('Verification email sent successfully', 'success');
     } catch (error) {
-      showToast(
-        error.response?.data?.message || 'Failed to send verification email',
-        'error'
-      );
+      showToast(error.response?.data?.message || 'Failed to send verification email', 'error');
     } finally {
       setIsSendingVerification(false);
     }
   };
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
-      <div className="flex items-center justify-between mb-6">
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-          Profile Information
-        </h2>
+    <div className={styles.container}>
+      <div className={styles.header}>
+        <h2 className={styles.title}>Profile Information</h2>
         {!isEditing && (
-          <button
-            onClick={handleEdit}
-            className="px-4 py-2 text-sm font-medium text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors"
-            aria-label="Edit profile"
-          >
+          <button onClick={handleEdit} className={styles.editButton} aria-label="Edit profile">
             Edit Profile
           </button>
         )}
       </div>
 
-      <div className="space-y-6">
+      <div className={styles.content}>
         {/* Avatar */}
-        <div className="flex items-center space-x-4">
-          <div className="w-20 h-20 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold text-3xl">
-            {user?.name?.charAt(0).toUpperCase() || 'U'}
-          </div>
-          <div>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
-              Profile Picture
-            </p>
-            <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">
-              Avatar based on your name
-            </p>
+        <div className={styles.avatarSection}>
+          <div className={styles.avatar}>{user?.name?.charAt(0).toUpperCase() || 'U'}</div>
+          <div className={styles.avatarInfo}>
+            <p className={styles.avatarLabel}>Profile Picture</p>
+            <p className={styles.avatarDescription}>Avatar based on your name</p>
           </div>
         </div>
 
         {/* Name Field */}
-        <div>
-          <label
-            htmlFor="name"
-            className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
-          >
+        <div className={styles.field}>
+          <label htmlFor="name" className={styles.label}>
             Name
           </label>
           {isEditing ? (
@@ -134,32 +114,25 @@ export default function ProfileInfo() {
               name="name"
               value={formData.name}
               onChange={handleInputChange}
-              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className={styles.input}
               placeholder="Enter your name"
             />
           ) : (
-            <p className="text-gray-900 dark:text-white">
-              {user?.name || 'Not set'}
-            </p>
+            <p className={styles.value}>{user?.name || 'Not set'}</p>
           )}
         </div>
 
         {/* Email Field */}
-        <div>
-          <label
-            htmlFor="email"
-            className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
-          >
+        <div className={styles.field}>
+          <label htmlFor="email" className={styles.label}>
             Email
           </label>
-          <div className="flex items-center space-x-2">
-            <p className="text-gray-900 dark:text-white flex-1">
-              {user?.email || 'Not set'}
-            </p>
+          <div className={styles.emailContainer}>
+            <p className={styles.emailValue}>{user?.email || 'Not set'}</p>
             {user?.emailVerified ? (
-              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400">
+              <span className={`${styles.badge} ${styles.badgeVerified}`}>
                 <svg
-                  className="w-3 h-3 mr-1"
+                  className={styles.badgeIcon}
                   fill="currentColor"
                   viewBox="0 0 20 20"
                   aria-hidden="true"
@@ -173,9 +146,9 @@ export default function ProfileInfo() {
                 Verified
               </span>
             ) : (
-              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400">
+              <span className={`${styles.badge} ${styles.badgeUnverified}`}>
                 <svg
-                  className="w-3 h-3 mr-1"
+                  className={styles.badgeIcon}
                   fill="currentColor"
                   viewBox="0 0 20 20"
                   aria-hidden="true"
@@ -194,10 +167,10 @@ export default function ProfileInfo() {
             <button
               onClick={handleSendVerification}
               disabled={isSendingVerification}
-              className="mt-2 text-sm text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 disabled:opacity-50 disabled:cursor-not-allowed"
+              className={styles.verificationButton}
             >
               {isSendingVerification ? (
-                <span className="flex items-center">
+                <span className={styles.verificationButtonContent}>
                   <LoadingSpinner size="small" className="mr-2" />
                   Sending...
                 </span>
@@ -209,11 +182,9 @@ export default function ProfileInfo() {
         </div>
 
         {/* Account Created */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-            Member Since
-          </label>
-          <p className="text-gray-900 dark:text-white">
+        <div className={styles.field}>
+          <label className={styles.label}>Member Since</label>
+          <p className={styles.value}>
             {user?.createdAt
               ? new Date(user.createdAt).toLocaleDateString('en-US', {
                   year: 'numeric',
@@ -226,14 +197,10 @@ export default function ProfileInfo() {
 
         {/* Action Buttons */}
         {isEditing && (
-          <div className="flex space-x-3 pt-4">
-            <button
-              onClick={handleSave}
-              disabled={isLoading}
-              className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-medium"
-            >
+          <div className={styles.actions}>
+            <button onClick={handleSave} disabled={isLoading} className={styles.saveButton}>
               {isLoading ? (
-                <span className="flex items-center justify-center">
+                <span className={styles.saveButtonContent}>
                   <LoadingSpinner size="small" className="mr-2" />
                   Saving...
                 </span>
@@ -241,11 +208,7 @@ export default function ProfileInfo() {
                 'Save Changes'
               )}
             </button>
-            <button
-              onClick={handleCancel}
-              disabled={isLoading}
-              className="flex-1 px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-medium"
-            >
+            <button onClick={handleCancel} disabled={isLoading} className={styles.cancelButton}>
               Cancel
             </button>
           </div>

@@ -1,0 +1,184 @@
+.container {
+  width: 100%;
+  animation: fadeIn var(--duration-slow) var(--easing);
+}
+
+.header {
+  margin-bottom: var(--spacing-10);
+}
+
+.headerContent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-6);
+}
+
+@media (min-width: 640px) {
+  .headerContent {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.headerText {
+  /* Container for title and subtitle */
+}
+
+.title {
+  font-size: var(--font-size-3xl);
+  font-weight: 700;
+  color: var(--color-muted-navy);
+  margin-bottom: var(--spacing-3);
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@media (min-width: 640px) {
+  .title {
+    font-size: var(--font-size-4xl);
+  }
+}
+
+.subtitle {
+  font-size: var(--font-size-base);
+  color: var(--color-muted-navy);
+  opacity: 0.7;
+}
+
+.createButton {
+  background: linear-gradient(135deg, rgba(147, 197, 253, 0.6) 0%, rgba(254, 202, 202, 0.6) 100%);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 15px rgba(147, 197, 253, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: var(--spacing-4) var(--spacing-6);
+  border-radius: var(--radius-xl);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--easing);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-3);
+}
+
+.createButton:hover {
+  background: linear-gradient(135deg, rgba(147, 197, 253, 0.8) 0%, rgba(254, 202, 202, 0.8) 100%);
+  box-shadow: 0 6px 20px rgba(147, 197, 253, 0.3);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.createButtonIcon {
+  width: 24px;
+  height: 24px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-8);
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.gridItem {
+  animation: fadeIn var(--duration-slow) var(--easing);
+}
+
+.emptyState {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-16);
+  text-align: center;
+  animation: fadeIn var(--duration-slow) var(--easing);
+}
+
+.emptyStateContent {
+  max-width: 448px;
+  margin: 0 auto;
+}
+
+.emptyStateIcon {
+  width: 96px;
+  height: 96px;
+  margin: 0 auto var(--spacing-6);
+  border-radius: var(--radius-xl);
+  background: var(--gradient-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.emptyStateIconSecondary {
+  background: var(--gradient-secondary);
+}
+
+.emptyStateIconSvg {
+  width: 48px;
+  height: 48px;
+  color: white;
+}
+
+.emptyStateTitle {
+  font-size: var(--font-size-2xl);
+  font-weight: 700;
+  color: var(--color-muted-navy);
+  margin-bottom: var(--spacing-3);
+}
+
+.emptyStateText {
+  font-size: var(--font-size-base);
+  color: var(--color-muted-navy);
+  opacity: 0.7;
+  margin-bottom: var(--spacing-8);
+}
+
+.emptyStateButton {
+  background: linear-gradient(135deg, rgba(147, 197, 253, 0.6) 0%, rgba(254, 202, 202, 0.6) 100%);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 15px rgba(147, 197, 253, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: var(--spacing-4) var(--spacing-8);
+  border-radius: var(--radius-xl);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--easing);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-3);
+}
+
+.emptyStateButton:hover {
+  background: linear-gradient(135deg, rgba(147, 197, 253, 0.8) 0%, rgba(254, 202, 202, 0.8) 100%);
+  box-shadow: 0 6px 20px rgba(147, 197, 253, 0.3);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.emptyStateButtonIcon {
+  width: 24px;
+  height: 24px;
+}
+
+.searchHighlight {
+  font-weight: 600;
+}

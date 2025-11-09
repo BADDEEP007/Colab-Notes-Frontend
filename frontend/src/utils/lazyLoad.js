@@ -22,7 +22,7 @@ export const lazyWithRetry = (importFn, retries = 3) => {
               reject(error);
               return;
             }
-            
+
             // Wait before retrying (exponential backoff)
             const delay = Math.pow(2, retries - retriesLeft) * 1000;
             setTimeout(() => {
@@ -31,7 +31,7 @@ export const lazyWithRetry = (importFn, retries = 3) => {
             }, delay);
           });
       };
-      
+
       attemptImport(retries);
     });
   });
@@ -94,16 +94,11 @@ export const shouldLazyLoad = (componentName) => {
   const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
     navigator.userAgent
   );
-  
+
   if (isMobile) return true;
 
   // Lazy load heavy components
-  const heavyComponents = [
-    'Whiteboard',
-    'NoteEditor',
-    'AIToolbar',
-    'ContainerPage',
-  ];
+  const heavyComponents = ['Whiteboard', 'NoteEditor', 'AIToolbar', 'ContainerPage'];
 
   return heavyComponents.includes(componentName);
 };
@@ -138,7 +133,7 @@ export const prefetchComponents = (importFns) => {
  */
 export const lazyWithLoading = (importFn, LoadingComponent) => {
   const LazyComponent = lazy(importFn);
-  
+
   return (props) => (
     <React.Suspense fallback={<LoadingComponent />}>
       <LazyComponent {...props} />
@@ -154,16 +149,16 @@ export const lazyWithLoading = (importFn, LoadingComponent) => {
  */
 export const measureComponentLoadTime = async (componentName, importFn) => {
   const startTime = performance.now();
-  
+
   try {
     const component = await importFn();
     const endTime = performance.now();
     const loadTime = endTime - startTime;
-    
+
     if (process.env.NODE_ENV === 'development') {
       console.log(`📦 ${componentName} loaded in ${loadTime.toFixed(2)}ms`);
     }
-    
+
     return component;
   } catch (error) {
     console.error(`Failed to load ${componentName}:`, error);

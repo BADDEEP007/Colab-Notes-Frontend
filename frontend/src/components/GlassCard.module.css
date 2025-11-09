@@ -1,0 +1,26 @@
+.card {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  border-radius: var(--radius-xl);
+  transition: all var(--duration-fast) var(--easing);
+}
+
+.hover {
+  cursor: pointer;
+}
+
+.hover:hover {
+  transform: scale(1.03);
+  box-shadow: var(--glass-shadow-hover);
+}
+
+.hover:active {
+  transform: scale(0.98);
+}
+
+.clickable {
+  cursor: pointer;
+}

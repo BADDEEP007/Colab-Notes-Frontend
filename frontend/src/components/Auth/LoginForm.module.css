@@ -1,0 +1,230 @@
+.container {
+  width: 100%;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: var(--spacing-16);
+}
+
+.title {
+  font-size: var(--font-size-4xl);
+  font-weight: 700;
+  margin-bottom: var(--spacing-6);
+  color: var(--color-slate-800);
+}
+
+.subtitle {
+  color: var(--color-slate-700);
+  font-size: var(--font-size-lg);
+  font-weight: 500;
+}
+
+.errorMessage {
+  margin-bottom: var(--spacing-10);
+  padding: var(--spacing-5);
+  border-radius: var(--radius-xl);
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  animation: fadeIn var(--duration-normal) var(--easing);
+}
+
+.errorContent {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+}
+
+.errorIcon {
+  width: 24px;
+  height: 24px;
+  color: #ef4444;
+  flex-shrink: 0;
+}
+
+.errorText {
+  font-size: var(--font-size-base);
+  color: #b91c1c;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-8);
+}
+
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+}
+
+.passwordField {
+  position: relative;
+}
+
+.passwordToggle {
+  position: absolute;
+  right: var(--spacing-5);
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-slate-600);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color var(--duration-fast) var(--easing);
+  z-index: 10;
+  padding: var(--spacing-2);
+}
+
+.passwordToggle:hover {
+  color: var(--color-slate-800);
+}
+
+.passwordToggleIcon {
+  width: 20px;
+  height: 20px;
+}
+
+.forgotPassword {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: var(--spacing-2);
+}
+
+.forgotPasswordLink {
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  color: #2563eb;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color var(--duration-fast) var(--easing);
+}
+
+.forgotPasswordLink:hover {
+  color: #1d4ed8;
+}
+
+.submitButtonWrapper {
+  padding-top: var(--spacing-4);
+}
+
+.submitButton {
+  width: 100%;
+  padding: var(--spacing-5) 0;
+  font-weight: 600;
+  border-radius: var(--radius-xl);
+  font-size: var(--font-size-lg);
+}
+
+.divider {
+  position: relative;
+  margin: var(--spacing-14) 0;
+}
+
+.dividerLine {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+}
+
+.dividerBorder {
+  width: 100%;
+  border-top: 1px solid #cbd5e1;
+}
+
+.dividerText {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  font-size: var(--font-size-base);
+}
+
+.dividerLabel {
+  padding: 0 var(--spacing-6);
+  background: rgba(255, 255, 255, 0.5);
+  color: var(--color-slate-600);
+  font-weight: 500;
+}
+
+.oauthButtons {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-5);
+  margin-bottom: var(--spacing-14);
+}
+
+.oauthButton {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-3);
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--easing);
+  min-height: 56px;
+}
+
+.oauthButton:hover:not(:disabled) {
+  transform: scale(1.05);
+  background: var(--glass-bg-light);
+}
+
+.oauthButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.oauthIcon {
+  width: 24px;
+  height: 24px;
+}
+
+.oauthLabel {
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  color: var(--color-slate-800);
+}
+
+.signupPrompt {
+  text-align: center;
+}
+
+.signupText {
+  font-size: var(--font-size-lg);
+  color: var(--color-slate-700);
+}
+
+.signupLink {
+  font-weight: 700;
+  color: #2563eb;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  transition: color var(--duration-fast) var(--easing);
+}
+
+.signupLink:hover {
+  color: #1d4ed8;
+}
+
+/* Responsive Styles */
+@media (min-width: 640px) {
+  .title {
+    font-size: var(--font-size-5xl);
+  }
+
+  .oauthButtons {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

@@ -5,7 +5,7 @@ import LoadingSpinner from './LoadingSpinner';
 /**
  * PublicRoute component that redirects to dashboard if user is already authenticated
  * Used for auth pages (login, signup) to prevent authenticated users from accessing them
- * 
+ *
  * @param {Object} props - Component props
  * @param {React.ReactNode} props.children - Child components to render if not authenticated
  * @returns {React.ReactNode} - Public content or redirect

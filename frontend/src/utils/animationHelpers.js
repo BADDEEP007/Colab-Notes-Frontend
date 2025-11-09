@@ -10,7 +10,7 @@
  * @returns {number} Total delay in ms
  */
 export const calculateStaggerDelay = (index, baseDelay = 0, staggerDelay = 100) => {
-  return baseDelay + (index * staggerDelay);
+  return baseDelay + index * staggerDelay;
 };
 
 /**
@@ -24,7 +24,7 @@ export const generateStaggerDelays = (count, options = {}) => {
     baseDelay = 0,
     staggerDelay = 100,
     reverse = false,
-    from = 'start' // 'start' | 'end' | 'center'
+    from = 'start', // 'start' | 'end' | 'center'
   } = options;
 
   const delays = [];
@@ -43,7 +43,7 @@ export const generateStaggerDelays = (count, options = {}) => {
       index = count - 1 - index;
     }
 
-    delays.push(baseDelay + (index * staggerDelay));
+    delays.push(baseDelay + index * staggerDelay);
   }
 
   return delays;
@@ -61,7 +61,7 @@ export const applyStaggerAnimation = (elements, keyframes, options = {}) => {
     easing = 'cubic-bezier(0.4, 0, 0.2, 1)',
     staggerDelay = 100,
     baseDelay = 0,
-    fill = 'forwards'
+    fill = 'forwards',
   } = options;
 
   elements.forEach((element, index) => {
@@ -73,7 +73,7 @@ export const applyStaggerAnimation = (elements, keyframes, options = {}) => {
       duration,
       easing,
       delay,
-      fill
+      fill,
     });
   });
 };
@@ -87,12 +87,12 @@ export const createStaggerObserver = (options = {}) => {
   const {
     keyframes = [
       { opacity: 0, transform: 'translateY(20px)' },
-      { opacity: 1, transform: 'translateY(0)' }
+      { opacity: 1, transform: 'translateY(0)' },
     ],
     duration = 600,
     staggerDelay = 100,
     threshold = 0.1,
-    rootMargin = '0px'
+    rootMargin = '0px',
   } = options;
 
   let observedCount = 0;
@@ -103,12 +103,12 @@ export const createStaggerObserver = (options = {}) => {
         if (entry.isIntersecting) {
           const element = entry.target;
           const delay = calculateStaggerDelay(observedCount, 0, staggerDelay);
-          
+
           element.animate(keyframes, {
             duration,
             delay,
             easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
-            fill: 'forwards'
+            fill: 'forwards',
           });
 
           observedCount++;
@@ -133,10 +133,10 @@ export const calculateAnimationDelay = (progress, easing = 'linear') => {
     linear: (t) => t,
     easeIn: (t) => t * t,
     easeOut: (t) => t * (2 - t),
-    easeInOut: (t) => t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t,
+    easeInOut: (t) => (t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t),
     easeInCubic: (t) => t * t * t,
-    easeOutCubic: (t) => (--t) * t * t + 1,
-    easeInOutCubic: (t) => t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1,
+    easeOutCubic: (t) => --t * t * t + 1,
+    easeInOutCubic: (t) => (t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1),
   };
 
   const easingFn = easingFunctions[easing] || easingFunctions.linear;
@@ -171,15 +171,15 @@ export const createAnimationSequence = (steps) => {
 
     for (const step of steps) {
       const { keyframes, duration, delay = 0, easing = 'ease' } = step;
-      
+
       if (delay > 0) {
-        await new Promise(resolve => setTimeout(resolve, delay));
+        await new Promise((resolve) => setTimeout(resolve, delay));
       }
 
       const animation = element.animate(keyframes, {
         duration: getAnimationDuration(duration),
         easing,
-        fill: 'forwards'
+        fill: 'forwards',
       });
 
       await animation.finished;
@@ -195,5 +195,5 @@ export default {
   calculateAnimationDelay,
   prefersReducedMotion,
   getAnimationDuration,
-  createAnimationSequence
+  createAnimationSequence,
 };

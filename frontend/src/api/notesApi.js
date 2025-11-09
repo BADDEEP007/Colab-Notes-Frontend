@@ -15,8 +15,7 @@ const notesApi = {
    * @param {string} title - Note title
    * @returns {Promise} Note data
    */
-  getByTitle: (title) =>
-    axiosInstance.get(`/api/notes/get/title/${encodeURIComponent(title)}`),
+  getByTitle: (title) => axiosInstance.get(`/api/notes/get/title/${encodeURIComponent(title)}`),
 
   /**
    * Create a new note
@@ -45,16 +44,14 @@ const notesApi = {
    * @param {string} title - Note title
    * @returns {Promise} Deletion response
    */
-  delete: (title) =>
-    axiosInstance.delete('/api/notes/delete', { data: { title } }),
+  delete: (title) => axiosInstance.delete('/api/notes/delete', { data: { title } }),
 
   /**
    * Get notes by container ID
    * @param {string} containerId - Container ID
    * @returns {Promise} List of notes in container
    */
-  getByContainer: (containerId) =>
-    axiosInstance.get(`/api/notes/container/${containerId}`),
+  getByContainer: (containerId) => axiosInstance.get(`/api/notes/container/${containerId}`),
 
   /**
    * Share note with another user

@@ -3,7 +3,7 @@ import { useEffect, useRef, useState, useCallback } from 'react';
 /**
  * Custom hook for managing whiteboard undo/redo history
  * Maintains a history stack of canvas states and provides undo/redo functionality
- * 
+ *
  * @param {Object} fabricCanvas - Fabric.js canvas instance
  * @param {number} maxHistorySize - Maximum number of history states to keep (default: 50)
  * @returns {Object} History management functions and state

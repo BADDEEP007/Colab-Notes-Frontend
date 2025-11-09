@@ -9,28 +9,31 @@ export const useAnimation = (options = {}) => {
   const elementRef = useRef(null);
   const animationRef = useRef(null);
 
-  const animate = useCallback((keyframes, animationOptions = {}) => {
-    if (!elementRef.current) return null;
+  const animate = useCallback(
+    (keyframes, animationOptions = {}) => {
+      if (!elementRef.current) return null;
 
-    // Cancel any existing animation
-    if (animationRef.current) {
-      animationRef.current.cancel();
-    }
+      // Cancel any existing animation
+      if (animationRef.current) {
+        animationRef.current.cancel();
+      }
 
-    // Merge with default options
-    const finalOptions = {
-      duration: 300,
-      easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
-      fill: 'forwards',
-      ...options,
-      ...animationOptions,
-    };
+      // Merge with default options
+      const finalOptions = {
+        duration: 300,
+        easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
+        fill: 'forwards',
+        ...options,
+        ...animationOptions,
+      };
 
-    // Create and play animation
-    animationRef.current = elementRef.current.animate(keyframes, finalOptions);
-    
-    return animationRef.current;
-  }, [options]);
+      // Create and play animation
+      animationRef.current = elementRef.current.animate(keyframes, finalOptions);
+
+      return animationRef.current;
+    },
+    [options]
+  );
 
   const cancel = useCallback(() => {
     if (animationRef.current) {
@@ -86,13 +89,7 @@ export const useFadeIn = (duration = 600, delay = 0) => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      animate(
-        [
-          { opacity: 0 },
-          { opacity: 1 }
-        ],
-        { duration, delay: 0 }
-      );
+      animate([{ opacity: 0 }, { opacity: 1 }], { duration, delay: 0 });
     }, delay);
 
     return () => clearTimeout(timer);
@@ -122,7 +119,7 @@ export const useSlideIn = (direction = 'left', duration = 500, delay = 0) => {
       animate(
         [
           { transform: transforms[direction][0], opacity: 0 },
-          { transform: transforms[direction][1], opacity: 1 }
+          { transform: transforms[direction][1], opacity: 1 },
         ],
         { duration, delay: 0 }
       );
@@ -147,7 +144,7 @@ export const useScaleIn = (duration = 300, delay = 0) => {
       animate(
         [
           { transform: 'scale(0.95)', opacity: 0 },
-          { transform: 'scale(1)', opacity: 1 }
+          { transform: 'scale(1)', opacity: 1 },
         ],
         { duration, delay: 0 }
       );

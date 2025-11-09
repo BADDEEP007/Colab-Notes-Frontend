@@ -31,8 +31,7 @@ const useNoteStore = create((set, get) => ({
       set({ notes, isLoading: false });
       return { success: true, notes };
     } catch (error) {
-      const errorMessage =
-        error.response?.data?.message || 'Failed to fetch notes.';
+      const errorMessage = error.response?.data?.message || 'Failed to fetch notes.';
       set({ isLoading: false, error: errorMessage });
       return { success: false, error: errorMessage };
     }
@@ -51,8 +50,7 @@ const useNoteStore = create((set, get) => ({
       set({ currentNote: note, isLoading: false });
       return { success: true, note };
     } catch (error) {
-      const errorMessage =
-        error.response?.data?.message || 'Failed to fetch note.';
+      const errorMessage = error.response?.data?.message || 'Failed to fetch note.';
       set({ isLoading: false, error: errorMessage });
       return { success: false, error: errorMessage };
     }
@@ -86,8 +84,7 @@ const useNoteStore = create((set, get) => ({
 
       return { success: true, note: newNote };
     } catch (error) {
-      const errorMessage =
-        error.response?.data?.message || 'Failed to create note.';
+      const errorMessage = error.response?.data?.message || 'Failed to create note.';
       set({ isLoading: false, error: errorMessage });
       return { success: false, error: errorMessage };
     }
@@ -104,13 +101,9 @@ const useNoteStore = create((set, get) => ({
 
     // Update local state immediately for optimistic UI
     set((state) => ({
-      notes: state.notes.map((note) =>
-        note.id === noteId ? { ...note, ...updates } : note
-      ),
+      notes: state.notes.map((note) => (note.id === noteId ? { ...note, ...updates } : note)),
       currentNote:
-        state.currentNote?.id === noteId
-          ? { ...state.currentNote, ...updates }
-          : state.currentNote,
+        state.currentNote?.id === noteId ? { ...state.currentNote, ...updates } : state.currentNote,
     }));
 
     // Clear existing timeout
@@ -154,8 +147,7 @@ const useNoteStore = create((set, get) => ({
 
       return { success: true };
     } catch (error) {
-      const errorMessage =
-        error.response?.data?.message || 'Failed to save note.';
+      const errorMessage = error.response?.data?.message || 'Failed to save note.';
       set({ isAutoSaving: false, error: errorMessage });
       return { success: false, error: errorMessage };
     }
@@ -184,8 +176,7 @@ const useNoteStore = create((set, get) => ({
 
       return { success: true };
     } catch (error) {
-      const errorMessage =
-        error.response?.data?.message || 'Failed to delete note.';
+      const errorMessage = error.response?.data?.message || 'Failed to delete note.';
       set({ isLoading: false, error: errorMessage });
       return { success: false, error: errorMessage };
     }
@@ -241,8 +232,7 @@ const useNoteStore = create((set, get) => ({
 
       return { success: true };
     } catch (error) {
-      const errorMessage =
-        error.response?.data?.message || 'Failed to share note.';
+      const errorMessage = error.response?.data?.message || 'Failed to share note.';
       set({ isLoading: false, error: errorMessage });
       return { success: false, error: errorMessage };
     }
@@ -269,8 +259,7 @@ const useNoteStore = create((set, get) => ({
       set({ isLoading: false });
       return { success: true, link, data: response.data };
     } catch (error) {
-      const errorMessage =
-        error.response?.data?.message || 'Failed to generate share link.';
+      const errorMessage = error.response?.data?.message || 'Failed to generate share link.';
       set({ isLoading: false, error: errorMessage });
       return { success: false, error: errorMessage };
     }
@@ -286,13 +275,9 @@ const useNoteStore = create((set, get) => ({
     // Don't apply if it's our own update
     // (This check would need the current user ID)
     set((state) => ({
-      notes: state.notes.map((note) =>
-        note.id === noteId ? { ...note, ...updates } : note
-      ),
+      notes: state.notes.map((note) => (note.id === noteId ? { ...note, ...updates } : note)),
       currentNote:
-        state.currentNote?.id === noteId
-          ? { ...state.currentNote, ...updates }
-          : state.currentNote,
+        state.currentNote?.id === noteId ? { ...state.currentNote, ...updates } : state.currentNote,
     }));
   },
 
@@ -304,9 +289,7 @@ const useNoteStore = create((set, get) => ({
     const { noteId, whiteboardData } = data;
 
     set((state) => ({
-      notes: state.notes.map((note) =>
-        note.id === noteId ? { ...note, whiteboardData } : note
-      ),
+      notes: state.notes.map((note) => (note.id === noteId ? { ...note, whiteboardData } : note)),
       currentNote:
         state.currentNote?.id === noteId
           ? { ...state.currentNote, whiteboardData }

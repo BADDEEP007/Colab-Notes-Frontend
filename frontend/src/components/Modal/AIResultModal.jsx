@@ -6,10 +6,10 @@ import './AIResultModal.css';
 
 /**
  * AIResultModal Component
- * 
+ *
  * Modal for displaying AI-generated content with options to copy or insert into notes.
  * Shows loading shimmer during AI processing.
- * 
+ *
  * @component
  * @example
  * <AIResultModal

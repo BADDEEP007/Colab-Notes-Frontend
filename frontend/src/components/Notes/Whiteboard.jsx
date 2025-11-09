@@ -10,7 +10,7 @@ import { exportWhiteboard } from '../../utils/whiteboardExport';
  * Whiteboard component with Fabric.js canvas
  * Provides drawing capabilities with touch support and responsive behavior
  * Accessibility: Keyboard shortcuts for undo/redo, ARIA labels
- * 
+ *
  * @param {Object} props
  * @param {string} props.noteId - Note ID for the whiteboard
  * @param {boolean} props.canEdit - Whether user can edit the whiteboard
@@ -235,7 +235,7 @@ export default function Whiteboard({
       canvas.off('object:modified', handleModified);
       canvas.off('object:removed', handleModified);
       canvas.off('path:created', handleModified);
-      
+
       // Clear timer on cleanup
       if (autoSaveTimer) {
         clearTimeout(autoSaveTimer);
@@ -248,7 +248,7 @@ export default function Whiteboard({
     if (!fabricCanvasRef.current) return;
 
     const canvas = fabricCanvasRef.current;
-    
+
     if (!canEdit) {
       canvas.isDrawingMode = false;
       canvas.selection = false;

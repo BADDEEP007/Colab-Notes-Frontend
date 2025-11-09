@@ -67,7 +67,7 @@ export const setupMockInterceptor = (axiosInstance) => {
 const handleMockRequest = async (config) => {
   const { method, url } = config;
   const urlPath = url.replace('/api/', '');
-  
+
   // Parse data if it's a string
   let data = config.data;
   if (typeof data === 'string') {

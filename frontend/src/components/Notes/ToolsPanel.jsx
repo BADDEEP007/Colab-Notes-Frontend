@@ -4,7 +4,7 @@ import { useState } from 'react';
  * ToolsPanel component for whiteboard drawing tools with glassmorphism styling
  * Provides tool selection, color picker, size selector, and export functionality
  * Requirements: 6.1, 6.5
- * 
+ *
  * @param {Object} props
  * @param {string} props.selectedTool - Currently selected tool
  * @param {Function} props.onToolChange - Callback when tool changes
@@ -44,8 +44,16 @@ export default function ToolsPanel({
   const strokeWidths = [1, 2, 4, 6, 8, 12];
 
   const commonColors = [
-    '#000000', '#FFFFFF', '#FF0000', '#00FF00', '#0000FF',
-    '#FFFF00', '#FF00FF', '#00FFFF', '#FFA500', '#800080',
+    '#000000',
+    '#FFFFFF',
+    '#FF0000',
+    '#00FF00',
+    '#0000FF',
+    '#FFFF00',
+    '#FF00FF',
+    '#00FFFF',
+    '#FFA500',
+    '#800080',
   ];
 
   const handleToolClick = (toolId) => {
@@ -107,9 +115,9 @@ export default function ToolsPanel({
             w-10 h-10 md:w-12 md:h-12 rounded-lg border-2 touch-manipulation shadow-glass
             ${!canEdit ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:scale-103 transition-all'}
           `}
-          style={{ 
+          style={{
             backgroundColor: toolOptions.color,
-            borderColor: 'var(--glass-border)'
+            borderColor: 'var(--glass-border)',
           }}
           title="Color"
           aria-label="Select color"
@@ -124,9 +132,9 @@ export default function ToolsPanel({
                   key={color}
                   onClick={() => handleColorChange(color)}
                   className="w-8 h-8 rounded border-2 hover:scale-110 transition-all"
-                  style={{ 
+                  style={{
                     backgroundColor: color,
-                    borderColor: 'var(--glass-border)'
+                    borderColor: 'var(--glass-border)',
                   }}
                   title={color}
                   aria-label={`Color ${color}`}
@@ -165,10 +173,10 @@ export default function ToolsPanel({
           >
             <div
               className="rounded-full"
-              style={{ 
-                width: `${width}px`, 
+              style={{
+                width: `${width}px`,
                 height: `${width}px`,
-                background: 'var(--color-muted-navy)'
+                background: 'var(--color-muted-navy)',
               }}
             />
           </button>
@@ -177,4 +185,3 @@ export default function ToolsPanel({
     </div>
   );
 }
-

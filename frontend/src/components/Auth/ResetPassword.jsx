@@ -21,7 +21,7 @@ const ResetPassword = () => {
 
   const validateForm = () => {
     const newErrors = {};
-    
+
     if (!password) {
       newErrors.password = 'Password is required';
     } else if (password.length < 8) {
@@ -29,20 +29,20 @@ const ResetPassword = () => {
     } else if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(password)) {
       newErrors.password = 'Password must contain uppercase, lowercase, and number';
     }
-    
+
     if (!confirmPassword) {
       newErrors.confirmPassword = 'Please confirm your password';
     } else if (password !== confirmPassword) {
       newErrors.confirmPassword = 'Passwords do not match';
     }
-    
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!validateForm()) {
       return;
     }
@@ -56,8 +56,8 @@ const ResetPassword = () => {
       }, 3000);
     } catch (err) {
       setErrors({
-        submit: err.response?.data?.message || 
-          'Failed to reset password. The link may have expired.'
+        submit:
+          err.response?.data?.message || 'Failed to reset password. The link may have expired.',
       });
     } finally {
       setIsLoading(false);
@@ -99,9 +99,7 @@ const ResetPassword = () => {
       <div className="max-w-md w-full bg-white rounded-lg shadow-lg p-8">
         <div className="mb-8">
           <h2 className="text-3xl font-bold text-gray-900 mb-2">Reset password</h2>
-          <p className="text-gray-600">
-            Enter your new password below.
-          </p>
+          <p className="text-gray-600">Enter your new password below.</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
@@ -123,16 +121,17 @@ const ResetPassword = () => {
               placeholder="Enter new password"
               disabled={isLoading}
             />
-            {errors.password && (
-              <p className="mt-1 text-sm text-red-600">{errors.password}</p>
-            )}
+            {errors.password && <p className="mt-1 text-sm text-red-600">{errors.password}</p>}
             <p className="mt-1 text-xs text-gray-500">
               Must be at least 8 characters with uppercase, lowercase, and number
             </p>
           </div>
 
           <div>
-            <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-2">
+            <label
+              htmlFor="confirmPassword"
+              className="block text-sm font-medium text-gray-700 mb-2"
+            >
               Confirm Password
             </label>
             <input

@@ -24,10 +24,10 @@ const EmailVerification = () => {
         const response = await authApi.verifyEmail(token);
         setStatus('success');
         setMessage(response.data?.message || 'Email verified successfully');
-        
+
         // Update user's email verification status
         updateUser({ emailVerified: true });
-        
+
         // Redirect to dashboard after 3 seconds
         setTimeout(() => {
           navigate('/dashboard');
@@ -35,8 +35,7 @@ const EmailVerification = () => {
       } catch (err) {
         setStatus('error');
         setMessage(
-          err.response?.data?.message || 
-          'Verification failed. The link may have expired.'
+          err.response?.data?.message || 'Verification failed. The link may have expired.'
         );
       }
     };
@@ -51,11 +50,7 @@ const EmailVerification = () => {
           {status === 'verifying' && (
             <>
               <div className="mx-auto w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4">
-                <svg
-                  className="w-8 h-8 text-blue-600 animate-spin"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
+                <svg className="w-8 h-8 text-blue-600 animate-spin" fill="none" viewBox="0 0 24 24">
                   <circle
                     className="opacity-25"
                     cx="12"

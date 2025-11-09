@@ -22,7 +22,7 @@ class ErrorBoundary extends Component {
   componentDidCatch(error, errorInfo) {
     // Log error to console (or error tracking service like Sentry)
     console.error('Error caught by ErrorBoundary:', error, errorInfo);
-    
+
     // Store error info in state for display
     this.setState({
       errorInfo,
@@ -61,13 +61,14 @@ class ErrorBoundary extends Component {
                 />
               </svg>
             </div>
-            
+
             <h1 className="text-2xl font-bold text-gray-900 text-center mb-2">
               Oops! Something went wrong
             </h1>
-            
+
             <p className="text-gray-600 text-center mb-6">
-              We encountered an unexpected error. Please try refreshing the page or contact support if the problem persists.
+              We encountered an unexpected error. Please try refreshing the page or contact support
+              if the problem persists.
             </p>
 
             {process.env.NODE_ENV === 'development' && this.state.error && (
@@ -92,7 +93,7 @@ class ErrorBoundary extends Component {
                 Try Again
               </button>
               <button
-                onClick={() => window.location.href = '/'}
+                onClick={() => (window.location.href = '/')}
                 className="flex-1 px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors font-medium"
               >
                 Go Home

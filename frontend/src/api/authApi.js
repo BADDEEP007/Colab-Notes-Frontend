@@ -20,8 +20,7 @@ const authApi = {
    * @param {string} password - User password
    * @returns {Promise} Login response with tokens
    */
-  login: (email, password) =>
-    axiosInstance.post('/api/auth/login', { email, password }),
+  login: (email, password) => axiosInstance.post('/api/auth/login', { email, password }),
 
   /**
    * Logout current user
@@ -46,8 +45,7 @@ const authApi = {
    * @param {string} email - User email
    * @returns {Promise} Response
    */
-  forgotPassword: (email) =>
-    axiosInstance.post('/api/auth/forgot-password', { email }),
+  forgotPassword: (email) => axiosInstance.post('/api/auth/forgot-password', { email }),
 
   /**
    * Reset password with token
@@ -85,8 +83,7 @@ const authApi = {
    * @param {string} email - User email
    * @returns {Promise} Response
    */
-  recoverUsername: (email) =>
-    axiosInstance.post('/api/auth/recover-username', { email }),
+  recoverUsername: (email) => axiosInstance.post('/api/auth/recover-username', { email }),
 
   /**
    * Google OAuth registration
@@ -98,8 +95,7 @@ const authApi = {
    * Microsoft OAuth registration
    * @returns {string} Microsoft OAuth URL
    */
-  microsoftRegisterUrl: () =>
-    `${import.meta.env.VITE_API_BASE_URL}/api/microsoft/register`,
+  microsoftRegisterUrl: () => `${import.meta.env.VITE_API_BASE_URL}/api/microsoft/register`,
 
   /**
    * Google OAuth login callback
@@ -111,8 +107,7 @@ const authApi = {
    * Microsoft OAuth login callback
    * @returns {string} Microsoft OAuth callback URL
    */
-  microsoftLoginUrl: () =>
-    `${import.meta.env.VITE_API_BASE_URL}/api/microsoft/callback`,
+  microsoftLoginUrl: () => `${import.meta.env.VITE_API_BASE_URL}/api/microsoft/callback`,
 };
 
 export default authApi;

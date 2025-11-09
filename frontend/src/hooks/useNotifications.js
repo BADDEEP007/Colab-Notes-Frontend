@@ -19,7 +19,7 @@ export default function useNotifications() {
     const handleFriendRequest = (data) => {
       const { friendName, friendEmail } = data;
       const displayName = friendName || friendEmail || 'Someone';
-      
+
       // Add to notification store
       addNotification({
         type: 'friend_request',
@@ -38,7 +38,7 @@ export default function useNotifications() {
       const { noteTitle, sharedByName, sharedBy } = data;
       const displayName = sharedByName || sharedBy || 'Someone';
       const displayTitle = noteTitle || 'a note';
-      
+
       // Add to notification store
       addNotification({
         type: 'note_share',
@@ -58,7 +58,7 @@ export default function useNotifications() {
       const displayName = invitedByName || invitedBy || 'Someone';
       const displayInstance = instanceName || 'an instance';
       const displayRole = role || 'a member';
-      
+
       // Add to notification store
       addNotification({
         type: 'instance_invitation',

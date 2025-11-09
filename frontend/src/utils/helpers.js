@@ -190,7 +190,7 @@ export const retryWithBackoff = async (fn, maxRetries = 3, baseDelay = 1000) => 
       const totalDelay = delay + jitter;
 
       console.log(`Retry attempt ${attempt + 1}/${maxRetries} after ${Math.round(totalDelay)}ms`);
-      
+
       // Wait before retrying
       await new Promise((resolve) => setTimeout(resolve, totalDelay));
     }

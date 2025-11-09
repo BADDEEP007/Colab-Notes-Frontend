@@ -1,0 +1,44 @@
+.container {
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  background: var(--gradient-bg);
+}
+
+.navbarWrapper {
+  position: relative;
+  z-index: var(--z-sticky);
+}
+
+.layout {
+  display: flex;
+  position: relative;
+  z-index: var(--z-base);
+  min-height: 100vh;
+}
+
+.main {
+  flex: 1;
+  padding: 1.5rem;
+  padding-bottom: 8rem;
+  overflow-y: auto;
+  margin-top: 80px;
+}
+
+.mainContent {
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+/* Responsive Styles */
+@media (min-width: 640px) {
+  .main {
+    padding: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .main {
+    padding: 3rem;
+  }
+}

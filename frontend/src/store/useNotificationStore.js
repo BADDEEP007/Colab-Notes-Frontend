@@ -93,7 +93,7 @@ const useNotificationStore = create((set, get) => ({
    */
   handleFriendRequest: (data) => {
     const { friendId, friendName, friendEmail } = data;
-    
+
     get().addNotification({
       type: 'friend_request',
       title: 'New Friend Request',
@@ -109,7 +109,7 @@ const useNotificationStore = create((set, get) => ({
    */
   handleNoteShare: (data) => {
     const { noteId, noteTitle, sharedBy, sharedByName } = data;
-    
+
     get().addNotification({
       type: 'note_share',
       title: 'Note Shared',
@@ -125,7 +125,7 @@ const useNotificationStore = create((set, get) => ({
    */
   handleInstanceInvitation: (data) => {
     const { instanceId, instanceName, invitedBy, invitedByName, role } = data;
-    
+
     get().addNotification({
       type: 'instance_invitation',
       title: 'Instance Invitation',

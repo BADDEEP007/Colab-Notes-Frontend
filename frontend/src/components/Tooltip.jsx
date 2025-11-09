@@ -1,12 +1,14 @@
 import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import styles from './Tooltip.module.css';
+import clsx from 'clsx';
 
 /**
  * Tooltip Component
- * 
+ *
  * A reusable tooltip component that shows on hover and long press.
  * Positions dynamically to avoid overflow and is accessible to screen readers.
- * 
+ *
  * @component
  * @example
  * <Tooltip content="Save your work">
@@ -56,11 +58,11 @@ const Tooltip = ({
   // Show tooltip with delay
   const showTooltip = () => {
     if (disabled) return;
-    
+
     const timer = setTimeout(() => {
       setIsVisible(true);
     }, delay);
-    
+
     return timer;
   };
 
@@ -115,65 +117,6 @@ const Tooltip = ({
     }
   }, [isVisible]);
 
-  // Get position styles
-  const getPositionStyles = () => {
-    const baseStyles = {
-      position: 'absolute',
-      zIndex: 'var(--z-tooltip)',
-      pointerEvents: 'none',
-    };
-
-    switch (calculatedPosition) {
-      case 'top':
-        return {
-          ...baseStyles,
-          bottom: '100%',
-          left: '50%',
-          transform: 'translateX(-50%) translateY(-8px)',
-        };
-      case 'bottom':
-        return {
-          ...baseStyles,
-          top: '100%',
-          left: '50%',
-          transform: 'translateX(-50%) translateY(8px)',
-        };
-      case 'left':
-        return {
-          ...baseStyles,
-          right: '100%',
-          top: '50%',
-          transform: 'translateY(-50%) translateX(-8px)',
-        };
-      case 'right':
-        return {
-          ...baseStyles,
-          left: '100%',
-          top: '50%',
-          transform: 'translateY(-50%) translateX(8px)',
-        };
-      default:
-        return baseStyles;
-    }
-  };
-
-  const tooltipStyles = {
-    ...getPositionStyles(),
-    padding: 'var(--spacing-2) var(--spacing-3)',
-    background: 'var(--color-muted-navy)',
-    color: 'white',
-    fontSize: 'var(--font-size-sm)',
-    borderRadius: 'var(--radius-md)',
-    whiteSpace: 'nowrap',
-    opacity: isVisible ? 1 : 0,
-    visibility: isVisible ? 'visible' : 'hidden',
-    transition: 'opacity var(--duration-fast) var(--easing), visibility var(--duration-fast) var(--easing)',
-    boxShadow: 'var(--glass-shadow)',
-    maxWidth: '200px',
-    whiteSpace: 'normal',
-    textAlign: 'center',
-  };
-
   // Clone children and add event handlers
   const childElement = React.Children.only(children);
   const enhancedChild = React.cloneElement(childElement, {
@@ -218,13 +161,13 @@ const Tooltip = ({
   });
 
   return (
-    <div style={{ position: 'relative', display: 'inline-block' }} className={className}>
+    <div className={clsx(styles.wrapper, className)}>
       {enhancedChild}
       <div
         ref={tooltipRef}
         id={tooltipId.current}
         role="tooltip"
-        style={tooltipStyles}
+        className={clsx(styles.tooltip, styles[calculatedPosition], isVisible && styles.visible)}
         aria-hidden={!isVisible}
       >
         {content}

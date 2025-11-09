@@ -104,10 +104,10 @@ export const checkAnimationPerformance = (fps) => {
 export const isLowEndDevice = () => {
   // Check hardware concurrency (CPU cores)
   const cores = navigator.hardwareConcurrency || 1;
-  
+
   // Check device memory (if available)
   const memory = navigator.deviceMemory || 4;
-  
+
   // Check if device is mobile
   const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
     navigator.userAgent
@@ -133,7 +133,7 @@ export const getRecommendedAnimationSettings = () => {
       enableAnimations: false,
       duration: 0,
       complexity: 'none',
-      reason: 'User prefers reduced motion'
+      reason: 'User prefers reduced motion',
     };
   }
 
@@ -142,7 +142,7 @@ export const getRecommendedAnimationSettings = () => {
       enableAnimations: true,
       duration: 0.2,
       complexity: 'low',
-      reason: 'Low-end device detected'
+      reason: 'Low-end device detected',
     };
   }
 
@@ -150,7 +150,7 @@ export const getRecommendedAnimationSettings = () => {
     enableAnimations: true,
     duration: 1,
     complexity: 'high',
-    reason: 'High-performance device'
+    reason: 'High-performance device',
   };
 };
 
@@ -167,7 +167,7 @@ export const logAnimationPerformance = (metrics) => {
   console.log(`Min FPS: ${metrics.minFPS}`);
   console.log(`Max FPS: ${metrics.maxFPS}`);
   console.log(`Frame Count: ${metrics.frameCount}`);
-  
+
   if (metrics.memoryUsed) {
     console.log(`Memory Used: ${(metrics.memoryUsed / 1024 / 1024).toFixed(2)}MB`);
   }
@@ -188,7 +188,8 @@ export const observeLongAnimationFrames = (callback) => {
   try {
     const observer = new PerformanceObserver((list) => {
       for (const entry of list.getEntries()) {
-        if (entry.duration > 16.67) { // Longer than 60fps frame
+        if (entry.duration > 16.67) {
+          // Longer than 60fps frame
           callback({
             duration: entry.duration,
             startTime: entry.startTime,
@@ -218,7 +219,7 @@ export const throttleAnimation = (callback, fps = 60) => {
 
   return (...args) => {
     const now = performance.now();
-    
+
     if (now - lastTime >= interval) {
       lastTime = now;
       callback(...args);

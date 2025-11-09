@@ -35,24 +35,27 @@ function MyPage() {
 
 ## Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `variant` | `'auth' \| 'dashboard' \| 'minimal'` | `'auth'` | Visual variant determining number and style of orbs |
-| `intensity` | `number` | `1` | Animation opacity from 0 to 1 |
+| Prop        | Type                                 | Default  | Description                                         |
+| ----------- | ------------------------------------ | -------- | --------------------------------------------------- |
+| `variant`   | `'auth' \| 'dashboard' \| 'minimal'` | `'auth'` | Visual variant determining number and style of orbs |
+| `intensity` | `number`                             | `1`      | Animation opacity from 0 to 1                       |
 
 ## Variants
 
 ### Auth Variant
+
 - **Orbs**: 5 floating orbs
 - **Colors**: Blue, peach, and coral gradients
 - **Use Case**: Login, signup, and authentication pages
 
 ### Dashboard Variant
+
 - **Orbs**: 3 floating orbs
 - **Colors**: Softer blue, peach, and coral gradients
 - **Use Case**: Dashboard and main application pages
 
 ### Minimal Variant
+
 - **Orbs**: 2 floating orbs
 - **Colors**: Very subtle blue and peach gradients
 - **Use Case**: Editor pages and focused work areas
@@ -75,17 +78,20 @@ To test the reduced motion support:
 ## Implementation Details
 
 ### Animation Timing
+
 - Each orb has a unique animation duration (18s-25s)
 - Staggered delays create natural, non-repetitive motion
 - Animations use `ease-in-out` easing for smooth transitions
 
 ### Performance
+
 - Uses CSS transforms for GPU acceleration
 - Positioned with `position: fixed` and `z-index: -1`
 - `pointer-events: none` ensures no interaction interference
 - `will-change` property for optimized rendering
 
 ### Browser Support
+
 - Chrome 90+
 - Firefox 88+
 - Safari 14+

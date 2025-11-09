@@ -27,13 +27,16 @@ export default function ProductivityToolbar() {
   };
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-fixed glass-container shadow-glass" style={{ borderRadius: 0, borderBottom: 'none', borderLeft: 'none', borderRight: 'none' }}>
+    <div
+      className="fixed bottom-0 left-0 right-0 z-fixed glass-container shadow-glass"
+      style={{ borderRadius: 0, borderBottom: 'none', borderLeft: 'none', borderRight: 'none' }}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-center space-x-4 py-3">
           {/* AI Assistant Button with icon and tooltip */}
           <button
             onClick={handleAIAssistant}
-            className="btn-primary inline-flex items-center px-4 py-2 text-white text-sm font-medium rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 transition-all transform hover:scale-105 shadow-glass"
+            className="btn-primary inline-flex items-center px-4 py-2 text-white text-sm font-medium rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors shadow-glass"
             style={{ background: 'linear-gradient(135deg, #9C27B0 0%, #2196F3 100%)' }}
             aria-label="Open AI Assistant"
             title="AI Assistant"
@@ -58,7 +61,7 @@ export default function ProductivityToolbar() {
           {/* Shared Notes Button with tooltip */}
           <button
             onClick={handleSharedNotes}
-            className="glass-button inline-flex items-center px-4 py-2 text-navy text-sm font-medium rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 transition-all transform hover:scale-105"
+            className="glass-button inline-flex items-center px-4 py-2 text-navy text-sm font-medium rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors"
             aria-label="View shared notes"
             title="Shared Notes"
           >
@@ -82,7 +85,7 @@ export default function ProductivityToolbar() {
           {/* Quick Notes Button with tooltip */}
           <button
             onClick={handleQuickNote}
-            className="glass-button inline-flex items-center px-4 py-2 text-navy text-sm font-medium rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 transition-all transform hover:scale-105"
+            className="glass-button inline-flex items-center px-4 py-2 text-navy text-sm font-medium rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors"
             aria-label="Create quick note"
             title="Quick Note"
           >

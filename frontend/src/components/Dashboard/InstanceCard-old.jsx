@@ -37,40 +37,49 @@ const InstanceCard = memo(function InstanceCard({ instance, onRename, onDelete, 
 
   const handleMenuToggle = useCallback((e) => {
     e.stopPropagation();
-    setIsMenuOpen(prev => !prev);
+    setIsMenuOpen((prev) => !prev);
   }, []);
 
-  const handleRename = useCallback((e) => {
-    e.stopPropagation();
-    setIsMenuOpen(false);
-    if (onRename) {
-      const newName = prompt('Enter new instance name:', name);
-      if (newName && newName.trim() !== '') {
-        onRename(id, newName.trim());
+  const handleRename = useCallback(
+    (e) => {
+      e.stopPropagation();
+      setIsMenuOpen(false);
+      if (onRename) {
+        const newName = prompt('Enter new instance name:', name);
+        if (newName && newName.trim() !== '') {
+          onRename(id, newName.trim());
+        }
       }
-    }
-  }, [onRename, id, name]);
+    },
+    [onRename, id, name]
+  );
 
-  const handleDelete = useCallback((e) => {
-    e.stopPropagation();
-    setIsMenuOpen(false);
-    if (onDelete) {
-      const confirmed = window.confirm(
-        `Are you sure you want to delete "${name}"? This action cannot be undone.`
-      );
-      if (confirmed) {
-        onDelete(id);
+  const handleDelete = useCallback(
+    (e) => {
+      e.stopPropagation();
+      setIsMenuOpen(false);
+      if (onDelete) {
+        const confirmed = window.confirm(
+          `Are you sure you want to delete "${name}"? This action cannot be undone.`
+        );
+        if (confirmed) {
+          onDelete(id);
+        }
       }
-    }
-  }, [onDelete, id, name]);
+    },
+    [onDelete, id, name]
+  );
 
-  const handleShare = useCallback((e) => {
-    e.stopPropagation();
-    setIsMenuOpen(false);
-    if (onShare) {
-      onShare(id);
-    }
-  }, [onShare, id]);
+  const handleShare = useCallback(
+    (e) => {
+      e.stopPropagation();
+      setIsMenuOpen(false);
+      if (onShare) {
+        onShare(id);
+      }
+    },
+    [onShare, id]
+  );
 
   // Role badge colors - memoized
   const roleBadgeColor = useMemo(() => {
@@ -134,12 +143,7 @@ const InstanceCard = memo(function InstanceCard({ instance, onRename, onDelete, 
             aria-expanded={isMenuOpen}
             aria-haspopup="true"
           >
-            <svg
-              className="h-5 w-5"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              aria-hidden="true"
-            >
+            <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
               <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
             </svg>
           </button>

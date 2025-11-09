@@ -21,9 +21,7 @@ export default function OnlineUsersSidebar({ isCollapsed = false, onToggle }) {
   });
 
   // Get online friends
-  const onlineFriends = friends.filter(friend => 
-    isUserOnline(friend.friendId || friend.userId)
-  );
+  const onlineFriends = friends.filter((friend) => isUserOnline(friend.friendId || friend.userId));
 
   // Handle mobile responsiveness
   useEffect(() => {
@@ -101,9 +99,7 @@ export default function OnlineUsersSidebar({ isCollapsed = false, onToggle }) {
         <div className="h-full flex flex-col">
           {/* Header */}
           <div className="flex items-center justify-between p-4 border-b border-white/30">
-            <h2 className="text-lg font-semibold text-navy">
-              Online Users
-            </h2>
+            <h2 className="text-lg font-semibold text-navy">Online Users</h2>
             <button
               onClick={handleMobileToggle}
               className="md:hidden p-1 text-navy hover:bg-white/50 rounded-lg transition-colors"
@@ -156,16 +152,16 @@ export default function OnlineUsersSidebar({ isCollapsed = false, onToggle }) {
                   const status = onlineStatuses.get(friend.friendId || friend.userId);
                   return (
                     <li key={friend.id}>
-                      <div 
-                        className="flex items-center space-x-3 p-2 rounded-lg hover:bg-white/50 transition-colors cursor-pointer"
+                      <div
+                        className="flex items-center space-x-3 p-2 rounded-lg hover:bg-white/30 transition-colors"
                         title={friend.name || friend.email || 'Unknown User'}
                       >
                         {/* Avatar with green online status dot */}
                         <div className="relative shrink-0">
                           <div className="w-10 h-10 bg-gradient-primary rounded-full flex items-center justify-center text-white font-semibold">
-                            {friend.name?.charAt(0).toUpperCase() || 
-                             friend.email?.charAt(0).toUpperCase() || 
-                             'U'}
+                            {friend.name?.charAt(0).toUpperCase() ||
+                              friend.email?.charAt(0).toUpperCase() ||
+                              'U'}
                           </div>
                           <span
                             className="absolute bottom-0 right-0 block h-3 w-3 rounded-full ring-2 ring-white"

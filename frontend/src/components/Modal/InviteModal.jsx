@@ -7,10 +7,10 @@ import './InviteModal.css';
 
 /**
  * InviteModal Component
- * 
+ *
  * Modal for inviting users to an instance via email or selecting from friends list.
  * Allows setting user roles and displays current members.
- * 
+ *
  * @component
  * @example
  * <InviteModal
@@ -79,9 +79,7 @@ const InviteModal = ({
 
   return (
     <Modal isOpen={isOpen} onClose={handleClose}>
-      <ModalHeader onClose={handleClose}>
-        Invite to Instance
-      </ModalHeader>
+      <ModalHeader onClose={handleClose}>Invite to Instance</ModalHeader>
 
       <ModalBody>
         <form onSubmit={handleSubmit} className="invite-form">
@@ -99,7 +97,14 @@ const InviteModal = ({
               disabled={!!selectedFriend || loading}
               placeholder="user@example.com"
               icon={
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                >
                   <path d="M3 4h14a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z" />
                   <path d="M18 5l-8 5-8-5" />
                 </svg>

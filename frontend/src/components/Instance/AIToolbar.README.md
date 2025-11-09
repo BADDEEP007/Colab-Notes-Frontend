@@ -1,27 +1,32 @@
 # AIToolbar Component
 
 ## Overview
+
 The AIToolbar component provides AI-powered tools for instance-level operations, including summarization and content generation assistance.
 
 ## Requirements Implemented
+
 - **14.3**: AI assistance for content generation with prompt input
 - **14.4**: Instance-level summarization of all notes
 
 ## Features
 
 ### 1. AI Summary Button
+
 - Summarizes all notes within the current instance
 - Sends POST request to `/api/ai/summary/instance` with instanceId
 - Displays loading state during processing
 - Shows results in expandable panel
 
 ### 2. AI Assist Button
+
 - Opens prompt input field for custom content generation
 - Sends POST request to `/api/ai/assist` with prompt and context
 - Supports Ctrl+Enter keyboard shortcut for submission
 - Displays generated content in panel
 
 ### 3. Results Panel
+
 - Automatically expands when AI operation starts
 - Shows loading spinner with descriptive text
 - Displays error messages with appropriate styling
@@ -59,9 +64,9 @@ function InstancePage() {
 
 ## Props
 
-| Prop | Type | Required | Description |
-|------|------|----------|-------------|
-| instanceId | string | No | The ID of the instance to work with. If not provided, uses currentInstance from useInstanceStore |
+| Prop       | Type   | Required | Description                                                                                      |
+| ---------- | ------ | -------- | ------------------------------------------------------------------------------------------------ |
+| instanceId | string | No       | The ID of the instance to work with. If not provided, uses currentInstance from useInstanceStore |
 
 ## Dependencies
 
@@ -72,13 +77,19 @@ function InstancePage() {
 ## API Integration
 
 ### Instance Summarization
+
 ```javascript
-POST /api/ai/summary/instance
-Body: { instanceId: string }
-Response: { summary: string }
+POST / api / ai / summary / instance;
+Body: {
+  instanceId: string;
+}
+Response: {
+  summary: string;
+}
 ```
 
 ### AI Assistance
+
 ```javascript
 POST /api/ai/assist
 Body: { prompt: string, context: string }
@@ -87,7 +98,7 @@ Response: { content: string }
 
 ## Styling
 
-- Uses Tailwind CSS for styling
+- Uses CSS Modules for component-scoped styling
 - Responsive design with mobile-first approach
 - Dark mode support
 - Smooth animations for panel expansion

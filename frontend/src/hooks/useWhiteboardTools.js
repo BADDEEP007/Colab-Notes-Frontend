@@ -1,22 +1,17 @@
 import { useEffect, useRef } from 'react';
-import { Rect, Circle, Line, IText, PencilBrush, EraserBrush } from 'fabric';
+import { Rect, Circle, Line, IText, PencilBrush } from 'fabric';
 
 /**
  * Custom hook for managing whiteboard drawing tools
  * Handles tool-specific functionality for pen, eraser, shapes, text, and selection
- * 
+ *
  * @param {Object} fabricCanvas - Fabric.js canvas instance
  * @param {string} selectedTool - Currently selected tool
  * @param {Object} toolOptions - Tool options (color, strokeWidth)
  * @param {boolean} canEdit - Whether user can edit
  * @returns {Object} Tool management functions
  */
-export default function useWhiteboardTools(
-  fabricCanvas,
-  selectedTool,
-  toolOptions,
-  canEdit
-) {
+export default function useWhiteboardTools(fabricCanvas, selectedTool, toolOptions, canEdit) {
   const isDrawingShape = useRef(false);
   const shapeStartPoint = useRef(null);
   const currentShape = useRef(null);
@@ -36,12 +31,12 @@ export default function useWhiteboardTools(
     if (!fabricCanvas) return;
 
     fabricCanvas.isDrawingMode = true;
-    
+
     // Create eraser brush (white color to "erase")
     const eraserBrush = new PencilBrush(fabricCanvas);
     eraserBrush.color = '#ffffff';
     eraserBrush.width = toolOptions.strokeWidth * 2; // Larger for erasing
-    
+
     fabricCanvas.freeDrawingBrush = eraserBrush;
   };
 
@@ -51,7 +46,7 @@ export default function useWhiteboardTools(
 
     fabricCanvas.isDrawingMode = false;
     fabricCanvas.selection = true;
-    
+
     // Make all objects selectable
     fabricCanvas.forEachObject((obj) => {
       obj.selectable = true;
@@ -65,7 +60,7 @@ export default function useWhiteboardTools(
 
     fabricCanvas.isDrawingMode = false;
     fabricCanvas.selection = false;
-    
+
     // Disable selection on existing objects
     fabricCanvas.forEachObject((obj) => {
       obj.selectable = false;
@@ -116,13 +111,10 @@ export default function useWhiteboardTools(
 
       case 'line':
       case 'arrow':
-        currentShape.current = new Line(
-          [pointer.x, pointer.y, pointer.x, pointer.y],
-          {
-            stroke: toolOptions.color,
-            strokeWidth: toolOptions.strokeWidth,
-          }
-        );
+        currentShape.current = new Line([pointer.x, pointer.y, pointer.x, pointer.y], {
+          stroke: toolOptions.color,
+          strokeWidth: toolOptions.strokeWidth,
+        });
         break;
 
       default:
@@ -152,10 +144,9 @@ export default function useWhiteboardTools(
         break;
 
       case 'circle':
-        const radius = Math.sqrt(
-          Math.pow(pointer.x - startPoint.x, 2) +
-          Math.pow(pointer.y - startPoint.y, 2)
-        ) / 2;
+        const radius =
+          Math.sqrt(Math.pow(pointer.x - startPoint.x, 2) + Math.pow(pointer.y - startPoint.y, 2)) /
+          2;
         currentShape.current.set({
           radius: radius,
           left: startPoint.x,

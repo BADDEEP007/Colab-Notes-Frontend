@@ -90,12 +90,7 @@ export default function ShareNoteModal({ noteId, isOpen, onClose }) {
             className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors"
             aria-label="Close modal"
           >
-            <svg
-              className="h-6 w-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
+            <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -178,11 +173,7 @@ export default function ShareNoteModal({ noteId, isOpen, onClose }) {
             >
               {isLoading ? (
                 <span className="flex items-center justify-center">
-                  <svg
-                    className="animate-spin h-5 w-5 mr-2"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                  >
+                  <svg className="animate-spin h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24">
                     <circle
                       className="opacity-25"
                       cx="12"
@@ -209,9 +200,7 @@ export default function ShareNoteModal({ noteId, isOpen, onClose }) {
           {generatedLink && (
             <div className="space-y-3">
               <div className="p-3 bg-gray-50 dark:bg-gray-700 rounded-lg border border-gray-200 dark:border-gray-600">
-                <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">
-                  Share this link:
-                </p>
+                <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">Share this link:</p>
                 <div className="flex items-center space-x-2">
                   <input
                     type="text"

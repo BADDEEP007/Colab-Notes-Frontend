@@ -4,11 +4,12 @@ import { AUTO_SAVE_DELAY, SOCKET_EVENTS } from '../../utils/constants';
 import useNoteStore from '../../store/useNoteStore';
 import useSocketStore from '../../store/useSocketStore';
 import useAuthStore from '../../store/useAuthStore';
+import styles from './NoteEditor.module.css';
 
 /**
  * NoteEditor Component
  * Rich text editing area with auto-save, real-time sync, and collaborative features
- * 
+ *
  * @param {Object} props
  * @param {string} props.noteId - ID of the note being edited
  * @param {string} props.initialContent - Initial content of the note
@@ -16,14 +17,20 @@ import useAuthStore from '../../store/useAuthStore';
  * @param {Function} props.onContentChange - Callback when content changes
  * @param {Function} props.onInsertContent - Expose method to insert content (for AI integration)
  */
-export default function NoteEditor({ noteId, initialContent = '', canEdit = true, onContentChange, onInsertContent }) {
+export default function NoteEditor({
+  noteId,
+  initialContent = '',
+  canEdit = true,
+  onContentChange,
+  onInsertContent,
+}) {
   const [content, setContent] = useState(initialContent);
   const [collaborators, setCollaborators] = useState([]);
   const [isReceivingUpdate, setIsReceivingUpdate] = useState(false);
   const textareaRef = useRef(null);
   const lastEmittedContentRef = useRef(initialContent);
   const cursorPositionRef = useRef(0);
-  
+
   const { updateNote, isAutoSaving, lastSaved } = useNoteStore();
   const { emitNoteUpdate, isConnected, on, off, joinRoom, leaveRoom } = useSocketStore();
   const { user } = useAuthStore();
@@ -38,7 +45,7 @@ export default function NoteEditor({ noteId, initialContent = '', canEdit = true
   useEffect(() => {
     if (noteId && isConnected) {
       joinRoom(`note:${noteId}`);
-      
+
       return () => {
         leaveRoom(`note:${noteId}`);
       };
@@ -52,29 +59,29 @@ export default function NoteEditor({ noteId, initialContent = '', canEdit = true
     const handleRemoteNoteUpdate = (data) => {
       // Ignore updates from this user
       if (data.userId === user?.id) return;
-      
+
       // Ignore if this is the same content we just sent
       if (data.updates?.content === lastEmittedContentRef.current) return;
 
       setIsReceivingUpdate(true);
-      
+
       if (data.noteId === noteId && data.updates?.content !== undefined) {
         const newContent = data.updates.content;
-        
+
         // Save cursor position
         if (textareaRef.current) {
           cursorPositionRef.current = textareaRef.current.selectionStart;
         }
-        
+
         // Apply operational transformation for concurrent edits
         const transformedContent = applyOperationalTransformation(
           content,
           newContent,
           cursorPositionRef.current
         );
-        
+
         setContent(transformedContent);
-        
+
         // Restore cursor position (with adjustment)
         setTimeout(() => {
           if (textareaRef.current) {
@@ -88,10 +95,10 @@ export default function NoteEditor({ noteId, initialContent = '', canEdit = true
           setIsReceivingUpdate(false);
         }, 0);
       }
-      
+
       // Update collaborators list if provided
       if (data.collaborators) {
-        setCollaborators(data.collaborators.filter(c => c.id !== user?.id));
+        setCollaborators(data.collaborators.filter((c) => c.id !== user?.id));
       }
     };
 
@@ -111,26 +118,26 @@ export default function NoteEditor({ noteId, initialContent = '', canEdit = true
     if (!textareaRef.current || document.activeElement !== textareaRef.current) {
       return remoteContent;
     }
-    
+
     // If contents are the same, no transformation needed
     if (localContent === remoteContent) {
       return localContent;
     }
-    
+
     // Simple merge strategy: accept remote changes if cursor is not near the change
     // For a more robust solution, implement proper OT algorithm
     const localLines = localContent.split('\n');
     const remoteLines = remoteContent.split('\n');
-    
+
     // Find cursor line
     const textBeforeCursor = localContent.substring(0, cursorPos);
     const cursorLine = textBeforeCursor.split('\n').length - 1;
-    
+
     // If remote has more changes and cursor is not in affected area, accept remote
     if (Math.abs(remoteLines.length - localLines.length) > 2) {
       return remoteContent;
     }
-    
+
     // Otherwise, keep local content (user is actively editing)
     return localContent;
   };
@@ -143,7 +150,7 @@ export default function NoteEditor({ noteId, initialContent = '', canEdit = true
     if (Math.abs(newContent.length - oldContent.length) < 10) {
       return Math.min(oldPosition, newContent.length);
     }
-    
+
     // Otherwise, try to maintain relative position
     const relativePosition = oldPosition / (oldContent.length || 1);
     return Math.floor(relativePosition * newContent.length);
@@ -154,7 +161,7 @@ export default function NoteEditor({ noteId, initialContent = '', canEdit = true
     debounce((noteId, content, userId) => {
       if (canEdit) {
         updateNote(noteId, { content }, false);
-        
+
         // Emit to other users via WebSocket with userId to prevent echo
         if (isConnected) {
           emitNoteUpdate(noteId, { content, userId });
@@ -168,16 +175,16 @@ export default function NoteEditor({ noteId, initialContent = '', canEdit = true
   const handleContentChange = (e) => {
     // Don't process changes if we're receiving a remote update
     if (isReceivingUpdate) return;
-    
+
     const newContent = e.target.value;
     setContent(newContent);
     lastEmittedContentRef.current = newContent;
-    
+
     // Call parent callback if provided
     if (onContentChange) {
       onContentChange(newContent);
     }
-    
+
     // Trigger auto-save and emit to other users
     if (canEdit && noteId) {
       debouncedSave(noteId, newContent, user?.id);
@@ -206,43 +213,48 @@ export default function NoteEditor({ noteId, initialContent = '', canEdit = true
    * Insert content at cursor position or at the end
    * Used by AI Panel to insert generated content
    */
-  const insertContent = useCallback((textToInsert) => {
-    if (!canEdit || !textareaRef.current) return;
+  const insertContent = useCallback(
+    (textToInsert) => {
+      if (!canEdit || !textareaRef.current) return;
 
-    const textarea = textareaRef.current;
-    const start = textarea.selectionStart;
-    const end = textarea.selectionEnd;
-    const currentContent = content;
+      const textarea = textareaRef.current;
+      const start = textarea.selectionStart;
+      const end = textarea.selectionEnd;
+      const currentContent = content;
 
-    // Insert text at cursor position
-    const newContent = 
-      currentContent.substring(0, start) + 
-      '\n\n' + textToInsert + '\n\n' + 
-      currentContent.substring(end);
+      // Insert text at cursor position
+      const newContent =
+        currentContent.substring(0, start) +
+        '\n\n' +
+        textToInsert +
+        '\n\n' +
+        currentContent.substring(end);
 
-    setContent(newContent);
-    lastEmittedContentRef.current = newContent;
+      setContent(newContent);
+      lastEmittedContentRef.current = newContent;
 
-    // Update cursor position after inserted text
-    const newCursorPos = start + textToInsert.length + 4; // +4 for the newlines
-    setTimeout(() => {
-      textarea.focus();
-      textarea.setSelectionRange(newCursorPos, newCursorPos);
-    }, 0);
+      // Update cursor position after inserted text
+      const newCursorPos = start + textToInsert.length + 4; // +4 for the newlines
+      setTimeout(() => {
+        textarea.focus();
+        textarea.setSelectionRange(newCursorPos, newCursorPos);
+      }, 0);
 
-    // Save the updated content
-    if (noteId) {
-      updateNote(noteId, { content: newContent }, true);
-      if (isConnected) {
-        emitNoteUpdate(noteId, { content: newContent, userId: user?.id });
+      // Save the updated content
+      if (noteId) {
+        updateNote(noteId, { content: newContent }, true);
+        if (isConnected) {
+          emitNoteUpdate(noteId, { content: newContent, userId: user?.id });
+        }
       }
-    }
 
-    // Call parent callback if provided
-    if (onContentChange) {
-      onContentChange(newContent);
-    }
-  }, [canEdit, content, noteId, updateNote, isConnected, emitNoteUpdate, user, onContentChange]);
+      // Call parent callback if provided
+      if (onContentChange) {
+        onContentChange(newContent);
+      }
+    },
+    [canEdit, content, noteId, updateNote, isConnected, emitNoteUpdate, user, onContentChange]
+  );
 
   // Expose insertContent method to parent via callback
   useEffect(() => {
@@ -254,10 +266,10 @@ export default function NoteEditor({ noteId, initialContent = '', canEdit = true
   // Format last saved time
   const getLastSavedText = () => {
     if (!lastSaved) return '';
-    
+
     const now = new Date();
     const diff = Math.floor((now - new Date(lastSaved)) / 1000);
-    
+
     if (diff < 5) return 'Saved just now';
     if (diff < 60) return `Saved ${diff}s ago`;
     if (diff < 3600) return `Saved ${Math.floor(diff / 60)}m ago`;
@@ -265,27 +277,27 @@ export default function NoteEditor({ noteId, initialContent = '', canEdit = true
   };
 
   return (
-    <div className="flex flex-col h-full">
+    <div className={styles.container}>
       {/* Auto-save indicator */}
-      <div className="flex items-center justify-between px-4 py-2 bg-gray-50 border-b border-gray-200">
-        <div className="flex items-center gap-2">
+      <div className={styles.saveIndicator}>
+        <div className={styles.saveStatus}>
           {isAutoSaving ? (
             <>
-              <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
-              <span className="text-sm text-gray-600">Saving...</span>
+              <div className={`${styles.saveDot} ${styles.saving}`}></div>
+              <span className={styles.saveText}>Saving...</span>
             </>
           ) : lastSaved ? (
             <>
-              <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-              <span className="text-sm text-gray-600">{getLastSavedText()}</span>
+              <div className={`${styles.saveDot} ${styles.saved}`}></div>
+              <span className={styles.saveText}>{getLastSavedText()}</span>
             </>
           ) : null}
         </div>
-        
+
         {!canEdit && (
-          <div className="flex items-center gap-2">
+          <div className={styles.readOnlyBadge}>
             <svg
-              className="w-4 h-4 text-gray-500"
+              className={styles.readOnlyIcon}
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -297,24 +309,20 @@ export default function NoteEditor({ noteId, initialContent = '', canEdit = true
                 d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
               />
             </svg>
-            <span className="text-sm text-gray-600">Read-only</span>
+            <span className={styles.readOnlyText}>Read-only</span>
           </div>
         )}
       </div>
 
       {/* Collaborative cursor indicators */}
       {collaborators.length > 0 && (
-        <div className="flex items-center gap-2 px-4 py-2 bg-blue-50 border-b border-blue-200">
-          <span className="text-sm text-blue-700">
+        <div className={styles.collaborators}>
+          <span className={styles.collaboratorsText}>
             {collaborators.length} {collaborators.length === 1 ? 'person' : 'people'} editing
           </span>
-          <div className="flex -space-x-2">
+          <div className={styles.collaboratorAvatars}>
             {collaborators.map((collaborator, index) => (
-              <div
-                key={index}
-                className="w-6 h-6 rounded-full bg-blue-500 border-2 border-white flex items-center justify-center text-xs text-white font-medium"
-                title={collaborator.name}
-              >
+              <div key={index} className={styles.collaboratorAvatar} title={collaborator.name}>
                 {collaborator.name?.charAt(0).toUpperCase()}
               </div>
             ))}
@@ -323,19 +331,15 @@ export default function NoteEditor({ noteId, initialContent = '', canEdit = true
       )}
 
       {/* Text editor */}
-      <div className="flex-1 relative">
+      <div className={styles.editorWrapper}>
         <textarea
           ref={textareaRef}
           value={content}
           onChange={handleContentChange}
           onKeyDown={handleKeyDown}
           disabled={!canEdit}
-          placeholder={canEdit ? "Start typing your note..." : "This note is read-only"}
-          className={`
-            w-full h-full p-4 sm:p-6 resize-none focus:outline-none
-            font-mono text-sm sm:text-base leading-relaxed
-            ${!canEdit ? 'bg-gray-50 text-gray-700 cursor-not-allowed' : 'bg-white text-gray-900'}
-          `}
+          placeholder={canEdit ? 'Start typing your note...' : 'This note is read-only'}
+          className={styles.textarea}
           aria-label="Note content editor"
           aria-readonly={!canEdit}
         />
@@ -343,9 +347,9 @@ export default function NoteEditor({ noteId, initialContent = '', canEdit = true
 
       {/* Keyboard shortcuts hint - Hidden on mobile */}
       {canEdit && (
-        <div className="hidden sm:block px-4 py-2 bg-gray-50 border-t border-gray-200">
-          <span className="text-xs text-gray-500">
-            Press <kbd className="px-1 py-0.5 bg-gray-200 rounded text-xs">Ctrl+S</kbd> to save manually
+        <div className={styles.shortcuts}>
+          <span className={styles.shortcutsText}>
+            Press <kbd className={styles.kbd}>Ctrl+S</kbd> to save manually
           </span>
         </div>
       )}

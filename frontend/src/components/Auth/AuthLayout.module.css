@@ -1,0 +1,136 @@
+.container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-6);
+  position: relative;
+  overflow: hidden;
+}
+
+.mainContainer {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  position: relative;
+  z-index: var(--z-base);
+}
+
+.grid {
+  display: grid;
+  gap: var(--spacing-10);
+  align-items: stretch;
+}
+
+.formPanel {
+  order: 1;
+}
+
+.formCard {
+  padding: var(--spacing-10);
+  min-width: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 700px;
+}
+
+.formContent {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.brandingPanel {
+  display: none;
+  order: 2;
+}
+
+.brandingContent {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.mobileBranding {
+  display: block;
+  text-align: center;
+  margin-top: var(--spacing-10);
+  padding: var(--spacing-8);
+  animation: fadeIn var(--duration-normal) var(--easing);
+}
+
+.mobileBrandingHeader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2);
+  margin-bottom: var(--spacing-2);
+}
+
+.mobileBrandingIcon {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-xl);
+  background: var(--gradient-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.mobileBrandingIconSvg {
+  width: 20px;
+  height: 20px;
+  color: white;
+}
+
+.mobileBrandingTitle {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.mobileBrandingSubtitle {
+  font-size: var(--font-size-sm);
+  color: var(--color-slate-600);
+}
+
+/* Responsive Styles */
+@media (min-width: 640px) {
+  .container {
+    padding: var(--spacing-10);
+  }
+
+  .formCard {
+    padding: var(--spacing-12);
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding: var(--spacing-16);
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-16);
+  }
+
+  .formPanel {
+    order: 1;
+  }
+
+  .formCard {
+    padding: var(--spacing-16);
+  }
+
+  .brandingPanel {
+    display: block;
+    order: 2;
+  }
+
+  .mobileBranding {
+    display: none;
+  }
+}

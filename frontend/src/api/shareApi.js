@@ -26,8 +26,7 @@ const shareApi = {
    * @param {boolean} options.isPublic - Whether the link is public or restricted
    * @returns {Promise} Response with generated link
    */
-  generateNoteLink: (noteId, options) =>
-    axiosInstance.post(`/api/share/note/${noteId}`, options),
+  generateNoteLink: (noteId, options) => axiosInstance.post(`/api/share/note/${noteId}`, options),
 
   /**
    * Validate and access a shareable instance link
@@ -56,8 +55,7 @@ const shareApi = {
    * @param {string} linkId - Link ID
    * @returns {Promise} Response confirming revocation
    */
-  revokeLink: (linkId) =>
-    axiosInstance.delete(`/api/share/link/${linkId}`),
+  revokeLink: (linkId) => axiosInstance.delete(`/api/share/link/${linkId}`),
 
   /**
    * Get all active shareable links for a resource

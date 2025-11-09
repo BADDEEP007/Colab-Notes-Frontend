@@ -1,10 +1,10 @@
 /* eslint-disable */
 /**
  * Socket Integration Usage Examples
- * 
+ *
  * This file demonstrates how to use the WebSocket integration
  * in different parts of the application.
- * 
+ *
  * NOTE: This is a documentation file with examples only.
  * Linting is disabled for this file.
  */

@@ -5,6 +5,7 @@ import InstancesGrid from '../components/Dashboard/InstancesGrid';
 import ProductivityToolbar from '../components/Dashboard/ProductivityToolbar';
 import AnimatedBackground from '../components/AnimatedBackground';
 import useNotifications from '../hooks/useNotifications';
+import styles from './DashboardPage.module.css';
 
 /**
  * Dashboard Page Component
@@ -27,34 +28,26 @@ export default function DashboardPage() {
   }, [isSidebarCollapsed]);
 
   return (
-    <div className="min-h-screen relative overflow-hidden bg-gradient-bg">
+    <div className={styles.container}>
       {/* AnimatedBackground with dashboard variant */}
       <AnimatedBackground variant="dashboard" intensity={1} />
 
       {/* Navbar at top with glass effect */}
-      <div className="relative z-sticky">
+      <div className={styles.navbarWrapper}>
         <DashboardNavbar onSearch={handleSearch} showSearch={true} />
       </div>
 
       {/* Main Content Area - Responsive layout */}
-      <div className="flex relative z-base min-h-screen">
+      <div className={styles.layout}>
         {/* Main Content - InstancesGrid */}
-        <main 
-          id="main-content" 
-          className="flex-1 p-6 sm:p-8 lg:p-12 pb-32 overflow-y-auto fade-in" 
-          role="main"
-          style={{ marginTop: '80px' }}
-        >
-          <div className="max-w-[1600px] mx-auto">
+        <main id="main-content" className={`${styles.main} fade-in`} role="main">
+          <div className={styles.mainContent}>
             <InstancesGrid searchQuery={searchQuery} />
           </div>
         </main>
 
         {/* OnlineUsersSidebar - Collapsible on mobile */}
-        <OnlineUsersSidebar
-          isCollapsed={isSidebarCollapsed}
-          onToggle={handleSidebarToggle}
-        />
+        <OnlineUsersSidebar isCollapsed={isSidebarCollapsed} onToggle={handleSidebarToggle} />
       </div>
 
       {/* ProductivityToolbar at bottom */}

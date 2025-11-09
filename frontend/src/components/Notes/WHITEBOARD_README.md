@@ -13,6 +13,7 @@ The whiteboard feature provides a collaborative canvas-based drawing area within
 The main whiteboard canvas component that initializes and manages the Fabric.js canvas.
 
 **Features:**
+
 - Fabric.js canvas initialization with responsive behavior
 - Touch support for mobile devices
 - Automatic canvas resizing
@@ -20,6 +21,7 @@ The main whiteboard canvas component that initializes and manages the Fabric.js 
 - Integration with drawing tools, history, and sync hooks
 
 **Props:**
+
 - `noteId` - Note ID for the whiteboard
 - `canEdit` - Whether user can edit (role-based)
 - `onDrawingChange` - Callback for auto-save
@@ -38,6 +40,7 @@ The main whiteboard canvas component that initializes and manages the Fabric.js 
 The tools panel component providing drawing tool selection and configuration.
 
 **Features:**
+
 - Tool buttons (pen, eraser, shapes, text, selection)
 - Color picker with common colors and custom color input
 - Stroke width selector (1-12px)
@@ -46,6 +49,7 @@ The tools panel component providing drawing tool selection and configuration.
 - Disabled state for Viewer role
 
 **Props:**
+
 - `selectedTool` - Currently selected tool
 - `onToolChange` - Tool change callback
 - `toolOptions` - Current tool options
@@ -62,12 +66,14 @@ The tools panel component providing drawing tool selection and configuration.
 Container component that integrates Whiteboard and ToolsPanel with the note store.
 
 **Features:**
+
 - Manages tool state and options
 - Handles auto-save to note store
 - Loads initial whiteboard data from current note
 - Coordinates between Whiteboard and ToolsPanel
 
 **Props:**
+
 - `noteId` - Note ID for the whiteboard
 - `canEdit` - Whether user can edit
 - `enableSync` - Enable real-time synchronization
@@ -79,6 +85,7 @@ Container component that integrates Whiteboard and ToolsPanel with the note stor
 Manages drawing tool functionality for the whiteboard.
 
 **Supported Tools:**
+
 - **Pen** - Free-hand drawing with configurable color and width
 - **Eraser** - Erases drawn content (white brush)
 - **Selection** - Select and move objects
@@ -93,6 +100,7 @@ Manages drawing tool functionality for the whiteboard.
 Manages undo/redo history for the whiteboard.
 
 **Features:**
+
 - Maintains history stack of canvas states (max 50 states)
 - Undo functionality (Ctrl+Z / Cmd+Z)
 - Redo functionality (Ctrl+Y / Cmd+Shift+Z)
@@ -104,6 +112,7 @@ Manages undo/redo history for the whiteboard.
 Handles real-time synchronization of whiteboard changes via WebSocket.
 
 **Features:**
+
 - Emits drawing updates with 100ms debounce
 - Listens for remote drawing updates
 - Prevents echo of own updates
@@ -117,6 +126,7 @@ Handles real-time synchronization of whiteboard changes via WebSocket.
 Provides export functionality for the whiteboard canvas.
 
 **Functions:**
+
 - `exportAsPNG(canvas, filename)` - Export canvas as PNG image
 - `exportAsPDF(canvas, filename)` - Export canvas as PDF document
 - `exportWhiteboard(canvas, format, filename)` - Generic export function
@@ -131,11 +141,7 @@ function ContainerPage({ noteId, userRole }) {
 
   return (
     <div className="h-screen">
-      <WhiteboardContainer
-        noteId={noteId}
-        canEdit={canEdit}
-        enableSync={true}
-      />
+      <WhiteboardContainer noteId={noteId} canEdit={canEdit} enableSync={true} />
     </div>
   );
 }

@@ -4,6 +4,9 @@ import { WhiteboardContainer } from './index';
 /**
  * Example usage of WhiteboardContainer component
  * This demonstrates how to integrate the whiteboard into a container/note page
+ *
+ * NOTE: This example file uses inline Tailwind classes for demonstration purposes only.
+ * In production code, use CSS Modules as shown in the actual component implementations.
  */
 export default function WhiteboardExample() {
   const [noteId] = useState('example-note-123');
@@ -23,11 +26,7 @@ export default function WhiteboardExample() {
 
       {/* Whiteboard Container */}
       <main className="flex-1 overflow-hidden">
-        <WhiteboardContainer
-          noteId={noteId}
-          canEdit={canEdit}
-          enableSync={true}
-        />
+        <WhiteboardContainer noteId={noteId} canEdit={canEdit} enableSync={true} />
       </main>
     </div>
   );

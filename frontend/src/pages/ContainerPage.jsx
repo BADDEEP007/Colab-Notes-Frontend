@@ -5,6 +5,7 @@ import { ActiveUsersPanel } from '../components/Instance';
 import useNoteStore from '../store/useNoteStore';
 import useAuthStore from '../store/useAuthStore';
 import useInstanceStore from '../store/useInstanceStore';
+import styles from './ContainerPage.module.css';
 
 /**
  * Container Page Component
@@ -42,17 +43,17 @@ export default function ContainerPage() {
   const insertContentRef = useRef(null);
 
   // Get the instance to determine user role
-  const instance = currentInstance || instances.find(inst => inst.id === instanceId);
+  const instance = currentInstance || instances.find((inst) => inst.id === instanceId);
 
   // Determine user's role in the instance
   const getUserRole = useCallback(() => {
     if (!instance || !user) return 'Viewer';
-    
+
     // Check if user is the owner
     if (instance.ownerId === user.id) return 'Owner';
-    
+
     // Check member role
-    const member = instance.members?.find(m => m.userId === user.id);
+    const member = instance.members?.find((m) => m.userId === user.id);
     return member?.role || 'Viewer';
   }, [instance, user]);
 
@@ -103,11 +104,14 @@ export default function ContainerPage() {
   };
 
   // Handle whiteboard drawing change
-  const handleDrawingChange = useCallback((whiteboardData) => {
-    if (noteId && canEdit) {
-      updateNote(noteId, { whiteboardData }, false);
-    }
-  }, [noteId, canEdit, updateNote]);
+  const handleDrawingChange = useCallback(
+    (whiteboardData) => {
+      if (noteId && canEdit) {
+        updateNote(noteId, { whiteboardData }, false);
+      }
+    },
+    [noteId, canEdit, updateNote]
+  );
 
   // Handle note content change
   const handleContentChange = useCallback((content) => {
@@ -155,10 +159,10 @@ export default function ContainerPage() {
   // Format last saved time
   const getLastSavedText = () => {
     if (!lastSaved) return '';
-    
+
     const now = new Date();
     const diff = Math.floor((now - new Date(lastSaved)) / 1000);
-    
+
     if (diff < 5) return 'Saved just now';
     if (diff < 60) return `Saved ${diff}s ago`;
     if (diff < 3600) return `Saved ${Math.floor(diff / 60)}m ago`;
@@ -168,30 +172,30 @@ export default function ContainerPage() {
   // Loading state
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-950 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-gray-600 dark:text-gray-400">Loading note...</p>
+      <div className={styles.loadingContainer}>
+        <div className={styles.loadingContent}>
+          <div className={styles.spinner}></div>
+          <p className={styles.loadingText}>Loading note...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 flex flex-col">
+    <div className={styles.container}>
       {/* Navbar with auto-save indicator */}
-      <nav className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 sticky top-0 z-40">
-        <div className="max-w-full px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
+      <nav className={styles.navbar}>
+        <div className={styles.navbarInner}>
+          <div className={styles.navbarContent}>
             {/* Left: Back button and Note title */}
-            <div className="flex items-center space-x-2 sm:space-x-4 min-w-0 flex-1 lg:flex-initial">
+            <div className={styles.navbarLeft}>
               <button
                 onClick={handleBackToInstance}
-                className="p-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors touch-manipulation shrink-0"
+                className={styles.backButton}
                 aria-label="Back to instance"
               >
                 <svg
-                  className="h-5 w-5 sm:h-6 sm:w-6"
+                  className={styles.backButtonIcon}
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -205,33 +209,22 @@ export default function ContainerPage() {
                   />
                 </svg>
               </button>
-              <div className="min-w-0">
-                <h1 className="text-base sm:text-xl font-bold text-gray-900 dark:text-white truncate">
-                  {currentNote?.title || 'Untitled Note'}
-                </h1>
-                <p className="text-xs text-gray-500 dark:text-gray-400 hidden sm:block truncate">
-                  {instance?.name || 'Instance'}
-                </p>
+              <div className={styles.noteInfo}>
+                <h1 className={styles.noteTitle}>{currentNote?.title || 'Untitled Note'}</h1>
+                <p className={styles.instanceName}>{instance?.name || 'Instance'}</p>
               </div>
             </div>
 
             {/* Center: View toggle */}
-            <div className="flex items-center bg-gray-100 dark:bg-gray-800 rounded-lg p-1 shrink-0">
+            <div className={styles.viewToggle}>
               <button
                 onClick={() => handleViewToggle('whiteboard')}
-                className={`
-                  px-2 sm:px-4 py-2 rounded-md text-xs sm:text-sm font-medium transition-all touch-manipulation
-                  ${
-                    activeView === 'whiteboard'
-                      ? 'bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm'
-                      : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
-                  }
-                `}
+                className={`${styles.viewButton} ${activeView === 'whiteboard' ? styles.active : ''}`}
                 aria-label="Switch to whiteboard view"
                 aria-pressed={activeView === 'whiteboard'}
               >
                 <svg
-                  className="h-4 w-4 sm:h-5 sm:w-5 inline-block sm:mr-2"
+                  className={styles.viewButtonIcon}
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -244,23 +237,16 @@ export default function ContainerPage() {
                     d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"
                   />
                 </svg>
-                <span className="hidden sm:inline">Whiteboard</span>
+                <span className={styles.viewButtonLabel}>Whiteboard</span>
               </button>
               <button
                 onClick={() => handleViewToggle('editor')}
-                className={`
-                  px-2 sm:px-4 py-2 rounded-md text-xs sm:text-sm font-medium transition-all touch-manipulation
-                  ${
-                    activeView === 'editor'
-                      ? 'bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm'
-                      : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
-                  }
-                `}
+                className={`${styles.viewButton} ${activeView === 'editor' ? styles.active : ''}`}
                 aria-label="Switch to text editor view"
                 aria-pressed={activeView === 'editor'}
               >
                 <svg
-                  className="h-4 w-4 sm:h-5 sm:w-5 inline-block sm:mr-2"
+                  className={styles.viewButtonIcon}
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -273,40 +259,41 @@ export default function ContainerPage() {
                     d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
                   />
                 </svg>
-                <span className="hidden sm:inline">Text Editor</span>
+                <span className={styles.viewButtonLabel}>Text Editor</span>
               </button>
             </div>
 
             {/* Right: Auto-save indicator and profile */}
-            <div className="flex items-center space-x-2 sm:space-x-4 shrink-0">
+            <div className={styles.navbarRight}>
               {/* Auto-save indicator */}
-              <div className="hidden sm:flex items-center gap-2">
+              <div className={styles.saveIndicator}>
                 {isAutoSaving ? (
                   <>
-                    <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
-                    <span className="text-sm text-gray-600 dark:text-gray-400">Saving...</span>
+                    <div className={`${styles.saveDot} ${styles.saving}`}></div>
+                    <span className={styles.saveText}>Saving...</span>
                   </>
                 ) : lastSaved ? (
                   <>
-                    <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                    <span className="text-sm text-gray-600 dark:text-gray-400">
-                      {getLastSavedText()}
-                    </span>
+                    <div className={`${styles.saveDot} ${styles.saved}`}></div>
+                    <span className={styles.saveText}>{getLastSavedText()}</span>
                   </>
                 ) : null}
               </div>
 
               {/* Mobile save indicator - just the dot */}
-              <div className="sm:hidden">
+              <div className={styles.saveIndicatorMobile}>
                 {isAutoSaving ? (
-                  <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse" title="Saving..."></div>
+                  <div className={`${styles.saveDot} ${styles.saving}`} title="Saving..."></div>
                 ) : lastSaved ? (
-                  <div className="w-2 h-2 bg-green-500 rounded-full" title={getLastSavedText()}></div>
+                  <div
+                    className={`${styles.saveDot} ${styles.saved}`}
+                    title={getLastSavedText()}
+                  ></div>
                 ) : null}
               </div>
 
               {/* Profile Avatar - Hidden on mobile */}
-              <div className="hidden sm:flex w-10 h-10 bg-blue-600 rounded-full items-center justify-center text-white font-semibold">
+              <div className={styles.profileAvatar}>
                 {user?.name?.charAt(0).toUpperCase() || 'U'}
               </div>
             </div>
@@ -315,8 +302,8 @@ export default function ContainerPage() {
       </nav>
 
       {/* Main Content Area */}
-      <div className="flex flex-col flex-1 overflow-hidden">
-        <div className="flex flex-col md:flex-row flex-1 overflow-hidden">
+      <div className={styles.mainContent}>
+        <div className={styles.contentWrapper}>
           {/* Tools Panel - Only show for whiteboard view, horizontal on mobile */}
           {activeView === 'whiteboard' && (
             <ToolsPanel
@@ -334,9 +321,9 @@ export default function ContainerPage() {
           )}
 
           {/* Main Content */}
-          <main className="flex-1 overflow-hidden">
+          <main className={styles.editorArea}>
             {activeView === 'whiteboard' ? (
-              <div className="h-full p-2 sm:p-4">
+              <div className={styles.whiteboardWrapper}>
                 <Whiteboard
                   noteId={noteId}
                   canEdit={canEdit}
@@ -379,10 +366,10 @@ export default function ContainerPage() {
 
       {/* Read-only indicator for viewers */}
       {!canEdit && (
-        <div className="fixed top-20 right-4 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg px-4 py-2 shadow-lg z-30">
-          <div className="flex items-center gap-2">
+        <div className={styles.readOnlyBadge}>
+          <div className={styles.readOnlyContent}>
             <svg
-              className="w-5 h-5 text-yellow-600 dark:text-yellow-500"
+              className={styles.readOnlyIcon}
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -394,9 +381,7 @@ export default function ContainerPage() {
                 d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
               />
             </svg>
-            <span className="text-sm font-medium text-yellow-800 dark:text-yellow-200">
-              View Only Mode
-            </span>
+            <span className={styles.readOnlyText}>View Only Mode</span>
           </div>
         </div>
       )}

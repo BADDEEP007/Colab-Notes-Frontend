@@ -1,0 +1,28 @@
+.loadingContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+/* Skip to Main Content Link - Accessibility */
+:global(.skip-to-main) {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 9999;
+  padding: var(--spacing-4) var(--spacing-6);
+  background: var(--color-sky-blue-dark);
+  color: white;
+  text-decoration: none;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: var(--font-size-base);
+}
+
+:global(.skip-to-main):focus {
+  left: var(--spacing-4);
+  top: var(--spacing-4);
+  outline: 2px solid white;
+  outline-offset: 2px;
+}

@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import './Chatbot.css'
+import { useState } from 'react';
+import './Chatbot.css';
 
 export default function Chatbot({ isOpen, onToggle }) {
   if (!isOpen) return null;
@@ -8,27 +8,27 @@ export default function Chatbot({ isOpen, onToggle }) {
       id: 1,
       text: "Hello! I'm your study assistant. How can I help you today?",
       sender: 'bot',
-      timestamp: new Date().toLocaleTimeString()
-    }
-  ])
-  const [inputMessage, setInputMessage] = useState('')
-  const [isTyping, setIsTyping] = useState(false)
+      timestamp: new Date().toLocaleTimeString(),
+    },
+  ]);
+  const [inputMessage, setInputMessage] = useState('');
+  const [isTyping, setIsTyping] = useState(false);
 
   const handleSendMessage = (e) => {
-    e.preventDefault()
-    if (!inputMessage.trim()) return
+    e.preventDefault();
+    if (!inputMessage.trim()) return;
 
     // Add user message
     const userMessage = {
       id: Date.now(),
       text: inputMessage,
       sender: 'user',
-      timestamp: new Date().toLocaleTimeString()
-    }
+      timestamp: new Date().toLocaleTimeString(),
+    };
 
-    setMessages(prev => [...prev, userMessage])
-    setInputMessage('')
-    setIsTyping(true)
+    setMessages((prev) => [...prev, userMessage]);
+    setInputMessage('');
+    setIsTyping(true);
 
     // Simulate bot response
     setTimeout(() => {
@@ -36,27 +36,29 @@ export default function Chatbot({ isOpen, onToggle }) {
         id: Date.now() + 1,
         text: getBotResponse(inputMessage),
         sender: 'bot',
-        timestamp: new Date().toLocaleTimeString()
-      }
-      setMessages(prev => [...prev, botMessage])
-      setIsTyping(false)
-    }, 1500)
-  }
+        timestamp: new Date().toLocaleTimeString(),
+      };
+      setMessages((prev) => [...prev, botMessage]);
+      setIsTyping(false);
+    }, 1500);
+  };
 
   const getBotResponse = (message) => {
     const responses = [
       "That's an interesting question! Let me help you with that.",
-      "I can help you find study materials related to that topic.",
-      "Would you like me to search for notes on this subject?",
-      "Great question! Here are some resources that might help.",
-      "I can connect you with classmates who are studying similar topics."
-    ]
-    return responses[Math.floor(Math.random() * responses.length)]
-  }
+      'I can help you find study materials related to that topic.',
+      'Would you like me to search for notes on this subject?',
+      'Great question! Here are some resources that might help.',
+      'I can connect you with classmates who are studying similar topics.',
+    ];
+    return responses[Math.floor(Math.random() * responses.length)];
+  };
 
   return (
     <div className="chatbot-container">
-      <button className="chatbot-close" onClick={onToggle}>×</button>
+      <button className="chatbot-close" onClick={onToggle}>
+        ×
+      </button>
       <div className="chatbot-header">
         <div className="bot-info">
           <div className="bot-avatar">🤖</div>
@@ -76,7 +78,7 @@ export default function Chatbot({ isOpen, onToggle }) {
             </div>
           </div>
         ))}
-        
+
         {isTyping && (
           <div className="message bot">
             <div className="message-content">
@@ -103,5 +105,5 @@ export default function Chatbot({ isOpen, onToggle }) {
         </button>
       </form>
     </div>
-  )
+  );
 }

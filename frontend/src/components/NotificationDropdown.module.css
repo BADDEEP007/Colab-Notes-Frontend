@@ -1,0 +1,265 @@
+.dropdown {
+  position: absolute;
+  right: 0;
+  margin-top: var(--spacing-2);
+  width: 384px;
+  background: white;
+  border-radius: var(--radius-lg);
+  box-shadow:
+    0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e5e7eb;
+  overflow: hidden;
+}
+
+/* Header */
+.header {
+  padding: var(--spacing-4);
+  border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.headerTitle {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-slate-800);
+}
+
+.markAllButton {
+  font-size: var(--font-size-xs);
+  color: #2563eb;
+  font-weight: 500;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color var(--duration-fast) var(--easing);
+}
+
+.markAllButton:hover {
+  color: #1d4ed8;
+}
+
+/* Notifications List */
+.list {
+  max-height: 384px;
+  overflow-y: auto;
+}
+
+.divider {
+  border-top: 1px solid #e5e7eb;
+}
+
+/* Empty State */
+.empty {
+  padding: var(--spacing-12) var(--spacing-4);
+  text-align: center;
+}
+
+.emptyIcon {
+  margin: 0 auto;
+  height: 48px;
+  width: 48px;
+  color: #9ca3af;
+}
+
+.emptyText {
+  margin-top: var(--spacing-2);
+  font-size: var(--font-size-sm);
+  color: var(--color-slate-600);
+}
+
+/* Notification Item */
+.notificationItem {
+  width: 100%;
+  padding: var(--spacing-3) var(--spacing-4);
+  text-align: left;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--easing);
+  position: relative;
+}
+
+.notificationItem:hover {
+  background: #f9fafb;
+}
+
+.unread {
+  background: #eff6ff;
+}
+
+.unread:hover {
+  background: #dbeafe;
+}
+
+.notificationContent {
+  display: flex;
+  align-items: start;
+  gap: var(--spacing-3);
+}
+
+/* Icon */
+.iconContainer {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+}
+
+.iconBlue {
+  color: #2563eb;
+}
+
+.iconGreen {
+  color: #16a34a;
+}
+
+.iconPurple {
+  color: #9333ea;
+}
+
+.iconGray {
+  color: var(--color-slate-600);
+}
+
+/* Content */
+.textContent {
+  flex: 1;
+  min-width: 0;
+}
+
+.notificationTitle {
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--color-slate-800);
+}
+
+.notificationMessage {
+  font-size: var(--font-size-sm);
+  color: var(--color-slate-600);
+  margin-top: 2px;
+}
+
+.notificationTime {
+  font-size: var(--font-size-xs);
+  color: var(--color-slate-600);
+  margin-top: var(--spacing-1);
+}
+
+/* Actions */
+.actions {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.unreadIndicator {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background: #2563eb;
+  border-radius: 50%;
+}
+
+.removeButton {
+  color: #9ca3af;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color var(--duration-fast) var(--easing);
+}
+
+.removeButton:hover {
+  color: var(--color-slate-600);
+}
+
+.removeIcon {
+  width: 16px;
+  height: 16px;
+}
+
+/* Dark mode support (if needed in future) */
+@media (prefers-color-scheme: dark) {
+  .dropdown {
+    background: #1f2937;
+    border-color: #374151;
+  }
+
+  .header {
+    border-bottom-color: #374151;
+  }
+
+  .headerTitle {
+    color: white;
+  }
+
+  .markAllButton {
+    color: #60a5fa;
+  }
+
+  .markAllButton:hover {
+    color: #93c5fd;
+  }
+
+  .divider {
+    border-top-color: #374151;
+  }
+
+  .emptyIcon {
+    color: #4b5563;
+  }
+
+  .emptyText {
+    color: #9ca3af;
+  }
+
+  .notificationItem:hover {
+    background: #374151;
+  }
+
+  .unread {
+    background: rgba(37, 99, 235, 0.2);
+  }
+
+  .unread:hover {
+    background: rgba(37, 99, 235, 0.3);
+  }
+
+  .notificationTitle {
+    color: white;
+  }
+
+  .notificationMessage {
+    color: #9ca3af;
+  }
+
+  .notificationTime {
+    color: #6b7280;
+  }
+
+  .removeButton {
+    color: #6b7280;
+  }
+
+  .removeButton:hover {
+    color: #9ca3af;
+  }
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .dropdown {
+    width: 100vw;
+    max-width: 384px;
+  }
+}

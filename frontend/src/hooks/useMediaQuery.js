@@ -11,7 +11,7 @@ const useMediaQuery = (query) => {
   useEffect(() => {
     // Create media query list
     const mediaQuery = window.matchMedia(query);
-    
+
     // Set initial value
     setMatches(mediaQuery.matches);
 

@@ -9,17 +9,13 @@ const Whiteboard = lazy(() => import('./Whiteboard'));
 /**
  * WhiteboardContainer component
  * Integrates Whiteboard with ToolsPanel and handles auto-save to note store
- * 
+ *
  * @param {Object} props
  * @param {string} props.noteId - Note ID for the whiteboard
  * @param {boolean} props.canEdit - Whether user can edit the whiteboard
  * @param {boolean} props.enableSync - Enable real-time synchronization
  */
-export default function WhiteboardContainer({
-  noteId,
-  canEdit = true,
-  enableSync = true,
-}) {
+export default function WhiteboardContainer({ noteId, canEdit = true, enableSync = true }) {
   const [selectedTool, setSelectedTool] = useState('pen');
   const [toolOptions, setToolOptions] = useState({
     color: '#000000',
@@ -39,7 +35,7 @@ export default function WhiteboardContainer({
   // Handle drawing changes and auto-save
   const handleDrawingChange = (whiteboardData) => {
     if (!noteId) return;
-    
+
     // Update whiteboard data in note store (with debounced auto-save)
     updateWhiteboard(noteId, whiteboardData);
   };

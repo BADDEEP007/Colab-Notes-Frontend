@@ -1,0 +1,205 @@
+.spinner {
+  display: inline-block;
+  border-radius: 50%;
+  border-style: solid;
+  border-color: #2563eb;
+  border-top-color: transparent;
+  animation: spin 0.8s linear infinite;
+}
+
+.small {
+  width: 16px;
+  height: 16px;
+  border-width: 2px;
+}
+
+.medium {
+  width: 32px;
+  height: 32px;
+  border-width: 3px;
+}
+
+.large {
+  width: 48px;
+  height: 48px;
+  border-width: 4px;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Full screen loading */
+.fullScreen {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.75);
+  z-index: var(--z-modal);
+}
+
+.fullScreenContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-3);
+}
+
+.fullScreenText {
+  font-size: var(--font-size-sm);
+  color: var(--color-slate-600);
+}
+
+/* Loading Overlay */
+.overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(17, 24, 39, 0.5);
+  z-index: var(--z-modal);
+}
+
+.overlayContent {
+  background: white;
+  border-radius: var(--radius-lg);
+  box-shadow:
+    0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  padding: var(--spacing-6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-4);
+  min-width: 200px;
+}
+
+.overlayText {
+  color: var(--color-slate-700);
+  font-weight: 500;
+}
+
+/* Loading Button */
+.loadingButton {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2);
+}
+
+.loadingButton.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.buttonSpinner {
+  position: absolute;
+  left: var(--spacing-4);
+}
+
+.buttonContent {
+  opacity: 1;
+}
+
+.buttonContent.loading {
+  opacity: 0;
+}
+
+/* Skeleton Loader */
+.skeleton {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  background: #e5e7eb;
+}
+
+.skeletonText {
+  height: 16px;
+  width: 100%;
+}
+
+.skeletonTitle {
+  height: 24px;
+  width: 75%;
+}
+
+.skeletonAvatar {
+  height: 48px;
+  width: 48px;
+  border-radius: 50%;
+}
+
+.skeletonCard {
+  height: 128px;
+  width: 100%;
+  border-radius: var(--radius-lg);
+}
+
+.skeletonButton {
+  height: 40px;
+  width: 96px;
+  border-radius: var(--radius-lg);
+}
+
+/* Card Skeleton */
+.cardSkeleton {
+  background: white;
+  border-radius: var(--radius-lg);
+  box-shadow:
+    0 1px 3px 0 rgba(0, 0, 0, 0.1),
+    0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  padding: var(--spacing-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+}
+
+.cardSkeletonButtons {
+  display: flex;
+  gap: var(--spacing-2);
+  padding-top: var(--spacing-2);
+}
+
+.cardSkeletonTextShort {
+  width: 66.666667%;
+}
+
+/* Pulse animation */
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Spin animation */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .spinner {
+    animation: none;
+    border-top-color: #2563eb;
+  }
+
+  .skeleton {
+    animation: none;
+  }
+}

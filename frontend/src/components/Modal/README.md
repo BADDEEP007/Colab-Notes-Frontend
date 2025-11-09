@@ -17,10 +17,11 @@ import { Modal, ModalHeader, ModalBody, ModalFooter } from '@/components';
   <ModalFooter>
     <GlassButton onClick={handleClose}>Close</GlassButton>
   </ModalFooter>
-</Modal>
+</Modal>;
 ```
 
 **Props:**
+
 - `isOpen` (boolean, required): Whether the modal is open
 - `onClose` (function, required): Function to call when modal should close
 - `children` (node, required): Modal content
@@ -29,6 +30,7 @@ import { Modal, ModalHeader, ModalBody, ModalFooter } from '@/components';
 - `closeOnEscape` (boolean, default: true): Whether pressing Escape closes modal
 
 **Features:**
+
 - Backdrop blur effect
 - Scale animation (0.95 to 1.0) over 0.3s
 - Escape key support
@@ -41,9 +43,7 @@ import { Modal, ModalHeader, ModalBody, ModalFooter } from '@/components';
 Header section with title and optional close button.
 
 ```jsx
-<ModalHeader onClose={handleClose}>
-  Modal Title
-</ModalHeader>
+<ModalHeader onClose={handleClose}>Modal Title</ModalHeader>
 ```
 
 ### ModalBody
@@ -62,8 +62,12 @@ Footer section for action buttons, aligned to the right.
 
 ```jsx
 <ModalFooter>
-  <GlassButton variant="ghost" onClick={handleClose}>Cancel</GlassButton>
-  <GlassButton variant="primary" onClick={handleSubmit}>Submit</GlassButton>
+  <GlassButton variant="ghost" onClick={handleClose}>
+    Cancel
+  </GlassButton>
+  <GlassButton variant="primary" onClick={handleSubmit}>
+    Submit
+  </GlassButton>
 </ModalFooter>
 ```
 
@@ -83,10 +87,11 @@ import { InviteModal } from '@/components';
   currentMembers={members}
   friends={friendsList}
   loading={isLoading}
-/>
+/>;
 ```
 
 **Props:**
+
 - `isOpen` (boolean, required): Whether the modal is open
 - `onClose` (function, required): Function to call when modal closes
 - `onInvite` (function, required): Function to call when invitation is sent
@@ -95,6 +100,7 @@ import { InviteModal } from '@/components';
 - `loading` (boolean): Loading state
 
 **Features:**
+
 - Email input with validation
 - Friend selector dropdown
 - Role selection (Owner, Editor, Viewer)
@@ -116,10 +122,11 @@ import { ShareModal } from '@/components';
   resourceId="123"
   existingLink={link}
   loading={isLoading}
-/>
+/>;
 ```
 
 **Props:**
+
 - `isOpen` (boolean, required): Whether the modal is open
 - `onClose` (function, required): Function to call when modal closes
 - `onGenerateLink` (function, required): Function to call when generating a link
@@ -129,6 +136,7 @@ import { ShareModal } from '@/components';
 - `loading` (boolean): Loading state
 
 **Features:**
+
 - Public/Restricted access toggle
 - Role selection (Viewer, Editor)
 - Expiry date picker
@@ -151,10 +159,11 @@ import { AIResultModal } from '@/components';
   onInsert={handleInsert}
   title="AI Summary"
   showInsertButton={true}
-/>
+/>;
 ```
 
 **Props:**
+
 - `isOpen` (boolean, required): Whether the modal is open
 - `onClose` (function, required): Function to call when modal closes
 - `content` (string): AI-generated content to display
@@ -164,6 +173,7 @@ import { AIResultModal } from '@/components';
 - `showInsertButton` (boolean, default: true): Whether to show the insert button
 
 **Features:**
+
 - Loading shimmer animation during processing
 - Copy to clipboard functionality
 - Insert to note functionality
@@ -175,6 +185,7 @@ import { AIResultModal } from '@/components';
 All modals are fully responsive:
 
 ### Mobile (< 768px)
+
 - Full-screen overlay
 - No border radius
 - Adjusted padding
@@ -182,11 +193,13 @@ All modals are fully responsive:
 - Stacked button layout
 
 ### Tablet (768px - 1199px)
+
 - Max width: 600px
 - Centered on screen
 - Standard padding
 
 ### Desktop (≥ 1200px)
+
 - Max width: 700px (500px for standard modals)
 - Centered on screen
 - Full padding
@@ -194,6 +207,7 @@ All modals are fully responsive:
 ## Accessibility
 
 All modals include:
+
 - Keyboard navigation support
 - Escape key to close
 - Focus management
@@ -205,6 +219,7 @@ All modals include:
 ## Styling
 
 Modals use the glassmorphism design system:
+
 - Backdrop blur effect
 - Semi-transparent backgrounds
 - Smooth animations
@@ -219,9 +234,7 @@ Modals use the glassmorphism design system:
 const [isOpen, setIsOpen] = useState(false);
 
 <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-  <ModalHeader onClose={() => setIsOpen(false)}>
-    Confirm Action
-  </ModalHeader>
+  <ModalHeader onClose={() => setIsOpen(false)}>Confirm Action</ModalHeader>
   <ModalBody>
     <p>Are you sure you want to proceed?</p>
   </ModalBody>
@@ -233,7 +246,7 @@ const [isOpen, setIsOpen] = useState(false);
       Confirm
     </GlassButton>
   </ModalFooter>
-</Modal>
+</Modal>;
 ```
 
 ### Invite Modal
@@ -250,12 +263,10 @@ const handleInvite = async (inviteData) => {
   onInvite={handleInvite}
   currentMembers={[
     { id: '1', name: 'John Doe', email: 'john@example.com', role: 'Owner' },
-    { id: '2', name: 'Jane Smith', email: 'jane@example.com', role: 'Editor' }
+    { id: '2', name: 'Jane Smith', email: 'jane@example.com', role: 'Editor' },
   ]}
-  friends={[
-    { id: '3', name: 'Bob Wilson', email: 'bob@example.com' }
-  ]}
-/>
+  friends={[{ id: '3', name: 'Bob Wilson', email: 'bob@example.com' }]}
+/>;
 ```
 
 ### Share Modal
@@ -273,7 +284,7 @@ const handleGenerateLink = async (linkData) => {
   onGenerateLink={handleGenerateLink}
   resourceType="note"
   resourceId={noteId}
-/>
+/>;
 ```
 
 ### AI Result Modal
@@ -291,7 +302,7 @@ const handleInsert = (content) => {
   loading={isProcessing}
   onInsert={handleInsert}
   title="AI Summary"
-/>
+/>;
 ```
 
 ## Requirements Fulfilled

@@ -2,6 +2,7 @@ import { useEffect, useState, useMemo, useCallback, useRef } from 'react';
 import { List } from 'react-window';
 import useFriendStore from '../../store/useFriendStore';
 import FriendCard from './FriendCard';
+import styles from './FriendsList.module.css';
 
 /**
  * Friends List Component
@@ -25,18 +26,21 @@ export default function FriendsList({ onShareNote }) {
         setContainerWidth(containerRef.current.offsetWidth);
       }
     };
-    
+
     updateWidth();
     window.addEventListener('resize', updateWidth);
     return () => window.removeEventListener('resize', updateWidth);
   }, []);
 
-  const handleRemoveFriend = useCallback(async (friendId) => {
-    const result = await removeFriend(friendId);
-    if (result.success) {
-      // Optionally show success message
-    }
-  }, [removeFriend]);
+  const handleRemoveFriend = useCallback(
+    async (friendId) => {
+      const result = await removeFriend(friendId);
+      if (result.success) {
+        // Optionally show success message
+      }
+    },
+    [removeFriend]
+  );
 
   // Filter and sort friends - memoized
   const sortedFriends = useMemo(() => {
@@ -51,10 +55,10 @@ export default function FriendsList({ onShareNote }) {
     return [...filtered].sort((a, b) => {
       const aOnline = useFriendStore.getState().isUserOnline(a.friendId || a.id);
       const bOnline = useFriendStore.getState().isUserOnline(b.friendId || b.id);
-      
+
       if (aOnline && !bOnline) return -1;
       if (!aOnline && bOnline) return 1;
-      
+
       const aName = a.name || a.email || '';
       const bName = b.name || b.email || '';
       return aName.localeCompare(bName);
@@ -70,78 +74,77 @@ export default function FriendsList({ onShareNote }) {
   const itemHeight = 100; // Approximate height of FriendCard
 
   // Row renderer for virtual list
-  const Row = useCallback(({ index, style }) => {
-    if (useDoubleColumn) {
-      const leftIndex = index * 2;
-      const rightIndex = leftIndex + 1;
-      const leftFriend = sortedFriends[leftIndex];
-      const rightFriend = sortedFriends[rightIndex];
-      
-      return (
-        <div style={style} className="flex gap-4 px-2">
-          {leftFriend && (
-            <div className="flex-1">
-              <FriendCard
-                friend={leftFriend}
-                onShareNote={onShareNote}
-                onRemove={handleRemoveFriend}
-              />
-            </div>
-          )}
-          {rightFriend && (
-            <div className="flex-1">
-              <FriendCard
-                friend={rightFriend}
-                onShareNote={onShareNote}
-                onRemove={handleRemoveFriend}
-              />
-            </div>
-          )}
-        </div>
-      );
-    } else {
-      const friend = sortedFriends[index];
-      return (
-        <div style={style} className="px-2">
-          <FriendCard
-            friend={friend}
-            onShareNote={onShareNote}
-            onRemove={handleRemoveFriend}
-          />
-        </div>
-      );
-    }
-  }, [sortedFriends, useDoubleColumn, onShareNote, handleRemoveFriend]);
+  const Row = useCallback(
+    ({ index, style }) => {
+      if (useDoubleColumn) {
+        const leftIndex = index * 2;
+        const rightIndex = leftIndex + 1;
+        const leftFriend = sortedFriends[leftIndex];
+        const rightFriend = sortedFriends[rightIndex];
+
+        return (
+          <div style={style} className={styles.virtualRow}>
+            {leftFriend && (
+              <div className={styles.virtualColumn}>
+                <FriendCard
+                  friend={leftFriend}
+                  onShareNote={onShareNote}
+                  onRemove={handleRemoveFriend}
+                />
+              </div>
+            )}
+            {rightFriend && (
+              <div className={styles.virtualColumn}>
+                <FriendCard
+                  friend={rightFriend}
+                  onShareNote={onShareNote}
+                  onRemove={handleRemoveFriend}
+                />
+              </div>
+            )}
+          </div>
+        );
+      } else {
+        const friend = sortedFriends[index];
+        return (
+          <div style={style} className={styles.virtualRowSingle}>
+            <FriendCard friend={friend} onShareNote={onShareNote} onRemove={handleRemoveFriend} />
+          </div>
+        );
+      }
+    },
+    [sortedFriends, useDoubleColumn, onShareNote, handleRemoveFriend]
+  );
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center py-12">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+      <div className={styles.loading}>
+        <div className={styles.spinner}></div>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4">
-        <p className="text-sm text-red-600 dark:text-red-400">{error}</p>
+      <div className={styles.error}>
+        <p className={styles.errorText}>{error}</p>
       </div>
     );
   }
 
   return (
-    <div className="space-y-4" ref={containerRef}>
+    <div className={styles.container} ref={containerRef}>
       {/* Search Bar */}
-      <div className="relative">
+      <div className={styles.searchWrapper}>
         <input
           type="text"
           placeholder="Search friends..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="w-full px-4 py-2 pl-10 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
+          className={styles.searchInput}
         />
         <svg
-          className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400"
+          className={styles.searchIcon}
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -157,8 +160,8 @@ export default function FriendsList({ onShareNote }) {
       </div>
 
       {/* Friends Count */}
-      <div className="flex items-center justify-between">
-        <p className="text-sm text-gray-600 dark:text-gray-400">
+      <div className={styles.header}>
+        <p className={styles.count}>
           {sortedFriends.length} {sortedFriends.length === 1 ? 'friend' : 'friends'}
           {searchQuery && ` matching "${searchQuery}"`}
         </p>
@@ -166,9 +169,9 @@ export default function FriendsList({ onShareNote }) {
 
       {/* Friends List */}
       {sortedFriends.length === 0 ? (
-        <div className="text-center py-12">
+        <div className={styles.empty}>
           <svg
-            className="mx-auto h-12 w-12 text-gray-400"
+            className={styles.emptyIcon}
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -181,10 +184,10 @@ export default function FriendsList({ onShareNote }) {
               d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
             />
           </svg>
-          <h3 className="mt-2 text-sm font-medium text-gray-900 dark:text-white">
+          <h3 className={styles.emptyTitle}>
             {searchQuery ? 'No friends found' : 'No friends yet'}
           </h3>
-          <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+          <p className={styles.emptyDescription}>
             {searchQuery
               ? 'Try a different search term'
               : 'Send friend requests to start connecting'}
@@ -196,7 +199,9 @@ export default function FriendsList({ onShareNote }) {
             // Virtual scrolling for large lists
             <List
               defaultHeight={600}
-              rowCount={useDoubleColumn ? Math.ceil(sortedFriends.length / 2) : sortedFriends.length}
+              rowCount={
+                useDoubleColumn ? Math.ceil(sortedFriends.length / 2) : sortedFriends.length
+              }
               rowHeight={itemHeight}
               defaultWidth={containerWidth}
               className="scrollbar-thin"
@@ -204,7 +209,7 @@ export default function FriendsList({ onShareNote }) {
             />
           ) : (
             // Regular grid for smaller lists
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className={styles.grid}>
               {sortedFriends.map((friend) => (
                 <FriendCard
                   key={friend.id}

@@ -1,0 +1,228 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-sticky);
+  background: linear-gradient(135deg, rgba(179, 229, 252, 0.8) 0%, rgba(255, 224, 178, 0.8) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  transition: box-shadow var(--duration-fast) var(--easing);
+}
+
+.header.scrolled {
+  box-shadow: var(--glass-shadow-hover);
+}
+
+.container {
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 0 var(--spacing-4);
+}
+
+@media (min-width: 640px) {
+  .container {
+    padding: 0 var(--spacing-6);
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding: 0 var(--spacing-8);
+  }
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 4rem;
+}
+
+.leftSection {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  min-width: 0;
+  flex: 1;
+}
+
+@media (min-width: 640px) {
+  .leftSection {
+    gap: var(--spacing-4);
+  }
+}
+
+@media (min-width: 1024px) {
+  .leftSection {
+    flex: initial;
+  }
+}
+
+.backButton {
+  padding: var(--spacing-2);
+  color: var(--color-muted-navy);
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--easing);
+  flex-shrink: 0;
+  touch-action: manipulation;
+}
+
+.backButton:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.backIcon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .backIcon {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+}
+
+.titleContainer {
+  min-width: 0;
+}
+
+.title {
+  font-size: var(--font-size-base);
+  font-weight: 700;
+  color: var(--color-muted-navy);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (min-width: 640px) {
+  .title {
+    font-size: var(--font-size-xl);
+  }
+}
+
+@media (min-width: 1024px) {
+  .title {
+    font-size: var(--font-size-2xl);
+  }
+}
+
+.subtitle {
+  font-size: var(--font-size-xs);
+  color: var(--color-muted-navy);
+  opacity: 0.8;
+  display: none;
+}
+
+@media (min-width: 640px) {
+  .subtitle {
+    display: block;
+    font-size: var(--font-size-sm);
+  }
+}
+
+.roleText {
+  font-weight: 500;
+}
+
+.rightSection {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  flex-shrink: 0;
+}
+
+@media (min-width: 640px) {
+  .rightSection {
+    gap: var(--spacing-3);
+  }
+}
+
+.actionButton {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--spacing-3) var(--spacing-4);
+  font-size: var(--font-size-sm);
+  background: linear-gradient(135deg, rgba(147, 197, 253, 0.6) 0%, rgba(254, 202, 202, 0.6) 100%);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 15px rgba(147, 197, 253, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: all var(--duration-fast) var(--easing);
+  cursor: pointer;
+  border-radius: var(--radius-md);
+  font-weight: 500;
+}
+
+@media (min-width: 640px) {
+  .actionButton {
+    padding: var(--spacing-2) var(--spacing-4);
+  }
+}
+
+.actionButton:hover:not(:disabled) {
+  background: linear-gradient(135deg, rgba(147, 197, 253, 0.8) 0%, rgba(254, 202, 202, 0.8) 100%);
+  box-shadow: 0 6px 20px rgba(147, 197, 253, 0.3);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.actionButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.actionIcon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .actionIcon {
+    margin-right: var(--spacing-2);
+  }
+}
+
+.actionText {
+  display: none;
+}
+
+@media (min-width: 640px) {
+  .actionText {
+    display: inline;
+  }
+}
+
+.secondaryButton {
+  background: var(--gradient-secondary);
+  color: white;
+  border: none;
+  box-shadow: 0 4px 15px rgba(165, 180, 252, 0.4);
+}
+
+.secondaryButton:hover:not(:disabled) {
+  box-shadow: 0 6px 20px rgba(165, 180, 252, 0.5);
+  transform: translateY(-2px);
+}
+
+.avatar {
+  display: none;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 600;
+  box-shadow: var(--glass-shadow);
+  background: var(--gradient-primary);
+}
+
+@media (min-width: 640px) {
+  .avatar {
+    display: flex;
+  }
+}

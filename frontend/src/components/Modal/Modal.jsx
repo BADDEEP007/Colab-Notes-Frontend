@@ -1,14 +1,15 @@
 import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
+import clsx from 'clsx';
 import { useFocusTrap, useFocusRestore } from '../../hooks/useKeyboardShortcuts';
-import './Modal.css';
+import styles from './Modal.module.css';
 
 /**
  * Modal Component System
- * 
+ *
  * A flexible modal system with glassmorphism styling, backdrop blur,
  * and smooth scale animations.
- * 
+ *
  * @component
  * @example
  * <Modal isOpen={isOpen} onClose={handleClose}>
@@ -23,8 +24,8 @@ import './Modal.css';
  */
 export const ModalOverlay = ({ onClick, blur = true }) => {
   return (
-    <div 
-      className={`modal-overlay ${blur ? 'modal-overlay-blur' : ''}`}
+    <div
+      className={clsx(styles.modalOverlay, blur && styles.modalOverlayBlur)}
       onClick={onClick}
       aria-hidden="true"
     />
@@ -40,11 +41,7 @@ ModalOverlay.propTypes = {
  * ModalContent - Main content container with glass styling
  */
 export const ModalContent = ({ children, className = '' }) => {
-  return (
-    <div className={`modal-content scale-in ${className}`}>
-      {children}
-    </div>
-  );
+  return <div className={clsx(styles.modalContent, className)}>{children}</div>;
 };
 
 ModalContent.propTypes = {
@@ -57,11 +54,11 @@ ModalContent.propTypes = {
  */
 export const ModalHeader = ({ children, onClose, className = '' }) => {
   return (
-    <div className={`modal-header ${className}`}>
-      <h2 className="modal-title">{children}</h2>
+    <div className={clsx(styles.modalHeader, className)}>
+      <h2 className={styles.modalTitle}>{children}</h2>
       {onClose && (
         <button
-          className="modal-close-button"
+          className={styles.modalCloseButton}
           onClick={onClose}
           aria-label="Close modal"
           type="button"
@@ -95,11 +92,7 @@ ModalHeader.propTypes = {
  * ModalBody - Body section for main content
  */
 export const ModalBody = ({ children, className = '' }) => {
-  return (
-    <div className={`modal-body ${className}`}>
-      {children}
-    </div>
-  );
+  return <div className={clsx(styles.modalBody, className)}>{children}</div>;
 };
 
 ModalBody.propTypes = {
@@ -111,11 +104,7 @@ ModalBody.propTypes = {
  * ModalFooter - Footer section for action buttons
  */
 export const ModalFooter = ({ children, className = '' }) => {
-  return (
-    <div className={`modal-footer ${className}`}>
-      {children}
-    </div>
-  );
+  return <div className={clsx(styles.modalFooter, className)}>{children}</div>;
 };
 
 ModalFooter.propTypes = {
@@ -126,10 +115,10 @@ ModalFooter.propTypes = {
 /**
  * Modal - Main modal component
  */
-const Modal = ({ 
-  isOpen, 
-  onClose, 
-  children, 
+const Modal = ({
+  isOpen,
+  onClose,
+  children,
   className = '',
   closeOnOverlayClick = true,
   closeOnEscape = true,
@@ -179,17 +168,10 @@ const Modal = ({
   if (!isOpen) return null;
 
   return (
-    <div 
-      className="modal-container" 
-      role="dialog" 
-      aria-modal="true"
-      ref={modalRef}
-    >
+    <div className={styles.modalContainer} role="dialog" aria-modal="true" ref={modalRef}>
       <ModalOverlay onClick={handleOverlayClick} blur={true} />
-      <div className="modal-wrapper" onClick={handleOverlayClick}>
-        <ModalContent className={className}>
-          {children}
-        </ModalContent>
+      <div className={styles.modalWrapper} onClick={handleOverlayClick}>
+        <ModalContent className={className}>{children}</ModalContent>
       </div>
     </div>
   );

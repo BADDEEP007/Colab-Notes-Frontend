@@ -25,24 +25,21 @@ const usersApi = {
    * @param {string} query - Search query
    * @returns {Promise} List of matching users
    */
-  search: (query) =>
-    axiosInstance.get('/api/users/search', { params: { q: query } }),
+  search: (query) => axiosInstance.get('/api/users/search', { params: { q: query } }),
 
   /**
    * Get online status of users
    * @param {string[]} userIds - Array of user IDs
    * @returns {Promise} Online status for each user
    */
-  getOnlineStatus: (userIds) =>
-    axiosInstance.post('/api/users/online-status', { userIds }),
+  getOnlineStatus: (userIds) => axiosInstance.post('/api/users/online-status', { userIds }),
 
   /**
    * Send friend request
    * @param {string} email - Email of user to add as friend
    * @returns {Promise} Friend request response
    */
-  sendFriendRequest: (email) =>
-    axiosInstance.post('/api/users/friends/request', { email }),
+  sendFriendRequest: (email) => axiosInstance.post('/api/users/friends/request', { email }),
 
   /**
    * Get friend requests
@@ -77,8 +74,7 @@ const usersApi = {
    * @param {string} friendId - Friend user ID
    * @returns {Promise} Response
    */
-  removeFriend: (friendId) =>
-    axiosInstance.delete(`/api/users/friends/${friendId}`),
+  removeFriend: (friendId) => axiosInstance.delete(`/api/users/friends/${friendId}`),
 
   /**
    * Get user notifications
@@ -98,8 +94,7 @@ const usersApi = {
    * Mark all notifications as read
    * @returns {Promise} Response
    */
-  markAllNotificationsRead: () =>
-    axiosInstance.put('/api/users/notifications/read-all'),
+  markAllNotificationsRead: () => axiosInstance.put('/api/users/notifications/read-all'),
 };
 
 export default usersApi;

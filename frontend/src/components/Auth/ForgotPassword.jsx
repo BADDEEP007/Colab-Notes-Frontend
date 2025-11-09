@@ -24,7 +24,7 @@ const ForgotPassword = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
-    
+
     if (!validateEmail()) {
       return;
     }
@@ -34,10 +34,7 @@ const ForgotPassword = () => {
       await authApi.forgotPassword(email);
       setSuccess(true);
     } catch (err) {
-      setError(
-        err.response?.data?.message || 
-        'Failed to send reset email. Please try again.'
-      );
+      setError(err.response?.data?.message || 'Failed to send reset email. Please try again.');
     } finally {
       setIsLoading(false);
     }
@@ -90,12 +87,7 @@ const ForgotPassword = () => {
             onClick={() => navigate('/login')}
             className="flex items-center text-gray-600 hover:text-gray-900 mb-6"
           >
-            <svg
-              className="w-5 h-5 mr-2"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
+            <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -106,9 +98,7 @@ const ForgotPassword = () => {
             Back to login
           </button>
           <h2 className="text-3xl font-bold text-gray-900 mb-2">Forgot password?</h2>
-          <p className="text-gray-600">
-            No worries, we'll send you reset instructions.
-          </p>
+          <p className="text-gray-600">No worries, we'll send you reset instructions.</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
@@ -130,9 +120,7 @@ const ForgotPassword = () => {
               placeholder="Enter your email"
               disabled={isLoading}
             />
-            {error && (
-              <p className="mt-1 text-sm text-red-600">{error}</p>
-            )}
+            {error && <p className="mt-1 text-sm text-red-600">{error}</p>}
           </div>
 
           <button

@@ -2,13 +2,14 @@ import { useState, useEffect } from 'react';
 import useSocketStore from '../../store/useSocketStore';
 import useAuthStore from '../../store/useAuthStore';
 import { SOCKET_EVENTS } from '../../utils/constants';
+import styles from './ActiveUsersPanel.module.css';
 
 /**
  * ActiveUsersPanel Component
  * Displays list of users currently editing the note with glassmorphism styling
  * Updates in real-time when users join/leave with fade transitions
  * Requirements: 6.3, 6.4
- * 
+ *
  * @param {Object} props
  * @param {string} props.noteId - ID of the note being edited
  */
@@ -70,7 +71,7 @@ export default function ActiveUsersPanel({ noteId }) {
       off(SOCKET_EVENTS.USER_JOINED_NOTE, handleUserJoined);
       off(SOCKET_EVENTS.USER_LEFT_NOTE, handleUserLeft);
       off(SOCKET_EVENTS.ACTIVE_USERS_LIST, handleActiveUsersList);
-      
+
       // Leave room
       leaveRoom(roomName);
     };
@@ -82,58 +83,46 @@ export default function ActiveUsersPanel({ noteId }) {
   }
 
   return (
-    <div className="fixed bottom-4 right-4 glass-container max-w-xs z-fixed fade-in">
+    <div className={styles.container}>
       {/* Header */}
-      <div className="flex items-center gap-2 mb-3 p-4 pb-0">
-        <div className="w-2 h-2 bg-green-500 rounded-full pulse"></div>
-        <h3 className="text-sm font-semibold text-navy">
-          Active Users ({activeUsers.length})
-        </h3>
+      <div className={styles.header}>
+        <div className={styles.onlineIndicator}></div>
+        <h3 className={styles.title}>Active Users ({activeUsers.length})</h3>
       </div>
 
       {/* Users List */}
-      <div className="space-y-2 max-h-64 overflow-y-auto px-4 pb-4">
+      <div className={styles.usersList}>
         {activeUsers.map((activeUser, index) => (
           <div
             key={activeUser.id}
-            className="flex items-center gap-3 p-2 rounded-lg hover:bg-glass-bg-light transition-all fade-in"
+            className={styles.userItem}
             style={{ animationDelay: `${index * 0.1}s` }}
           >
             {/* Avatar */}
-            <div className="relative shrink-0">
+            <div className={styles.avatarContainer}>
               {activeUser.avatar ? (
-                <img
-                  src={activeUser.avatar}
-                  alt={activeUser.name}
-                  className="w-8 h-8 rounded-full object-cover shadow-glass"
-                />
+                <img src={activeUser.avatar} alt={activeUser.name} className={styles.avatar} />
               ) : (
-                <div className="w-8 h-8 rounded-full bg-gradient-primary flex items-center justify-center text-white text-sm font-semibold shadow-glass">
+                <div className={styles.avatarPlaceholder}>
                   {activeUser.name?.charAt(0).toUpperCase() || 'U'}
                 </div>
               )}
               {/* Online indicator */}
-              <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-500 rounded-full border-2 pulse" style={{ borderColor: 'var(--glass-bg)' }}></div>
+              <div className={styles.userOnlineIndicator}></div>
             </div>
 
             {/* User Info */}
-            <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium text-navy truncate">
-                {activeUser.name || 'Anonymous User'}
-              </p>
-              <p className="text-xs text-navy opacity-70 truncate">
-                {activeUser.email || 'Editing...'}
-              </p>
+            <div className={styles.userInfo}>
+              <p className={styles.userName}>{activeUser.name || 'Anonymous User'}</p>
+              <p className={styles.userEmail}>{activeUser.email || 'Editing...'}</p>
             </div>
           </div>
         ))}
       </div>
 
       {/* Footer hint */}
-      <div className="mt-3 pt-3 px-4 pb-4" style={{ borderTop: '1px solid var(--glass-border)' }}>
-        <p className="text-xs text-navy opacity-70 text-center">
-          Collaborating in real-time
-        </p>
+      <div className={styles.footer}>
+        <p className={styles.footerText}>Collaborating in real-time</p>
       </div>
     </div>
   );

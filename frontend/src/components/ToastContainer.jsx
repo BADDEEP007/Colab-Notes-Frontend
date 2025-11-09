@@ -1,5 +1,6 @@
 import { useState, useCallback, createContext, useContext } from 'react';
 import Toast from './Toast';
+import styles from './ToastContainer.module.css';
 
 /**
  * Toast context for managing toast notifications globally
@@ -26,9 +27,9 @@ export function ToastProvider({ children }) {
   const addToast = useCallback((message, type = 'info', duration = 4000) => {
     const id = Date.now() + Math.random();
     const toast = { id, message, type, duration };
-    
+
     setToasts((prev) => [...prev, toast]);
-    
+
     return id;
   }, []);
 
@@ -82,9 +83,9 @@ export function ToastProvider({ children }) {
   return (
     <ToastContext.Provider value={value}>
       {children}
-      <div className="fixed top-4 right-4 z-50 flex flex-col gap-2 pointer-events-none">
+      <div className={styles.container}>
         {toasts.map((toast, index) => (
-          <div key={toast.id} className="pointer-events-auto" style={{ marginTop: index * 8 }}>
+          <div key={toast.id} className={styles.toastWrapper} style={{ marginTop: index * 8 }}>
             <Toast
               message={toast.message}
               type={toast.type}

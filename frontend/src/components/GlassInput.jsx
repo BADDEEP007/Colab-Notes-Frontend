@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import styles from './GlassInput.module.css';
 
 /**
  * GlassInput Component
- * 
+ *
  * A reusable input component with glassmorphism styling and floating label animation.
  * Supports icons, error messages, and disabled state.
- * 
+ *
  * @component
  * @example
  * <GlassInput
@@ -18,7 +19,7 @@ import PropTypes from 'prop-types';
  *   error="Invalid email address"
  * />
  */
-const GlassInput = ({ 
+const GlassInput = ({
   label,
   type = 'text',
   value,
@@ -31,74 +32,47 @@ const GlassInput = ({
   id,
   name,
   required = false,
-  ...props 
+  ...props
 }) => {
   const [isFocused, setIsFocused] = useState(false);
-  
+
   // Determine if label should float
   const shouldFloat = isFocused || value;
-  
+
   // Generate unique ID if not provided
   const inputId = id || `glass-input-${name || Math.random().toString(36).substr(2, 9)}`;
-  
-  const inputClasses = `glass-input ${error ? 'error' : ''} ${icon ? 'pl-12' : ''} ${className}`.trim();
-  
-  const containerStyle = {
-    position: 'relative',
-    width: '100%'
-  };
-  
-  const labelStyle = {
-    position: 'absolute',
-    left: icon ? '3rem' : '1rem',
-    top: shouldFloat ? '-0.5rem' : '50%',
-    transform: shouldFloat ? 'translateY(0) scale(0.85)' : 'translateY(-50%)',
-    transformOrigin: 'left',
-    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-    color: error ? 'var(--color-light-coral)' : 'var(--color-muted-navy)',
-    backgroundColor: shouldFloat ? 'var(--color-off-white)' : 'transparent',
-    padding: shouldFloat ? '0 0.25rem' : '0',
-    fontSize: shouldFloat ? 'var(--font-size-sm)' : 'var(--font-size-base)',
-    pointerEvents: 'none',
-    zIndex: 1,
-    opacity: shouldFloat ? 1 : 0.6
-  };
-  
-  const iconStyle = {
-    position: 'absolute',
-    left: '1rem',
-    top: '50%',
-    transform: 'translateY(-50%)',
-    color: error ? 'var(--color-light-coral)' : 'var(--color-muted-navy)',
-    opacity: 0.7,
-    pointerEvents: 'none',
-    zIndex: 1
-  };
-  
-  const errorStyle = {
-    marginTop: '0.5rem',
-    fontSize: 'var(--font-size-sm)',
-    color: 'var(--color-light-coral)',
-    display: 'flex',
-    alignItems: 'center',
-    gap: '0.25rem'
-  };
+
+  const inputClasses = [
+    styles.input,
+    icon && styles.inputWithIcon,
+    error && styles.inputError,
+    className,
+  ]
+    .filter(Boolean)
+    .join(' ');
+
+  const labelClasses = [
+    styles.label,
+    icon && styles.labelWithIcon,
+    shouldFloat && styles.labelFloating,
+    error && styles.labelError,
+  ]
+    .filter(Boolean)
+    .join(' ');
+
+  const iconClasses = [styles.icon, error && styles.iconError].filter(Boolean).join(' ');
 
   return (
-    <div style={{ width: '100%' }}>
-      <div style={containerStyle}>
-        {icon && (
-          <div style={iconStyle}>
-            {icon}
-          </div>
-        )}
-        
+    <div className={styles.wrapper}>
+      <div className={styles.container}>
+        {icon && <div className={iconClasses}>{icon}</div>}
+
         {label && (
-          <label htmlFor={inputId} style={labelStyle}>
+          <label htmlFor={inputId} className={labelClasses}>
             {label}
           </label>
         )}
-        
+
         <input
           id={inputId}
           name={name}
@@ -117,16 +91,16 @@ const GlassInput = ({
           {...props}
         />
       </div>
-      
+
       {error && (
-        <div id={`${inputId}-error`} style={errorStyle} role="alert">
-          <svg 
-            width="16" 
-            height="16" 
-            viewBox="0 0 16 16" 
-            fill="none" 
+        <div id={`${inputId}-error`} className={styles.errorMessage} role="alert">
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 16 16"
+            fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            style={{ flexShrink: 0 }}
+            className={styles.errorIcon}
           >
             <circle cx="8" cy="8" r="7" stroke="currentColor" strokeWidth="1.5" />
             <path d="M8 4V9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />

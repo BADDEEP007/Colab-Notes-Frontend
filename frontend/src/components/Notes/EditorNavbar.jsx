@@ -7,18 +7,18 @@ import useNoteStore from '../../store/useNoteStore';
  * Navigation bar for the container/editor page with glassmorphism styling
  * Displays container title, auto-save indicator, and profile avatar
  * Requirements: 6.1
- * 
+ *
  * @param {Object} props
  * @param {string} props.containerTitle - Title of the container
  * @param {Function} props.onBack - Callback when back button is clicked
  * @param {boolean} props.isAutoSaving - Whether auto-save is in progress
  * @param {Date} props.lastSaved - Last saved timestamp
  */
-export default function EditorNavbar({ 
-  containerTitle = 'Untitled Container', 
+export default function EditorNavbar({
+  containerTitle = 'Untitled Container',
   onBack,
   isAutoSaving = false,
-  lastSaved = null
+  lastSaved = null,
 }) {
   const { user } = useAuthStore();
   const [showProfileMenu, setShowProfileMenu] = useState(false);
@@ -37,10 +37,10 @@ export default function EditorNavbar({
   // Format last saved time
   const getLastSavedText = () => {
     if (!lastSaved) return '';
-    
+
     const now = new Date();
     const diff = Math.floor((now - new Date(lastSaved)) / 1000);
-    
+
     if (diff < 5) return 'Saved just now';
     if (diff < 60) return `Saved ${diff}s ago`;
     if (diff < 3600) return `Saved ${Math.floor(diff / 60)}m ago`;
@@ -48,7 +48,9 @@ export default function EditorNavbar({
   };
 
   return (
-    <nav className={`glass-container sticky top-0 z-fixed transition-shadow duration-300 ${isScrolled ? 'shadow-glass-hover' : ''}`}>
+    <nav
+      className={`glass-container sticky top-0 z-fixed transition-shadow duration-300 ${isScrolled ? 'shadow-glass-hover' : ''}`}
+    >
       <div className="max-w-full px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Left: Back button and Container title */}
@@ -90,9 +92,7 @@ export default function EditorNavbar({
             ) : lastSaved ? (
               <>
                 <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                <span className="text-sm text-navy hidden sm:inline">
-                  {getLastSavedText()}
-                </span>
+                <span className="text-sm text-navy hidden sm:inline">{getLastSavedText()}</span>
               </>
             ) : null}
           </div>

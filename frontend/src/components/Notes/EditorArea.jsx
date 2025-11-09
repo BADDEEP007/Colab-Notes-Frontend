@@ -6,7 +6,7 @@ import Whiteboard from './Whiteboard';
  * EditorArea Component
  * Provides mode switching between Notes and Whiteboard views with smooth transitions
  * Requirements: 6.2
- * 
+ *
  * @param {Object} props
  * @param {string} props.noteId - ID of the note being edited
  * @param {string} props.initialContent - Initial note content

@@ -47,8 +47,7 @@ const useAuthStore = create(
 
           return { success: true, user };
         } catch (error) {
-          const errorMessage =
-            error.response?.data?.message || 'Login failed. Please try again.';
+          const errorMessage = error.response?.data?.message || 'Login failed. Please try again.';
           set({
             isLoading: false,
             error: errorMessage,
@@ -66,15 +65,12 @@ const useAuthStore = create(
         set({ isLoading: true, error: null });
         try {
           const url =
-            provider === 'google'
-              ? authApi.googleLoginUrl()
-              : authApi.microsoftLoginUrl();
+            provider === 'google' ? authApi.googleLoginUrl() : authApi.microsoftLoginUrl();
 
           // Redirect to OAuth provider
           window.location.href = url;
         } catch (error) {
-          const errorMessage =
-            error.response?.data?.message || 'OAuth login failed.';
+          const errorMessage = error.response?.data?.message || 'OAuth login failed.';
           set({ isLoading: false, error: errorMessage });
           return { success: false, error: errorMessage };
         }
@@ -110,8 +106,7 @@ const useAuthStore = create(
           return { success: true, user };
         } catch (error) {
           const errorMessage =
-            error.response?.data?.message ||
-            'Registration failed. Please try again.';
+            error.response?.data?.message || 'Registration failed. Please try again.';
           set({ isLoading: false, error: errorMessage });
           return { success: false, error: errorMessage };
         }

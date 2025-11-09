@@ -6,10 +6,10 @@ import './ShareModal.css';
 
 /**
  * ShareModal Component
- * 
+ *
  * Modal for generating and managing shareable links with access controls.
  * Supports public/restricted access, role selection, and expiry dates.
- * 
+ *
  * @component
  * @example
  * <ShareModal
@@ -108,7 +108,14 @@ const ShareModal = ({
                 onClick={() => setIsPublic(true)}
                 disabled={loading}
               >
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                >
                   <circle cx="10" cy="10" r="8" />
                   <path d="M2 10h16M10 2a15.3 15.3 0 0 1 4 8 15.3 15.3 0 0 1-4 8 15.3 15.3 0 0 1-4-8 15.3 15.3 0 0 1 4-8z" />
                 </svg>
@@ -120,7 +127,14 @@ const ShareModal = ({
                 onClick={() => setIsPublic(false)}
                 disabled={loading}
               >
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                >
                   <rect x="3" y="8" width="14" height="10" rx="2" />
                   <path d="M7 8V5a3 3 0 0 1 6 0v3" />
                 </svg>
@@ -128,9 +142,7 @@ const ShareModal = ({
               </button>
             </div>
             <p className="access-description">
-              {isPublic
-                ? 'Anyone with the link can access'
-                : 'Only people you invite can access'}
+              {isPublic ? 'Anyone with the link can access' : 'Only people you invite can access'}
             </p>
           </div>
 

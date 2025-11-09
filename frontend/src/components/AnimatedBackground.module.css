@@ -1,0 +1,94 @@
+/* ============================================
+   ANIMATED BACKGROUND COMPONENT
+   ============================================ */
+
+.animatedBackground {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: -1;
+  pointer-events: none;
+  background: var(--gradient-bg, linear-gradient(135deg, #e0f2fe 0%, #fef2f2 50%, #ede9fe 100%));
+  animation: fadeIn 0.6s ease-out;
+}
+
+/* Individual orb styling */
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  will-change: transform;
+  animation: floatOrb ease-in-out infinite;
+}
+
+/* Floating animation for orbs */
+@keyframes floatOrb {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  25% {
+    transform: translate(30px, -30px) scale(1.05);
+  }
+  50% {
+    transform: translate(-20px, 20px) scale(0.95);
+  }
+  75% {
+    transform: translate(20px, 30px) scale(1.02);
+  }
+}
+
+/* Fade in animation for the background */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Static orbs when reduced motion is preferred */
+.reducedMotion .orb,
+.static {
+  animation: none !important;
+  filter: blur(80px);
+}
+
+/* Disable animations for reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .animatedBackground {
+    animation: none;
+  }
+
+  .orb {
+    animation: none !important;
+    filter: blur(80px);
+  }
+}
+
+/* Performance optimizations */
+.animatedBackground,
+.orb {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-perspective: 1000;
+  perspective: 1000;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+}
+
+/* Ensure background doesn't interfere with content */
+.animatedBackground::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(249, 250, 251, 0.3);
+  z-index: 1;
+}

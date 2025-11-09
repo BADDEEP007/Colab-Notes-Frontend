@@ -1,0 +1,180 @@
+/* FriendCard Component Styles */
+
+.card {
+  background: white;
+  border-radius: var(--radius-lg);
+  border: 1px solid #e5e7eb;
+  padding: var(--spacing-4);
+  transition: box-shadow var(--duration-fast) var(--easing);
+}
+
+.card:hover {
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.content {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+/* Avatar Section */
+.avatarSection {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  flex: 1;
+  min-width: 0;
+}
+
+.avatarWrapper {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.avatar {
+  height: 48px;
+  width: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.avatarFallback {
+  height: 48px;
+  width: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #3b82f6 0%, #9333ea 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 600;
+  font-size: var(--font-size-base);
+}
+
+.statusIndicator {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  height: 14px;
+  width: 14px;
+  border-radius: 50%;
+  border: 2px solid white;
+}
+
+.statusOnline {
+  background: #10b981;
+}
+
+.statusOffline {
+  background: #9ca3af;
+}
+
+/* Friend Info */
+.info {
+  flex: 1;
+  min-width: 0;
+}
+
+.name {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-muted-navy);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.email {
+  font-size: var(--font-size-xs);
+  color: var(--color-slate-600);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.status {
+  font-size: var(--font-size-xs);
+  color: #9ca3af;
+  margin-top: 2px;
+}
+
+/* Action Buttons */
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  margin-left: var(--spacing-2);
+}
+
+.actionButton {
+  padding: var(--spacing-2);
+  background: none;
+  border: none;
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: background var(--duration-fast) var(--easing);
+}
+
+.shareButton {
+  color: #2563eb;
+}
+
+.shareButton:hover {
+  background: #eff6ff;
+}
+
+.removeButton {
+  color: #dc2626;
+}
+
+.removeButton:hover {
+  background: #fef2f2;
+}
+
+.actionIcon {
+  height: 20px;
+  width: 20px;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .card {
+    background: #1f2937;
+    border-color: #374151;
+  }
+
+  .statusIndicator {
+    border-color: #1f2937;
+  }
+
+  .name {
+    color: white;
+  }
+
+  .email {
+    color: #9ca3af;
+  }
+
+  .status {
+    color: #6b7280;
+  }
+
+  .shareButton {
+    color: #60a5fa;
+  }
+
+  .shareButton:hover {
+    background: rgba(59, 130, 246, 0.1);
+  }
+
+  .removeButton {
+    color: #f87171;
+  }
+
+  .removeButton:hover {
+    background: rgba(239, 68, 68, 0.1);
+  }
+}

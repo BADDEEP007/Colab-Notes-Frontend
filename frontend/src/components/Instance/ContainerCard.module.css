@@ -1,0 +1,133 @@
+.card {
+  position: relative;
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-6);
+  transition: all var(--duration-fast) var(--easing);
+  animation: fadeIn var(--duration-slow) var(--easing);
+}
+
+.card.editable {
+  cursor: pointer;
+}
+
+.card.editable:hover {
+  transform: scale(1.03);
+  box-shadow: var(--glass-shadow-hover);
+}
+
+.card.disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: var(--spacing-4);
+}
+
+.iconContainer {
+  flex-shrink: 0;
+  margin-right: var(--spacing-3);
+}
+
+.icon {
+  width: 3rem;
+  height: 3rem;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--gradient-primary);
+}
+
+.iconSvg {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: white;
+}
+
+.titleContainer {
+  flex: 1;
+  min-width: 0;
+}
+
+.title {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--color-muted-navy);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: color var(--duration-fast) var(--easing);
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+.infoItem {
+  display: flex;
+  align-items: center;
+  font-size: var(--font-size-sm);
+  color: var(--color-muted-navy);
+  opacity: 0.8;
+}
+
+.infoIcon {
+  width: 1rem;
+  height: 1rem;
+  margin-right: var(--spacing-1);
+}
+
+.lastModified {
+  display: flex;
+  align-items: center;
+  font-size: var(--font-size-sm);
+  color: var(--color-muted-navy);
+  opacity: 0.6;
+}
+
+.lastModifiedIcon {
+  width: 1rem;
+  height: 1rem;
+  margin-right: var(--spacing-1);
+}
+
+.viewOnlyBadge {
+  position: absolute;
+  top: var(--spacing-4);
+  right: var(--spacing-4);
+}
+
+.viewOnlyText {
+  font-size: var(--font-size-xs);
+  padding: var(--spacing-1) var(--spacing-2);
+  border-radius: var(--radius-sm);
+  background: var(--glass-bg);
+  color: var(--color-light-coral);
+}
+
+.hoverIndicator {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 0.25rem;
+  transform: scaleX(0);
+  transition: transform var(--duration-fast) var(--easing);
+  border-bottom-left-radius: var(--radius-xl);
+  border-bottom-right-radius: var(--radius-xl);
+  background: var(--gradient-primary);
+}
+
+.card.editable:hover .hoverIndicator {
+  transform: scaleX(1);
+}

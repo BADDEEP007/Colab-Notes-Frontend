@@ -1,5 +1,6 @@
 import { memo, useCallback, useMemo } from 'react';
 import useFriendStore from '../../store/useFriendStore';
+import styles from './FriendCard.module.css';
 
 /**
  * Friend Card Component
@@ -43,57 +44,45 @@ const FriendCard = memo(function FriendCard({ friend, onShareNote, onRemove }) {
   }, [name, email]);
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4 hover:shadow-md transition-shadow duration-200">
-      <div className="flex items-start justify-between">
+    <div className={styles.card}>
+      <div className={styles.content}>
         {/* Avatar and Info */}
-        <div className="flex items-center space-x-3 flex-1 min-w-0">
+        <div className={styles.avatarSection}>
           {/* Avatar with online status */}
-          <div className="relative flex-shrink-0">
+          <div className={styles.avatarWrapper}>
             {avatar ? (
-              <img
-                src={avatar}
-                alt={name || email}
-                className="h-12 w-12 rounded-full object-cover"
-              />
+              <img src={avatar} alt={name || email} className={styles.avatar} />
             ) : (
-              <div className="h-12 w-12 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-semibold">
-                {initials}
-              </div>
+              <div className={styles.avatarFallback}>{initials}</div>
             )}
             {/* Online status indicator */}
             <div
-              className={`absolute bottom-0 right-0 h-3.5 w-3.5 rounded-full border-2 border-white dark:border-gray-800 ${
-                isOnline ? 'bg-green-500' : 'bg-gray-400'
+              className={`${styles.statusIndicator} ${
+                isOnline ? styles.statusOnline : styles.statusOffline
               }`}
               aria-label={isOnline ? 'Online' : 'Offline'}
             ></div>
           </div>
 
           {/* Friend Info */}
-          <div className="flex-1 min-w-0">
-            <h3 className="text-sm font-semibold text-gray-900 dark:text-white truncate">
-              {name || 'Unknown User'}
-            </h3>
-            <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
-              {email}
-            </p>
-            <p className="text-xs text-gray-400 dark:text-gray-500 mt-0.5">
-              {isOnline ? 'Online' : 'Offline'}
-            </p>
+          <div className={styles.info}>
+            <h3 className={styles.name}>{name || 'Unknown User'}</h3>
+            <p className={styles.email}>{email}</p>
+            <p className={styles.status}>{isOnline ? 'Online' : 'Offline'}</p>
           </div>
         </div>
 
         {/* Action Buttons */}
-        <div className="flex items-center space-x-2 ml-2">
+        <div className={styles.actions}>
           {/* Share Note Button */}
           <button
             onClick={handleShareNote}
-            className="p-2 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors"
+            className={`${styles.actionButton} ${styles.shareButton}`}
             aria-label="Share note with friend"
             title="Share note"
           >
             <svg
-              className="h-5 w-5"
+              className={styles.actionIcon}
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -111,12 +100,12 @@ const FriendCard = memo(function FriendCard({ friend, onShareNote, onRemove }) {
           {/* Remove Friend Button */}
           <button
             onClick={handleRemove}
-            className="p-2 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors"
+            className={`${styles.actionButton} ${styles.removeButton}`}
             aria-label="Remove friend"
             title="Remove friend"
           >
             <svg
-              className="h-5 w-5"
+              className={styles.actionIcon}
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"

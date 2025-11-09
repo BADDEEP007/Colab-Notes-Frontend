@@ -11,7 +11,7 @@ const useBreakpoint = () => {
   useEffect(() => {
     const updateBreakpoint = () => {
       const width = window.innerWidth;
-      
+
       if (width < BREAKPOINTS.MD) {
         setBreakpoint('mobile');
       } else if (width < BREAKPOINTS.XL) {

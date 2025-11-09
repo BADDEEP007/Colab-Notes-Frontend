@@ -1,5 +1,6 @@
-import { useState } from "react";
-import "./Navbar.css";
+import { useState } from 'react';
+import styles from './Navbar.module.css';
+import clsx from 'clsx';
 
 export default function Navbar({ onSidebarToggle, onChatbotToggle }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -9,63 +10,56 @@ export default function Navbar({ onSidebarToggle, onChatbotToggle }) {
   };
 
   return (
-    <nav className="navbar">
-      <div className="nav-container">
+    <nav className={styles.navbar}>
+      <div className={styles.navContainer}>
         {/* Logo */}
-        <div className="nav-logo">
+        <div className={styles.navLogo}>
           <a href="/">ColabNotes</a>
         </div>
 
         {/* Navigation Links */}
-        <ul className={`nav-menu ${isMenuOpen ? "active" : ""}`}>
-          <li className="nav-item">
-            <a href="/" className="nav-link">
+        <ul className={clsx(styles.navMenu, isMenuOpen && 'active')}>
+          <li className={styles.navItem}>
+            <a href="/" className={styles.navLink}>
               Home
             </a>
           </li>
-          <li className="nav-item">
-            <a href="/about" className="nav-link">
+          <li className={styles.navItem}>
+            <a href="/about" className={styles.navLink}>
               About
             </a>
           </li>
-          <li className="nav-item">
-            <a href="/contact" className="nav-link">
+          <li className={styles.navItem}>
+            <a href="/contact" className={styles.navLink}>
               Contact
             </a>
           </li>
-          <li className="nav-item">
-            <a href="/notes" className="nav-link">
+          <li className={styles.navItem}>
+            <a href="/notes" className={styles.navLink}>
               Notes
             </a>
           </li>
         </ul>
 
         {/* Action Buttons */}
-        <div className="nav-actions">
+        <div className={styles.navActions}>
           <button
-            className="nav-btn chatbot-btn"
+            className={clsx(styles.navBtn, styles.chatbotBtn)}
             onClick={onChatbotToggle}
             title="Open Chatbot"
           >
             💬
           </button>
-          <button
-            className="nav-btn sidebar-btn"
-            onClick={onSidebarToggle}
-            title="Open Menu"
-          >
+          <button className={styles.navBtn} onClick={onSidebarToggle} title="Open Menu">
             ☰
           </button>
         </div>
 
         {/* Mobile Menu Toggle */}
-        <div
-          className={`nav-toggle ${isMenuOpen ? "active" : ""}`}
-          onClick={toggleMenu}
-        >
-          <span className="bar"></span>
-          <span className="bar"></span>
-          <span className="bar"></span>
+        <div className={clsx(styles.navToggle, isMenuOpen && 'active')} onClick={toggleMenu}>
+          <span className={styles.bar}></span>
+          <span className={styles.bar}></span>
+          <span className={styles.bar}></span>
         </div>
       </div>
     </nav>

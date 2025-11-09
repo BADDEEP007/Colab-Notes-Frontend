@@ -1,0 +1,61 @@
+.wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip {
+  position: absolute;
+  z-index: var(--z-tooltip);
+  pointer-events: none;
+  padding: var(--spacing-2) var(--spacing-3);
+  background: var(--color-muted-navy);
+  color: white;
+  font-size: var(--font-size-sm);
+  border-radius: var(--radius-md);
+  white-space: normal;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity var(--duration-fast) var(--easing),
+    visibility var(--duration-fast) var(--easing);
+  box-shadow: var(--glass-shadow);
+  max-width: 200px;
+  text-align: center;
+}
+
+.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Position variants */
+.top {
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-8px);
+}
+
+.bottom {
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(8px);
+}
+
+.left {
+  right: 100%;
+  top: 50%;
+  transform: translateY(-50%) translateX(-8px);
+}
+
+.right {
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%) translateX(8px);
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .tooltip {
+    transition: none;
+  }
+}

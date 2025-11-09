@@ -145,10 +145,7 @@ export default function CreateInstanceModal({ isOpen, onClose, onSuccess }) {
 
           {/* Modal Header */}
           <div className="mb-6">
-            <h2
-              id="modal-title"
-              className="text-2xl font-bold text-gray-900 dark:text-white"
-            >
+            <h2 id="modal-title" className="text-2xl font-bold text-gray-900 dark:text-white">
               Create New Instance
             </h2>
             <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">

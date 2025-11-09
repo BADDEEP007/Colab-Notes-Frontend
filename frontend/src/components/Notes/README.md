@@ -19,12 +19,12 @@ A rich text editor component with auto-save, real-time synchronization, and coll
 
 #### Props
 
-| Prop | Type | Required | Description |
-|------|------|----------|-------------|
-| `noteId` | string | Yes | Unique identifier for the note |
-| `initialContent` | string | No | Initial content of the note (default: '') |
-| `canEdit` | boolean | No | Whether user can edit based on role (default: true) |
-| `onContentChange` | function | No | Callback when content changes |
+| Prop              | Type     | Required | Description                                         |
+| ----------------- | -------- | -------- | --------------------------------------------------- |
+| `noteId`          | string   | Yes      | Unique identifier for the note                      |
+| `initialContent`  | string   | No       | Initial content of the note (default: '')           |
+| `canEdit`         | boolean  | No       | Whether user can edit based on role (default: true) |
+| `onContentChange` | function | No       | Callback when content changes                       |
 
 #### Usage
 
@@ -35,7 +35,7 @@ import { useNotes } from '../../hooks';
 function NotePage() {
   const { currentNote } = useNotes();
   const [content, setContent] = useState('');
-  
+
   return (
     <NoteEditor
       noteId={currentNote?.id}
@@ -87,7 +87,7 @@ function MyComponent() {
     createNote,
     deleteNote,
   } = useNotes();
-  
+
   const handleCreate = async () => {
     const result = await createNote('container-id', 'My Note', 'Initial content');
     if (result.success) {
@@ -96,7 +96,7 @@ function MyComponent() {
       console.error('Error:', result.error);
     }
   };
-  
+
   return (
     // Your component JSX
   );

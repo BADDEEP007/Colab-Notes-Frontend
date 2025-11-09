@@ -9,6 +9,7 @@ This document describes the error handling and loading state components implemen
 A React error boundary component that catches JavaScript errors anywhere in the component tree and displays a fallback UI.
 
 **Usage:**
+
 ```jsx
 import ErrorBoundary from './components/ErrorBoundary';
 
@@ -22,6 +23,7 @@ function App() {
 ```
 
 **Features:**
+
 - Catches React errors in child components
 - Displays user-friendly error message
 - Shows error details in development mode
@@ -33,6 +35,7 @@ function App() {
 A reusable loading indicator component with multiple size options.
 
 **Usage:**
+
 ```jsx
 import LoadingSpinner from './components/LoadingSpinner';
 
@@ -52,10 +55,11 @@ import LoadingSpinner from './components/LoadingSpinner';
 A full-screen loading overlay with a message.
 
 **Usage:**
+
 ```jsx
 import { LoadingOverlay } from './components/LoadingSpinner';
 
-<LoadingOverlay message="Loading your data..." />
+<LoadingOverlay message="Loading your data..." />;
 ```
 
 ### 4. LoadingButton
@@ -63,6 +67,7 @@ import { LoadingOverlay } from './components/LoadingSpinner';
 A button component with built-in loading state.
 
 **Usage:**
+
 ```jsx
 import { LoadingButton } from './components/LoadingSpinner';
 
@@ -72,7 +77,7 @@ import { LoadingButton } from './components/LoadingSpinner';
   className="px-4 py-2 bg-blue-600 text-white rounded-lg"
 >
   Submit
-</LoadingButton>
+</LoadingButton>;
 ```
 
 ### 5. SkeletonLoader
@@ -80,6 +85,7 @@ import { LoadingButton } from './components/LoadingSpinner';
 Skeleton loading placeholders for content.
 
 **Usage:**
+
 ```jsx
 import { SkeletonLoader } from './components/LoadingSpinner';
 
@@ -104,6 +110,7 @@ import { SkeletonLoader } from './components/LoadingSpinner';
 Pre-built skeleton for card layouts.
 
 **Usage:**
+
 ```jsx
 import { CardSkeleton } from './components/LoadingSpinner';
 
@@ -121,6 +128,7 @@ import { CardSkeleton } from './components/LoadingSpinner';
 Handles API errors and returns user-friendly messages.
 
 **Usage:**
+
 ```jsx
 import { handleApiError } from './utils/helpers';
 
@@ -129,7 +137,7 @@ try {
 } catch (error) {
   const errorInfo = handleApiError(error);
   console.log(errorInfo.message); // User-friendly message
-  console.log(errorInfo.type);    // Error type: validation, auth, permission, etc.
+  console.log(errorInfo.type); // Error type: validation, auth, permission, etc.
 }
 ```
 
@@ -138,17 +146,19 @@ try {
 Retries a function with exponential backoff.
 
 **Usage:**
+
 ```jsx
 import { retryWithBackoff } from './utils/helpers';
 
 const result = await retryWithBackoff(
   () => apiCall(),
-  3,    // maxRetries (default: 3)
-  1000  // baseDelay in ms (default: 1000)
+  3, // maxRetries (default: 3)
+  1000 // baseDelay in ms (default: 1000)
 );
 ```
 
 **Features:**
+
 - Exponential backoff with jitter
 - Skips retry for client errors (4xx) except 408 and 429
 - Maximum delay capped at 10 seconds
@@ -158,13 +168,14 @@ const result = await retryWithBackoff(
 Shows error toast notification for API errors.
 
 **Usage:**
+
 ```jsx
 import { showApiError } from './utils/helpers';
 import { useToast } from './components/ToastContainer';
 
 function MyComponent() {
   const { showError } = useToast();
-  
+
   try {
     await apiCall();
   } catch (error) {
@@ -180,28 +191,26 @@ function MyComponent() {
 A hook for making API calls with automatic error handling and loading states.
 
 **Usage:**
+
 ```jsx
 import { useApiCall } from './hooks/useApiCall';
 
 function MyComponent() {
   const { execute, loading, error } = useApiCall();
-  
+
   const fetchData = async () => {
     try {
-      const result = await execute(
-        () => apiFunction(),
-        {
-          showErrorToast: true,  // Show error toast (default: true)
-          retry: true,           // Retry on failure (default: false)
-          maxRetries: 3          // Max retry attempts (default: 3)
-        }
-      );
+      const result = await execute(() => apiFunction(), {
+        showErrorToast: true, // Show error toast (default: true)
+        retry: true, // Retry on failure (default: false)
+        maxRetries: 3, // Max retry attempts (default: 3)
+      });
       // Handle success
     } catch (err) {
       // Error already handled and displayed
     }
   };
-  
+
   return (
     <div>
       {loading && <LoadingSpinner />}
@@ -217,29 +226,27 @@ function MyComponent() {
 A hook for making API mutations with manual control.
 
 **Usage:**
+
 ```jsx
 import { useApiMutation } from './hooks/useApiCall';
 
 function MyComponent() {
   const { mutate, loading, error, data } = useApiMutation();
-  
+
   const handleSubmit = async () => {
     try {
-      const result = await mutate(
-        () => createInstance(name),
-        {
-          showErrorToast: true,
-          showSuccessToast: true,
-          successMessage: 'Instance created successfully!',
-          retry: false
-        }
-      );
+      const result = await mutate(() => createInstance(name), {
+        showErrorToast: true,
+        showSuccessToast: true,
+        successMessage: 'Instance created successfully!',
+        retry: false,
+      });
       // Handle success
     } catch (err) {
       // Error already handled
     }
   };
-  
+
   return (
     <LoadingButton loading={loading} onClick={handleSubmit}>
       Create Instance
@@ -253,12 +260,13 @@ function MyComponent() {
 Toast notifications are already implemented and integrated with the error handling system.
 
 **Usage:**
+
 ```jsx
 import { useToast } from './components/ToastContainer';
 
 function MyComponent() {
   const { showSuccess, showError, showWarning, showInfo } = useToast();
-  
+
   const handleAction = async () => {
     try {
       await apiCall();
@@ -267,7 +275,7 @@ function MyComponent() {
       showError('Operation failed. Please try again.');
     }
   };
-  
+
   return <button onClick={handleAction}>Do Something</button>;
 }
 ```
@@ -294,20 +302,17 @@ function MyComponent() {
   const [data, setData] = useState(null);
   const { mutate, loading } = useApiMutation();
   const { showSuccess } = useToast();
-  
+
   const handleFetch = async () => {
     try {
-      const result = await mutate(
-        () => fetchData(),
-        { showErrorToast: true, retry: true }
-      );
+      const result = await mutate(() => fetchData(), { showErrorToast: true, retry: true });
       setData(result);
       showSuccess('Data loaded successfully!');
     } catch (error) {
       // Error already handled by useApiMutation
     }
   };
-  
+
   return (
     <div>
       {loading ? (

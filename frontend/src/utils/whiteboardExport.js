@@ -26,7 +26,7 @@ export const exportAsPNG = (fabricCanvas, filename = 'whiteboard.png') => {
     const link = document.createElement('a');
     link.href = dataURL;
     link.download = filename;
-    
+
     // Trigger download
     document.body.appendChild(link);
     link.click();
@@ -59,7 +59,7 @@ export const exportAsPDF = async (fabricCanvas, filename = 'whiteboard.pdf') => 
     // Create a simple PDF using canvas image
     // For a more robust solution, consider using jsPDF library
     // For now, we'll create a basic PDF-like structure
-    
+
     // Get canvas dimensions
     const width = fabricCanvas.width;
     const height = fabricCanvas.height;
@@ -76,7 +76,7 @@ export const exportAsPDF = async (fabricCanvas, filename = 'whiteboard.pdf') => 
     // Create a new canvas for PDF generation
     const pdfCanvas = document.createElement('canvas');
     const ctx = pdfCanvas.getContext('2d');
-    
+
     // Set PDF page size (A4 proportions)
     const pdfWidth = 1240;
     const pdfHeight = 1754;
@@ -88,10 +88,7 @@ export const exportAsPDF = async (fabricCanvas, filename = 'whiteboard.pdf') => 
     ctx.fillRect(0, 0, pdfWidth, pdfHeight);
 
     // Calculate scaling to fit image on page
-    const scale = Math.min(
-      (pdfWidth - 40) / width,
-      (pdfHeight - 40) / height
-    );
+    const scale = Math.min((pdfWidth - 40) / width, (pdfHeight - 40) / height);
     const scaledWidth = width * scale;
     const scaledHeight = height * scale;
     const x = (pdfWidth - scaledWidth) / 2;
@@ -106,14 +103,13 @@ export const exportAsPDF = async (fabricCanvas, filename = 'whiteboard.pdf') => 
       const link = document.createElement('a');
       link.href = url;
       link.download = filename;
-      
+
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
-      
+
       URL.revokeObjectURL(url);
     }, 'image/png');
-
   } catch (error) {
     console.error('Failed to export as PDF:', error);
     throw error;

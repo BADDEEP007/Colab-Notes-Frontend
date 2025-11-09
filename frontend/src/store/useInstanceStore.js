@@ -29,8 +29,7 @@ const useInstanceStore = create((set, get) => ({
       set({ instances: [], isLoading: false });
       return { success: true };
     } catch (error) {
-      const errorMessage =
-        error.response?.data?.message || 'Failed to fetch instances.';
+      const errorMessage = error.response?.data?.message || 'Failed to fetch instances.';
       set({ isLoading: false, error: errorMessage });
       return { success: false, error: errorMessage };
     }
@@ -65,8 +64,7 @@ const useInstanceStore = create((set, get) => ({
 
       return { success: true, instance: newInstance };
     } catch (error) {
-      const errorMessage =
-        error.response?.data?.message || 'Failed to create instance.';
+      const errorMessage = error.response?.data?.message || 'Failed to create instance.';
       set({ isLoading: false, error: errorMessage });
       return { success: false, error: errorMessage };
     }
@@ -99,8 +97,7 @@ const useInstanceStore = create((set, get) => ({
 
       return { success: true };
     } catch (error) {
-      const errorMessage =
-        error.response?.data?.message || 'Failed to update instance.';
+      const errorMessage = error.response?.data?.message || 'Failed to update instance.';
       set({ isLoading: false, error: errorMessage });
       return { success: false, error: errorMessage };
     }
@@ -118,15 +115,13 @@ const useInstanceStore = create((set, get) => ({
 
       set((state) => ({
         instances: state.instances.filter((instance) => instance.id !== id),
-        currentInstance:
-          state.currentInstance?.id === id ? null : state.currentInstance,
+        currentInstance: state.currentInstance?.id === id ? null : state.currentInstance,
         isLoading: false,
       }));
 
       return { success: true };
     } catch (error) {
-      const errorMessage =
-        error.response?.data?.message || 'Failed to delete instance.';
+      const errorMessage = error.response?.data?.message || 'Failed to delete instance.';
       set({ isLoading: false, error: errorMessage });
       return { success: false, error: errorMessage };
     }
@@ -177,8 +172,7 @@ const useInstanceStore = create((set, get) => ({
 
       return { success: true, member: newMember };
     } catch (error) {
-      const errorMessage =
-        error.response?.data?.message || 'Failed to invite member.';
+      const errorMessage = error.response?.data?.message || 'Failed to invite member.';
       set({ isLoading: false, error: errorMessage });
       return { success: false, error: errorMessage };
     }
@@ -205,8 +199,7 @@ const useInstanceStore = create((set, get) => ({
       set({ isLoading: false });
       return { success: true, link, data: response.data };
     } catch (error) {
-      const errorMessage =
-        error.response?.data?.message || 'Failed to generate share link.';
+      const errorMessage = error.response?.data?.message || 'Failed to generate share link.';
       set({ isLoading: false, error: errorMessage });
       return { success: false, error: errorMessage };
     }
@@ -227,8 +220,7 @@ const useInstanceStore = create((set, get) => ({
       set({ containers: [], isLoading: false });
       return { success: true };
     } catch (error) {
-      const errorMessage =
-        error.response?.data?.message || 'Failed to fetch containers.';
+      const errorMessage = error.response?.data?.message || 'Failed to fetch containers.';
       set({ isLoading: false, error: errorMessage });
       return { success: false, error: errorMessage };
     }
@@ -263,8 +255,7 @@ const useInstanceStore = create((set, get) => ({
 
       return { success: true, container: newContainer };
     } catch (error) {
-      const errorMessage =
-        error.response?.data?.message || 'Failed to create container.';
+      const errorMessage = error.response?.data?.message || 'Failed to create container.';
       set({ isLoading: false, error: errorMessage });
       return { success: false, error: errorMessage };
     }

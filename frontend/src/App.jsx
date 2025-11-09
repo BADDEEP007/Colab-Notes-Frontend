@@ -6,6 +6,7 @@ import LoadingSpinner from './components/LoadingSpinner';
 import ProtectedRoute from './components/ProtectedRoute';
 import PublicRoute from './components/PublicRoute';
 import useAuthStore from './store/useAuthStore';
+import styles from './App.module.css';
 
 // Lazy load page components for code splitting
 const LoginPage = lazy(() => import('./pages/LoginPage'));
@@ -24,7 +25,13 @@ const ShareLinkAccessPage = lazy(() => import('./pages/ShareLinkAccessPage'));
  * Skip to Main Content Link Component
  * Provides keyboard users a way to skip navigation and go directly to main content
  */
-
+function SkipToMainContent() {
+  return (
+    <a href="#main-content" className="skip-to-main">
+      Skip to main content
+    </a>
+  );
+}
 
 /**
  * Main App Component with Routing
@@ -42,7 +49,7 @@ export default function App() {
   // Show loading spinner while checking authentication
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-gray-50">
+      <div className={styles.loadingContainer}>
         <LoadingSpinner size="large" />
       </div>
     );
@@ -55,7 +62,7 @@ export default function App() {
           <SkipToMainContent />
           <Suspense
             fallback={
-              <div className="flex items-center justify-center min-h-screen bg-gray-50">
+              <div className={styles.loadingContainer}>
                 <LoadingSpinner size="large" />
               </div>
             }
@@ -145,14 +152,8 @@ export default function App() {
                   </ProtectedRoute>
                 }
               />
-              <Route
-                path="/share/instance/:resourceId"
-                element={<ShareLinkAccessPage />}
-              />
-              <Route
-                path="/share/note/:resourceId"
-                element={<ShareLinkAccessPage />}
-              />
+              <Route path="/share/instance/:resourceId" element={<ShareLinkAccessPage />} />
+              <Route path="/share/note/:resourceId" element={<ShareLinkAccessPage />} />
               <Route
                 path="*"
                 element={<Navigate to={isAuthenticated ? '/dashboard' : '/login'} replace />}

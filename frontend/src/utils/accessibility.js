@@ -63,12 +63,7 @@ export function getContrastRatio(color1, color2) {
  * @param {boolean} isLargeText - Whether text is large (18pt+ or 14pt+ bold)
  * @returns {boolean} Whether combination passes
  */
-export function meetsWCAGStandard(
-  foreground,
-  background,
-  level = 'AA',
-  isLargeText = false
-) {
+export function meetsWCAGStandard(foreground, background, level = 'AA', isLargeText = false) {
   const ratio = getContrastRatio(foreground, background);
 
   if (level === 'AAA') {

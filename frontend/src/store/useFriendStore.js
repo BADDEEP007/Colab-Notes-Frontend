@@ -29,8 +29,7 @@ const useFriendStore = create((set, get) => ({
       set({ friends, isLoading: false });
       return { success: true, friends };
     } catch (error) {
-      const errorMessage =
-        error.response?.data?.message || 'Failed to fetch friends.';
+      const errorMessage = error.response?.data?.message || 'Failed to fetch friends.';
       set({ isLoading: false, error: errorMessage });
       return { success: false, error: errorMessage };
     }
@@ -52,8 +51,7 @@ const useFriendStore = create((set, get) => ({
       set({ friendRequests: requests, isLoading: false });
       return { success: true, requests };
     } catch (error) {
-      const errorMessage =
-        error.response?.data?.message || 'Failed to fetch friend requests.';
+      const errorMessage = error.response?.data?.message || 'Failed to fetch friend requests.';
       set({ isLoading: false, error: errorMessage });
       return { success: false, error: errorMessage };
     }
@@ -82,8 +80,7 @@ const useFriendStore = create((set, get) => ({
       set({ isLoading: false });
       return { success: true, request };
     } catch (error) {
-      const errorMessage =
-        error.response?.data?.message || 'Failed to send friend request.';
+      const errorMessage = error.response?.data?.message || 'Failed to send friend request.';
       set({ isLoading: false, error: errorMessage });
       return { success: false, error: errorMessage };
     }
@@ -113,9 +110,7 @@ const useFriendStore = create((set, get) => ({
 
         set((state) => ({
           friends: [...state.friends, newFriend],
-          friendRequests: state.friendRequests.filter(
-            (req) => req.id !== requestId
-          ),
+          friendRequests: state.friendRequests.filter((req) => req.id !== requestId),
           isLoading: false,
         }));
       } else {
@@ -124,8 +119,7 @@ const useFriendStore = create((set, get) => ({
 
       return { success: true };
     } catch (error) {
-      const errorMessage =
-        error.response?.data?.message || 'Failed to accept friend request.';
+      const errorMessage = error.response?.data?.message || 'Failed to accept friend request.';
       set({ isLoading: false, error: errorMessage });
       return { success: false, error: errorMessage };
     }
@@ -142,16 +136,13 @@ const useFriendStore = create((set, get) => ({
       // await friendsApi.rejectRequest(requestId);
 
       set((state) => ({
-        friendRequests: state.friendRequests.filter(
-          (req) => req.id !== requestId
-        ),
+        friendRequests: state.friendRequests.filter((req) => req.id !== requestId),
         isLoading: false,
       }));
 
       return { success: true };
     } catch (error) {
-      const errorMessage =
-        error.response?.data?.message || 'Failed to reject friend request.';
+      const errorMessage = error.response?.data?.message || 'Failed to reject friend request.';
       set({ isLoading: false, error: errorMessage });
       return { success: false, error: errorMessage };
     }
@@ -174,8 +165,7 @@ const useFriendStore = create((set, get) => ({
 
       return { success: true };
     } catch (error) {
-      const errorMessage =
-        error.response?.data?.message || 'Failed to remove friend.';
+      const errorMessage = error.response?.data?.message || 'Failed to remove friend.';
       set({ isLoading: false, error: errorMessage });
       return { success: false, error: errorMessage };
     }
@@ -277,8 +267,7 @@ const useFriendStore = create((set, get) => ({
 
       newStatuses.forEach((status, userId) => {
         const lastSeen = new Date(status.lastSeen || status.lastUpdated);
-        const minutesSinceLastSeen =
-          (now - lastSeen) / 1000 / 60;
+        const minutesSinceLastSeen = (now - lastSeen) / 1000 / 60;
 
         if (minutesSinceLastSeen > thresholdMinutes) {
           newStatuses.set(userId, { ...status, status: 'offline' });

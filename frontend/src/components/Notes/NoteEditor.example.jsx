@@ -14,7 +14,7 @@ export default function NoteEditorExample() {
   const [selectedNoteId, setSelectedNoteId] = useState(null);
   const [noteContent, setNoteContent] = useState('');
   const [userRole, setUserRole] = useState(ROLES.EDITOR);
-  
+
   const {
     notes,
     currentNote,
@@ -29,7 +29,7 @@ export default function NoteEditorExample() {
   useEffect(() => {
     if (selectedNoteId) {
       setCurrentNote(selectedNoteId);
-      const note = notes.find(n => n.id === selectedNoteId);
+      const note = notes.find((n) => n.id === selectedNoteId);
       if (note) {
         setNoteContent(note.content || '');
       }
@@ -40,10 +40,10 @@ export default function NoteEditorExample() {
   const handleCreateNote = async () => {
     const title = prompt('Enter note title:');
     if (!title) return;
-    
+
     const containerId = 'example-container-id'; // Replace with actual container ID
     const result = await createNote(containerId, title, '');
-    
+
     if (result.success) {
       setSelectedNoteId(result.note.id);
       alert('Note created successfully!');
@@ -55,12 +55,12 @@ export default function NoteEditorExample() {
   // Handle deleting a note
   const handleDeleteNote = async () => {
     if (!selectedNoteId) return;
-    
+
     const confirmed = confirm('Are you sure you want to delete this note?');
     if (!confirmed) return;
-    
+
     const result = await deleteNote(selectedNoteId);
-    
+
     if (result.success) {
       setSelectedNoteId(null);
       setNoteContent('');
@@ -74,9 +74,9 @@ export default function NoteEditorExample() {
   const handleFetchByTitle = async () => {
     const title = prompt('Enter note title to fetch:');
     if (!title) return;
-    
+
     const result = await fetchNoteByTitle(title);
-    
+
     if (result.success) {
       setSelectedNoteId(result.note.id);
       setNoteContent(result.note.content || '');
@@ -94,7 +94,7 @@ export default function NoteEditorExample() {
             {currentNote?.title || 'No Note Selected'}
           </h1>
         </div>
-        
+
         <div className="flex items-center gap-2">
           <button
             onClick={handleCreateNote}
@@ -102,14 +102,14 @@ export default function NoteEditorExample() {
           >
             Create Note
           </button>
-          
+
           <button
             onClick={handleFetchByTitle}
             className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200"
           >
             Fetch by Title
           </button>
-          
+
           {selectedNoteId && (
             <button
               onClick={handleDeleteNote}
@@ -118,7 +118,7 @@ export default function NoteEditorExample() {
               Delete Note
             </button>
           )}
-          
+
           {/* Role selector for testing */}
           <select
             value={userRole}
@@ -137,7 +137,7 @@ export default function NoteEditorExample() {
         <div className="w-64 bg-gray-50 border-r border-gray-200 overflow-y-auto">
           <div className="p-4">
             <h2 className="text-sm font-semibold text-gray-700 mb-3">Notes</h2>
-            
+
             {isLoading ? (
               <div className="text-sm text-gray-500">Loading...</div>
             ) : notes.length === 0 ? (
@@ -150,9 +150,10 @@ export default function NoteEditorExample() {
                     onClick={() => setSelectedNoteId(note.id)}
                     className={`
                       w-full text-left px-3 py-2 rounded-lg text-sm
-                      ${selectedNoteId === note.id 
-                        ? 'bg-blue-100 text-blue-900' 
-                        : 'hover:bg-gray-100 text-gray-700'
+                      ${
+                        selectedNoteId === note.id
+                          ? 'bg-blue-100 text-blue-900'
+                          : 'hover:bg-gray-100 text-gray-700'
                       }
                     `}
                   >

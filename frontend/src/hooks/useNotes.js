@@ -40,12 +40,12 @@ export const useNotes = () => {
     async (containerId, title, content = '') => {
       try {
         const result = await createNote(containerId, title, content);
-        
+
         if (!result.success) {
           const errorInfo = handleApiError({ response: { data: { message: result.error } } });
           return { success: false, error: errorInfo.message };
         }
-        
+
         return { success: true, note: result.note };
       } catch (err) {
         const errorInfo = handleApiError(err);
@@ -64,12 +64,12 @@ export const useNotes = () => {
     async (title) => {
       try {
         const result = await fetchNoteByTitle(title);
-        
+
         if (!result.success) {
           const errorInfo = handleApiError({ response: { data: { message: result.error } } });
           return { success: false, error: errorInfo.message };
         }
-        
+
         return { success: true, note: result.note };
       } catch (err) {
         const errorInfo = handleApiError(err);
@@ -90,12 +90,12 @@ export const useNotes = () => {
     async (noteId, updates, immediate = false) => {
       try {
         const result = await updateNote(noteId, updates, immediate);
-        
+
         if (result && !result.success) {
           const errorInfo = handleApiError({ response: { data: { message: result.error } } });
           return { success: false, error: errorInfo.message };
         }
-        
+
         return { success: true };
       } catch (err) {
         const errorInfo = handleApiError(err);
@@ -114,12 +114,12 @@ export const useNotes = () => {
     async (noteId) => {
       try {
         const result = await deleteNote(noteId);
-        
+
         if (!result.success) {
           const errorInfo = handleApiError({ response: { data: { message: result.error } } });
           return { success: false, error: errorInfo.message };
         }
-        
+
         return { success: true };
       } catch (err) {
         const errorInfo = handleApiError(err);
@@ -138,12 +138,12 @@ export const useNotes = () => {
     async (containerId) => {
       try {
         const result = await fetchNotes(containerId);
-        
+
         if (!result.success) {
           const errorInfo = handleApiError({ response: { data: { message: result.error } } });
           return { success: false, error: errorInfo.message };
         }
-        
+
         return { success: true, notes: result.notes };
       } catch (err) {
         const errorInfo = handleApiError(err);
@@ -164,12 +164,12 @@ export const useNotes = () => {
     async (noteId, userId, role) => {
       try {
         const result = await shareNote(noteId, userId, role);
-        
+
         if (!result.success) {
           const errorInfo = handleApiError({ response: { data: { message: result.error } } });
           return { success: false, error: errorInfo.message };
         }
-        
+
         return { success: true };
       } catch (err) {
         const errorInfo = handleApiError(err);
@@ -199,7 +199,7 @@ export const useNotes = () => {
     isAutoSaving,
     lastSaved,
     error,
-    
+
     // Operations
     createNote: handleCreateNote,
     fetchNoteByTitle: handleFetchNoteByTitle,

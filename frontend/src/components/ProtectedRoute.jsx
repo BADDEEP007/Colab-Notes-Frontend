@@ -1,29 +1,26 @@
 import { Navigate, useLocation } from 'react-router-dom';
 import useAuthStore from '../store/useAuthStore';
 import LoadingSpinner from './LoadingSpinner';
+import styles from './ProtectedRoute.module.css';
 
 /**
  * ProtectedRoute component that redirects to login if user is not authenticated
  * Also handles permission checking for resources
- * 
+ *
  * @param {Object} props - Component props
  * @param {React.ReactNode} props.children - Child components to render if authenticated
  * @param {Function} [props.checkPermission] - Optional function to check permissions before rendering
  * @param {string} [props.redirectTo] - Optional redirect path if permission check fails
  * @returns {React.ReactNode} - Protected content or redirect
  */
-export default function ProtectedRoute({ 
-  children, 
-  checkPermission, 
-  redirectTo = '/dashboard' 
-}) {
+export default function ProtectedRoute({ children, checkPermission, redirectTo = '/dashboard' }) {
   const { isAuthenticated, isLoading } = useAuthStore();
   const location = useLocation();
 
   // Show loading spinner while checking authentication
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
+      <div className={styles.loadingContainer}>
         <LoadingSpinner size="large" />
       </div>
     );

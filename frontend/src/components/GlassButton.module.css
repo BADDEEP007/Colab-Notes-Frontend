@@ -1,0 +1,75 @@
+.button {
+  padding: var(--spacing-4) var(--spacing-6);
+  border-radius: var(--radius-md);
+  font-weight: 500;
+  font-size: var(--font-size-base);
+  transition: all var(--duration-fast) var(--easing);
+  cursor: pointer;
+  border: 1px solid transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2);
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.primary {
+  background: linear-gradient(135deg, rgba(147, 197, 253, 0.6) 0%, rgba(254, 202, 202, 0.6) 100%);
+  color: white;
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 15px rgba(147, 197, 253, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.primary:hover:not(:disabled) {
+  background: linear-gradient(135deg, rgba(147, 197, 253, 0.8) 0%, rgba(254, 202, 202, 0.8) 100%);
+  box-shadow: 0 6px 20px rgba(147, 197, 253, 0.3);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.secondary {
+  background: var(--gradient-secondary);
+  color: white;
+  border: none;
+  box-shadow: 0 4px 15px rgba(165, 180, 252, 0.4);
+}
+
+.secondary:hover:not(:disabled) {
+  box-shadow: 0 6px 20px rgba(165, 180, 252, 0.5);
+  transform: translateY(-2px);
+}
+
+.ghost {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-color: var(--glass-border);
+  color: var(--color-muted-navy);
+}
+
+.ghost:hover:not(:disabled) {
+  background: var(--glass-bg-light);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.loadingContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2);
+}
+
+.loadingSpinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}

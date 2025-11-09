@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams, useSearchParams, useNavigate } from 'react-router-dom';
 import shareApi from '../api/shareApi';
 import useAuthStore from '../store/useAuthStore';
+import styles from './ShareLinkAccessPage.module.css';
 
 /**
  * ShareLinkAccess Page Component
@@ -26,7 +27,7 @@ export default function ShareLinkAccessPage() {
   const validateAndAccessLink = async () => {
     try {
       const token = searchParams.get('token');
-      
+
       if (!token) {
         setStatus('error');
         setMessage('Invalid share link: Missing token');
@@ -34,7 +35,7 @@ export default function ShareLinkAccessPage() {
       }
 
       let response;
-      
+
       // Call appropriate API based on resource type
       if (resourceType === 'instance') {
         response = await shareApi.accessInstanceLink(resourceId, token);
@@ -78,10 +79,9 @@ export default function ShareLinkAccessPage() {
           navigate(`/instance/${instanceId}/container/${containerId}/note/${resourceId}`);
         }
       }, 1500);
-
     } catch (error) {
       console.error('Error accessing share link:', error);
-      
+
       const errorMessage = error.response?.data?.message || 'Failed to access share link';
       const errorStatus = error.response?.status;
 
@@ -108,18 +108,14 @@ export default function ShareLinkAccessPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center p-4">
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-md p-8">
+    <div className={styles.container}>
+      <div className={styles.card}>
         {/* Status Icon */}
-        <div className="flex justify-center mb-6">
+        <div className={styles.iconContainer}>
           {status === 'validating' && (
-            <svg
-              className="animate-spin h-16 w-16 text-blue-600"
-              fill="none"
-              viewBox="0 0 24 24"
-            >
+            <svg className={styles.spinIcon} fill="none" viewBox="0 0 24 24">
               <circle
-                className="opacity-25"
+                className={styles.opacityLow}
                 cx="12"
                 cy="12"
                 r="10"
@@ -127,7 +123,7 @@ export default function ShareLinkAccessPage() {
                 strokeWidth="4"
               />
               <path
-                className="opacity-75"
+                className={styles.opacityMedium}
                 fill="currentColor"
                 d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
               />
@@ -136,7 +132,7 @@ export default function ShareLinkAccessPage() {
 
           {status === 'success' && (
             <svg
-              className="h-16 w-16 text-green-600"
+              className={styles.successIcon}
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -152,7 +148,7 @@ export default function ShareLinkAccessPage() {
 
           {status === 'expired' && (
             <svg
-              className="h-16 w-16 text-yellow-600"
+              className={styles.expiredIcon}
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -168,7 +164,7 @@ export default function ShareLinkAccessPage() {
 
           {status === 'restricted' && (
             <svg
-              className="h-16 w-16 text-orange-600"
+              className={styles.restrictedIcon}
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -183,12 +179,7 @@ export default function ShareLinkAccessPage() {
           )}
 
           {status === 'error' && (
-            <svg
-              className="h-16 w-16 text-red-600"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
+            <svg className={styles.errorIcon} fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -200,7 +191,7 @@ export default function ShareLinkAccessPage() {
         </div>
 
         {/* Status Message */}
-        <h1 className="text-2xl font-bold text-center text-gray-900 dark:text-white mb-4">
+        <h1 className={styles.title}>
           {status === 'validating' && 'Validating Link'}
           {status === 'success' && 'Access Granted'}
           {status === 'expired' && 'Link Expired'}
@@ -208,30 +199,24 @@ export default function ShareLinkAccessPage() {
           {status === 'error' && 'Access Denied'}
         </h1>
 
-        <p className="text-center text-gray-600 dark:text-gray-400 mb-6">
-          {message}
-        </p>
+        <p className={styles.message}>{message}</p>
 
         {/* Access Details */}
         {accessDetails && status === 'success' && (
-          <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 mb-6">
-            <div className="space-y-2 text-sm">
-              <div className="flex justify-between">
-                <span className="text-gray-600 dark:text-gray-400">Resource Type:</span>
-                <span className="font-medium text-gray-900 dark:text-white capitalize">
-                  {resourceType}
-                </span>
+          <div className={styles.detailsCard}>
+            <div className={styles.detailsList}>
+              <div className={styles.detailRow}>
+                <span className={styles.detailLabel}>Resource Type:</span>
+                <span className={styles.detailValue}>{resourceType}</span>
               </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600 dark:text-gray-400">Access Level:</span>
-                <span className="font-medium text-gray-900 dark:text-white">
-                  {accessDetails.role}
-                </span>
+              <div className={styles.detailRow}>
+                <span className={styles.detailLabel}>Access Level:</span>
+                <span className={styles.detailValue}>{accessDetails.role}</span>
               </div>
               {accessDetails.expiresAt && (
-                <div className="flex justify-between">
-                  <span className="text-gray-600 dark:text-gray-400">Expires:</span>
-                  <span className="font-medium text-gray-900 dark:text-white">
+                <div className={styles.detailRow}>
+                  <span className={styles.detailLabel}>Expires:</span>
+                  <span className={styles.detailValue}>
                     {new Date(accessDetails.expiresAt).toLocaleDateString()}
                   </span>
                 </div>
@@ -241,30 +226,21 @@ export default function ShareLinkAccessPage() {
         )}
 
         {/* Action Buttons */}
-        <div className="space-y-3">
+        <div className={styles.buttonContainer}>
           {status === 'restricted' && (
-            <button
-              onClick={handleLoginRedirect}
-              className="w-full px-4 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors"
-            >
+            <button onClick={handleLoginRedirect} className={styles.primaryButton}>
               Log In to Continue
             </button>
           )}
 
           {(status === 'error' || status === 'expired') && (
-            <button
-              onClick={() => navigate('/')}
-              className="w-full px-4 py-3 bg-gray-600 text-white font-medium rounded-lg hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition-colors"
-            >
+            <button onClick={() => navigate('/')} className={styles.primaryButton}>
               Go to Dashboard
             </button>
           )}
 
           {status !== 'validating' && status !== 'success' && (
-            <button
-              onClick={() => navigate(-1)}
-              className="w-full px-4 py-3 text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 font-medium rounded-lg hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors"
-            >
+            <button onClick={() => navigate(-1)} className={styles.secondaryButton}>
               Go Back
             </button>
           )}
@@ -272,13 +248,13 @@ export default function ShareLinkAccessPage() {
 
         {/* Help Text */}
         {status === 'expired' && (
-          <p className="mt-6 text-xs text-center text-gray-500 dark:text-gray-400">
+          <p className={styles.helpText}>
             This link has expired. Please request a new share link from the owner.
           </p>
         )}
 
         {status === 'error' && (
-          <p className="mt-6 text-xs text-center text-gray-500 dark:text-gray-400">
+          <p className={styles.helpText}>
             If you believe this is an error, please contact the person who shared this link.
           </p>
         )}

@@ -1,0 +1,113 @@
+.container {
+  position: relative;
+  width: 100%;
+}
+
+.wrapper {
+  width: 100%;
+}
+
+.input {
+  background: var(--glass-bg-light);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-4) var(--spacing-5);
+  transition: all var(--duration-fast) var(--easing);
+  color: var(--color-muted-navy);
+  font-size: var(--font-size-base);
+  width: 100%;
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--color-sky-blue-dark);
+  box-shadow: 0 0 0 3px rgba(147, 197, 253, 0.2);
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.input::placeholder {
+  color: #94a3b8;
+}
+
+.input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.inputWithIcon {
+  padding-left: 3.5rem;
+}
+
+.inputError {
+  border-color: var(--color-light-coral);
+}
+
+.inputError:focus {
+  border-color: var(--color-light-coral);
+  box-shadow: 0 0 0 3px rgba(254, 202, 202, 0.2);
+}
+
+.label {
+  position: absolute;
+  left: 1.25rem;
+  top: 50%;
+  transform: translateY(-50%);
+  transform-origin: left;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  color: #334155;
+  background: transparent;
+  padding: 0;
+  font-size: var(--font-size-base);
+  font-weight: 400;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.8;
+}
+
+.labelWithIcon {
+  left: 3.5rem;
+}
+
+.labelFloating {
+  top: -0.5rem;
+  transform: translateY(0) scale(0.85);
+  background: var(--color-off-white);
+  padding: 0 0.5rem;
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  opacity: 1;
+}
+
+.labelError {
+  color: var(--color-light-coral);
+}
+
+.icon {
+  position: absolute;
+  left: 1.25rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #334155;
+  opacity: 1;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.iconError {
+  color: var(--color-light-coral);
+}
+
+.errorMessage {
+  margin-top: 0.375rem;
+  font-size: var(--font-size-sm);
+  color: var(--color-light-coral);
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.errorIcon {
+  flex-shrink: 0;
+}

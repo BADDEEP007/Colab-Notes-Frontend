@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from 'react';
 /**
  * Optimized Image Component
  * Provides lazy loading, WebP support with fallback, and loading states
- * 
+ *
  * @param {Object} props
  * @param {string} props.src - Image source URL
  * @param {string} props.alt - Alt text for accessibility
@@ -83,17 +83,16 @@ export default function OptimizedImage({
   // Get WebP version of image if supported
   const getOptimizedSrc = (originalSrc) => {
     if (!originalSrc) return null;
-    
+
     // Check if browser supports WebP
-    const supportsWebP = document.createElement('canvas')
-      .toDataURL('image/webp')
-      .indexOf('data:image/webp') === 0;
-    
+    const supportsWebP =
+      document.createElement('canvas').toDataURL('image/webp').indexOf('data:image/webp') === 0;
+
     if (supportsWebP && originalSrc.match(/\.(jpg|jpeg|png)$/i)) {
       // Replace extension with .webp if available
       return originalSrc.replace(/\.(jpg|jpeg|png)$/i, '.webp');
     }
-    
+
     return originalSrc;
   };
 

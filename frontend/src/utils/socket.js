@@ -242,10 +242,10 @@ class SocketManager {
   disconnect() {
     if (this.socket) {
       console.log('Disconnecting socket');
-      
+
       // Emit user offline status before disconnecting
       this.emitUserStatus('offline');
-      
+
       this.socket.disconnect();
       this.socket.removeAllListeners();
       this.socket = null;
@@ -280,7 +280,7 @@ class SocketManager {
   on(event, handler) {
     if (this.socket) {
       this.socket.on(event, handler);
-      
+
       // Store handler reference for cleanup
       if (!this.handlers.has(event)) {
         this.handlers.set(event, []);
@@ -300,7 +300,7 @@ class SocketManager {
     if (this.socket) {
       if (handler) {
         this.socket.off(event, handler);
-        
+
         // Remove from handlers map
         const handlers = this.handlers.get(event);
         if (handlers) {

@@ -9,7 +9,7 @@
  */
 export const supportsBackdropFilter = () => {
   if (typeof window === 'undefined') return false;
-  
+
   return (
     CSS.supports('backdrop-filter', 'blur(1px)') ||
     CSS.supports('-webkit-backdrop-filter', 'blur(1px)')
@@ -88,8 +88,8 @@ export const checkBrowserCompatibility = () => {
     Edge: 90,
   };
 
-  const isSupported = browser.name in minVersions && 
-    parseInt(browser.version) >= minVersions[browser.name];
+  const isSupported =
+    browser.name in minVersions && parseInt(browser.version) >= minVersions[browser.name];
 
   return {
     browser: browser.name,
@@ -110,20 +110,20 @@ export const applyBrowserFallbacks = () => {
   if (typeof document === 'undefined') return;
 
   const html = document.documentElement;
-  
+
   // Add browser-specific classes
   const browser = detectBrowser();
   html.classList.add(`browser-${browser.name.toLowerCase()}`);
-  
+
   // Add feature support classes
   if (!supportsBackdropFilter()) {
     html.classList.add('no-backdrop-filter');
   }
-  
+
   if (!supportsCSSGrid()) {
     html.classList.add('no-css-grid');
   }
-  
+
   if (!supportsCSSVariables()) {
     html.classList.add('no-css-variables');
   }
