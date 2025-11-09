@@ -5,23 +5,53 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:mock": "VITE_USE_MOCK_BACKEND=true vite",
+    "dev:real": "VITE_USE_MOCK_BACKEND=false vite",
     "build": "vite build",
+    "build:dev": "vite build --mode development",
+    "build:staging": "vite build --mode staging",
+    "build:prod": "vite build --mode production",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write \"src/**/*.{js,jsx,json,css,md}\"",
+    "format:check": "prettier --check \"src/**/*.{js,jsx,json,css,md}\"",
+    "preview": "vite preview",
+    "analyze": "vite build --mode production && vite-bundle-visualizer",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "test:e2e:report": "playwright show-report"
   },
   "dependencies": {
+    "axios": "^1.13.2",
+    "clsx": "^2.1.1",
+    "fabric": "^6.9.0",
+    "prop-types": "^15.8.1",
     "react": "^19.1.1",
-    "react-dom": "^19.1.1"
+    "react-dom": "^19.1.1",
+    "react-router-dom": "^7.9.5",
+    "react-window": "^2.2.3",
+    "socket.io-client": "^4.8.1",
+    "tailwind-merge": "^3.3.1",
+    "zustand": "^5.0.8"
   },
   "devDependencies": {
     "@eslint/js": "^9.33.0",
+    "@playwright/test": "^1.56.1",
+    "@tailwindcss/postcss": "^4.1.17",
     "@types/react": "^19.1.10",
     "@types/react-dom": "^19.1.7",
     "@vitejs/plugin-react": "^5.0.0",
+    "autoprefixer": "^10.4.21",
     "eslint": "^9.33.0",
+    "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",
     "globals": "^16.3.0",
+    "playwright": "^1.56.1",
+    "postcss": "^8.5.6",
+    "prettier": "^3.6.2",
+    "tailwindcss": "^4.1.17",
+    "terser": "^5.44.1",
     "vite": "^7.1.2"
   }
 }

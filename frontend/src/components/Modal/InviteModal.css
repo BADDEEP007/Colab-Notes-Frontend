@@ -1,0 +1,239 @@
+/* ============================================
+   INVITE MODAL STYLES
+   ============================================ */
+
+.invite-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-6);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+.form-label {
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--color-muted-navy);
+  margin-bottom: var(--spacing-1);
+}
+
+/* Glass Select Dropdown */
+.glass-select {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur-light);
+  -webkit-backdrop-filter: var(--glass-blur-light);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-3) var(--spacing-4);
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  color: var(--color-muted-navy);
+  width: 100%;
+  transition: all var(--duration-fast) var(--easing);
+  outline: none;
+  cursor: pointer;
+  min-height: 44px;
+}
+
+.glass-select:focus {
+  border-color: var(--color-sky-blue);
+  box-shadow: 0 0 0 3px rgba(179, 229, 252, 0.2);
+}
+
+.glass-select:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.glass-select option {
+  background: white;
+  color: var(--color-muted-navy);
+  padding: var(--spacing-2);
+}
+
+/* Role Description */
+.role-description {
+  font-size: var(--font-size-xs);
+  color: var(--color-muted-navy);
+  opacity: 0.7;
+  margin: var(--spacing-1) 0 0 0;
+}
+
+/* Divider */
+.divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: var(--spacing-2) 0;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.divider span {
+  padding: 0 var(--spacing-3);
+  font-size: var(--font-size-sm);
+  color: var(--color-muted-navy);
+  opacity: 0.6;
+}
+
+/* Error Message */
+.error-message {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  padding: var(--spacing-3);
+  background: rgba(255, 171, 145, 0.1);
+  border: 1px solid var(--color-light-coral);
+  border-radius: var(--radius-md);
+  color: var(--color-light-coral);
+  font-size: var(--font-size-sm);
+  animation: slideIn var(--duration-fast) var(--easing);
+}
+
+/* Current Members Section */
+.current-members {
+  margin-top: var(--spacing-4);
+  padding-top: var(--spacing-4);
+  border-top: 1px solid var(--glass-border);
+}
+
+.members-title {
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  color: var(--color-muted-navy);
+  margin: 0 0 var(--spacing-3) 0;
+}
+
+.members-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+/* Member Item */
+.member-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  padding: var(--spacing-3);
+  background: var(--glass-bg-light);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  transition: all var(--duration-fast) var(--easing);
+}
+
+.member-item:hover {
+  background: var(--glass-bg);
+  transform: translateX(4px);
+}
+
+.member-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  background: var(--gradient-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  color: white;
+  font-size: var(--font-size-base);
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.member-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.member-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.member-name {
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--color-muted-navy);
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.member-email {
+  font-size: var(--font-size-xs);
+  color: var(--color-muted-navy);
+  opacity: 0.7;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.member-role {
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  padding: var(--spacing-1) var(--spacing-3);
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
+}
+
+.role-owner {
+  background: rgba(179, 229, 252, 0.2);
+  color: var(--color-sky-blue);
+  border: 1px solid var(--color-sky-blue);
+}
+
+.role-editor {
+  background: rgba(255, 224, 178, 0.2);
+  color: var(--color-soft-peach);
+  border: 1px solid var(--color-soft-peach);
+}
+
+.role-viewer {
+  background: rgba(53, 92, 125, 0.1);
+  color: var(--color-muted-navy);
+  border: 1px solid var(--color-muted-navy);
+}
+
+/* ============================================
+   RESPONSIVE STYLES
+   ============================================ */
+
+@media (max-width: 767px) {
+  .member-item {
+    padding: var(--spacing-2);
+  }
+
+  .member-avatar {
+    width: 36px;
+    height: 36px;
+    font-size: var(--font-size-sm);
+  }
+
+  .member-name {
+    font-size: var(--font-size-xs);
+  }
+
+  .member-email {
+    font-size: 0.65rem;
+  }
+
+  .members-list {
+    max-height: 150px;
+  }
+}

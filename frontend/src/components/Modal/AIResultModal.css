@@ -1,0 +1,229 @@
+/* ============================================
+   AI RESULT MODAL STYLES
+   ============================================ */
+
+.ai-result-modal {
+  max-width: 700px;
+}
+
+/* AI Header */
+.ai-header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+}
+
+.ai-icon {
+  color: var(--color-sky-blue);
+  flex-shrink: 0;
+}
+
+/* AI Content Container */
+.ai-content-container {
+  min-height: 200px;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+/* Loading State */
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-6);
+  padding: var(--spacing-8) var(--spacing-4);
+}
+
+/* Shimmer Effect */
+.shimmer-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+}
+
+.shimmer-line {
+  height: 16px;
+  background: linear-gradient(
+    90deg,
+    var(--glass-bg-light) 0%,
+    var(--glass-bg) 50%,
+    var(--glass-bg-light) 100%
+  );
+  background-size: 200% 100%;
+  border-radius: var(--radius-md);
+  animation: shimmer 2s ease-in-out infinite;
+}
+
+.shimmer-line.short {
+  width: 70%;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Loading Text */
+.loading-text {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  font-size: var(--font-size-sm);
+  color: var(--color-muted-navy);
+  opacity: 0.7;
+  margin: 0;
+}
+
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--color-sky-blue);
+  border-radius: var(--radius-full);
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* AI Content */
+.ai-content {
+  padding: var(--spacing-4);
+  background: var(--glass-bg-light);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  animation: fadeIn var(--duration-medium) var(--easing);
+}
+
+.content-text {
+  font-size: var(--font-size-base);
+  line-height: 1.6;
+  color: var(--color-muted-navy);
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+/* Empty State */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-4);
+  padding: var(--spacing-8) var(--spacing-4);
+}
+
+.empty-icon {
+  color: var(--color-muted-navy);
+  opacity: 0.3;
+}
+
+.empty-text {
+  font-size: var(--font-size-base);
+  color: var(--color-muted-navy);
+  opacity: 0.6;
+  margin: 0;
+}
+
+/* Copied Button State */
+.copied-button {
+  background: var(--color-success) !important;
+  color: white !important;
+  border-color: transparent !important;
+}
+
+.copied-button svg {
+  animation: scaleIn var(--duration-fast) var(--easing);
+}
+
+/* Button Icons */
+.modal-footer button {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.modal-footer button svg {
+  flex-shrink: 0;
+}
+
+/* ============================================
+   RESPONSIVE STYLES
+   ============================================ */
+
+@media (max-width: 767px) {
+  .ai-result-modal {
+    max-width: 100%;
+  }
+
+  .ai-content-container {
+    max-height: 400px;
+  }
+
+  .loading-state {
+    padding: var(--spacing-6) var(--spacing-2);
+  }
+
+  .ai-content {
+    padding: var(--spacing-3);
+  }
+
+  .content-text {
+    font-size: var(--font-size-sm);
+  }
+
+  /* Stack buttons on mobile */
+  .modal-footer {
+    flex-direction: column;
+    gap: var(--spacing-2);
+  }
+
+  .modal-footer button {
+    width: 100%;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  .ai-result-modal {
+    max-width: 600px;
+  }
+}
+
+/* ============================================
+   SCROLLBAR STYLING FOR CONTENT
+   ============================================ */
+
+.ai-content-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.ai-content-container::-webkit-scrollbar-track {
+  background: var(--glass-bg-light);
+  border-radius: var(--radius-full);
+}
+
+.ai-content-container::-webkit-scrollbar-thumb {
+  background: var(--gradient-primary);
+  border-radius: var(--radius-full);
+}
+
+.ai-content-container::-webkit-scrollbar-thumb:hover {
+  background: var(--gradient-button-hover);
+}
+
+/* ============================================
+   ACCESSIBILITY
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .shimmer-line {
+    animation: none;
+    background: var(--glass-bg);
+  }
+
+  .pulse-dot {
+    animation: none;
+  }
+}
