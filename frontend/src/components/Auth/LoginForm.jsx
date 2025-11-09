@@ -87,7 +87,8 @@ const LoginForm = ({ onSwitchToSignup, onForgotPassword }) => {
             onChange={(e) => setEmail(e.target.value)}
             icon={
               <svg
-                className="w-5 h-5 text-slate-700"
+                width="20"
+                height="20"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -117,7 +118,8 @@ const LoginForm = ({ onSwitchToSignup, onForgotPassword }) => {
               onChange={(e) => setPassword(e.target.value)}
               icon={
                 <svg
-                  className="w-5 h-5 text-slate-700"
+                  width="20"
+                  height="20"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"

@@ -146,7 +146,7 @@ export default function ChangePassword() {
   const passwordStrength = getPasswordStrength(formData.newPassword);
 
   return (
-    <div className={styles.container}>
+    <div className={`glass-container ${styles.container}`}>
       <h2 className={styles.title}>Change Password</h2>
 
       <form onSubmit={handleSubmit} className={styles.form}>

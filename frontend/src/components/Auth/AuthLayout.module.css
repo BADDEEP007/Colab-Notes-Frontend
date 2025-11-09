@@ -3,7 +3,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: var(--spacing-6);
+  padding: var(--spacing-4);
   position: relative;
   overflow: hidden;
 }
@@ -18,7 +18,7 @@
 
 .grid {
   display: grid;
-  gap: var(--spacing-10);
+  gap: var(--spacing-6);
   align-items: stretch;
 }
 
@@ -27,17 +27,40 @@
 }
 
 .formCard {
-  padding: var(--spacing-10);
+  padding: var(--spacing-6);
   min-width: 0;
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  min-height: 700px;
+  min-height: auto;
+  max-width: 100%;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.4) 0%,
+    rgba(255, 255, 255, 0.2) 50%,
+    rgba(255, 255, 255, 0.4) 100%
+  ) !important;
+  background-size: 200% 200% !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15),
+    0 4px 16px 0 rgba(56, 189, 248, 0.1),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.6),
+    inset 0 -1px 0 0 rgba(255, 255, 255, 0.2) !important;
+  position: relative;
+  overflow: hidden;
 }
 
 .formContent {
-  animation: fadeIn 0.5s ease-in-out;
+  animation: slideInFromLeft 0.5s ease-out;
+  position: relative;
+  z-index: 1;
+}
+
+.formContent {
+  animation: slideInFromLeft 0.5s ease-out;
 }
 
 .brandingPanel {
@@ -46,14 +69,37 @@
 }
 
 .brandingContent {
-  animation: fadeIn 0.5s ease-in-out;
+  animation: slideInFromRight 0.5s ease-out;
+}
+
+/* Animations */
+@keyframes slideInFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .mobileBranding {
   display: block;
   text-align: center;
-  margin-top: var(--spacing-10);
-  padding: var(--spacing-8);
+  margin-top: var(--spacing-6);
+  padding: var(--spacing-5);
   animation: fadeIn var(--duration-normal) var(--easing);
 }
 
@@ -66,44 +112,89 @@
 }
 
 .mobileBrandingIcon {
-  width: 32px;
-  height: 32px;
-  border-radius: var(--radius-xl);
-  background: var(--gradient-primary);
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px rgba(59, 130, 246, 0.3);
 }
 
 .mobileBrandingIconSvg {
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   color: white;
 }
 
 .mobileBrandingTitle {
-  font-size: var(--font-size-xl);
+  font-size: var(--font-size-lg);
   font-weight: 700;
-  background: var(--gradient-primary);
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .mobileBrandingSubtitle {
-  font-size: var(--font-size-sm);
+  font-size: var(--font-size-xs);
   color: var(--color-slate-600);
 }
 
 /* Responsive Styles */
+@media (min-width: 480px) {
+  .container {
+    padding: var(--spacing-6);
+  }
+
+  .formCard {
+    padding: var(--spacing-8);
+  }
+
+  .mobileBranding {
+    margin-top: var(--spacing-8);
+    padding: var(--spacing-6);
+  }
+}
+
 @media (min-width: 640px) {
   .container {
     padding: var(--spacing-10);
   }
 
+  .grid {
+    gap: var(--spacing-10);
+  }
+
   .formCard {
     padding: var(--spacing-12);
+    min-height: 600px;
+  }
+
+  .mobileBranding {
+    margin-top: var(--spacing-10);
+    padding: var(--spacing-8);
+  }
+
+  .mobileBrandingIcon {
+    width: 32px;
+    height: 32px;
+    background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  }
+
+  .mobileBrandingIconSvg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .mobileBrandingTitle {
+    font-size: var(--font-size-xl);
+    background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  }
+
+  .mobileBrandingSubtitle {
+    font-size: var(--font-size-sm);
   }
 }
 

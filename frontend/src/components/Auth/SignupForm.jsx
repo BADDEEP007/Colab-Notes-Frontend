@@ -112,7 +112,7 @@ const SignupForm = ({ onSwitchToLogin }) => {
             value={formData.name}
             onChange={(e) => handleChange('name', e.target.value)}
             icon={
-              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -136,7 +136,7 @@ const SignupForm = ({ onSwitchToLogin }) => {
             value={formData.email}
             onChange={(e) => handleChange('email', e.target.value)}
             icon={
-              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -160,7 +160,7 @@ const SignupForm = ({ onSwitchToLogin }) => {
             value={formData.password}
             onChange={(e) => handleChange('password', e.target.value)}
             icon={
-              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -189,7 +189,7 @@ const SignupForm = ({ onSwitchToLogin }) => {
             value={formData.confirmPassword}
             onChange={(e) => handleChange('confirmPassword', e.target.value)}
             icon={
-              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"

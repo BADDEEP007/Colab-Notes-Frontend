@@ -1,0 +1,239 @@
+.container {
+  padding: var(--spacing-10);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 600px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.4) 0%,
+    rgba(255, 255, 255, 0.2) 50%,
+    rgba(255, 255, 255, 0.4) 100%
+  ) !important;
+  background-size: 200% 200% !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15),
+    0 4px 16px 0 rgba(56, 189, 248, 0.1),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.6),
+    inset 0 -1px 0 0 rgba(255, 255, 255, 0.2) !important;
+  position: relative;
+  overflow: hidden;
+  animation: liquidGlass 8s ease-in-out infinite !important;
+}
+
+.container::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle,
+    rgba(139, 92, 246, 0.15) 0%,
+    transparent 50%
+  );
+  animation: liquidMove 10s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes liquidGlass {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes liquidMove {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  33% {
+    transform: translate(30%, 20%) rotate(120deg);
+  }
+  66% {
+    transform: translate(-20%, 30%) rotate(240deg);
+  }
+}
+
+.header {
+  margin-bottom: var(--spacing-16);
+  position: relative;
+  z-index: 1;
+}
+
+.logoSection {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-4);
+  margin-bottom: var(--spacing-10);
+}
+
+.logoIcon {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-2xl);
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.3);
+}
+
+.logoSvg {
+  width: 32px;
+  height: 32px;
+  color: white;
+}
+
+.logoTitle {
+  font-size: var(--font-size-3xl);
+  font-weight: 700;
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.mainTitle {
+  font-size: var(--font-size-4xl);
+  font-weight: 700;
+  color: var(--color-slate-800);
+  margin-bottom: var(--spacing-6);
+}
+
+.subtitle {
+  color: var(--color-slate-700);
+  font-size: var(--font-size-xl);
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+.features {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-12);
+  flex: 1;
+  position: relative;
+  z-index: 1;
+}
+
+.feature {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-6);
+  animation: slideIn 0.6s ease-out;
+}
+
+.feature:nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+.feature:nth-child(3) {
+  animation-delay: 0.2s;
+}
+
+.featureIcon {
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius-xl);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.featureIconPrimary {
+  background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
+}
+
+.featureIconSecondary {
+  background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+}
+
+.featureIconTertiary {
+  background: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%);
+}
+
+.featureIconSvg {
+  width: 32px;
+  height: 32px;
+  color: white;
+}
+
+.featureContent {
+  flex: 1;
+}
+
+.featureTitle {
+  font-weight: 700;
+  color: var(--color-slate-800);
+  margin-bottom: var(--spacing-3);
+  font-size: var(--font-size-xl);
+}
+
+.featureDescription {
+  font-size: var(--font-size-lg);
+  color: var(--color-slate-700);
+  line-height: 1.6;
+}
+
+.testimonial {
+  margin-top: var(--spacing-16);
+  padding-top: var(--spacing-12);
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+  position: relative;
+  z-index: 1;
+}
+
+.testimonialQuote {
+  font-size: var(--font-size-lg);
+  color: var(--color-slate-700);
+  font-style: italic;
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+.testimonialAuthor {
+  font-size: var(--font-size-base);
+  color: var(--color-slate-600);
+  margin-top: var(--spacing-5);
+  font-weight: 500;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Responsive Styles */
+@media (min-width: 640px) {
+  .container {
+    padding: var(--spacing-12);
+  }
+
+  .mainTitle {
+    font-size: var(--font-size-5xl);
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding: var(--spacing-16);
+    min-height: 700px;
+  }
+}

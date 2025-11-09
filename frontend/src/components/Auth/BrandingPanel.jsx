@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from './BrandingPanel.module.css';
 
 /**
  * BrandingPanel Component
@@ -11,13 +12,13 @@ import React from 'react';
  */
 const BrandingPanel = ({ isLogin }) => {
   return (
-    <div className="glass-container p-10 sm:p-12 lg:p-16 h-full flex flex-col min-h-[700px]">
+    <div className={`glass-container ${styles.container}`}>
       {/* Logo & Title */}
-      <div className="mb-16">
-        <div className="flex items-center gap-4 mb-10">
-          <div className="w-14 h-14 rounded-2xl bg-gradient-primary flex items-center justify-center shadow-lg">
+      <div className={styles.header}>
+        <div className={styles.logoSection}>
+          <div className={styles.logoIcon}>
             <svg
-              className="w-8 h-8 text-white"
+              className={styles.logoSvg}
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -26,123 +27,190 @@ const BrandingPanel = ({ isLogin }) => {
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth={2}
-                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
               />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M13 3v6a1 1 0 001 1h6"
+              />
+              <circle cx="17" cy="7" r="2" fill="currentColor" />
             </svg>
           </div>
-          <h1
-            className="text-3xl font-bold"
-            style={{
-              background: 'var(--gradient-primary)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
-            }}
-          >
-            Collab Notes
-          </h1>
+          <h1 className={styles.logoTitle}>Collab Notes</h1>
         </div>
-        <h2 className="text-4xl sm:text-5xl font-bold text-slate-800 mb-6">
+        <h2 className={styles.mainTitle}>
           {isLogin ? 'Welcome Back!' : 'Join Us Today'}
         </h2>
-        <p className="text-slate-700 text-xl font-medium leading-relaxed">
+        <p className={styles.subtitle}>
           {isLogin ? 'Continue your collaborative journey' : 'Start collaborating with your team'}
         </p>
       </div>
 
       {/* Features */}
-      <div className="space-y-12 flex-1">
-        <div className="flex items-start gap-6 slide-in">
-          <div className="w-16 h-16 rounded-xl bg-gradient-primary flex items-center justify-center shrink-0 shadow-md">
-            <svg
-              className="w-8 h-8 text-white"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
-              />
-            </svg>
-          </div>
-          <div className="flex-1">
-            <h3 className="font-bold text-slate-800 mb-3 text-xl">Real-time Collaboration</h3>
-            <p className="text-lg text-slate-700 leading-relaxed">
-              Collaborate with your team in real-time with seamless synchronization
-            </p>
-          </div>
-        </div>
+      <div className={styles.features}>
+        {isLogin ? (
+          <>
+            <div className={styles.feature}>
+              <div className={`${styles.featureIcon} ${styles.featureIconPrimary}`}>
+                <svg
+                  className={styles.featureIconSvg}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M13 10V3L4 14h7v7l9-11h-7z"
+                  />
+                </svg>
+              </div>
+              <div className={styles.featureContent}>
+                <h3 className={styles.featureTitle}>Pick Up Where You Left Off</h3>
+                <p className={styles.featureDescription}>
+                  Your notes are synced and ready to go
+                </p>
+              </div>
+            </div>
 
-        <div className="flex items-start gap-6 slide-in delay-100">
-          <div
-            className="w-16 h-16 rounded-xl flex items-center justify-center shrink-0 shadow-md"
-            style={{
-              background:
-                'linear-gradient(135deg, rgba(179, 229, 252, 0.8) 0%, rgba(255, 224, 178, 0.8) 100%)',
-            }}
-          >
-            <svg
-              className="w-8 h-8 text-white"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
-              />
-            </svg>
-          </div>
-          <div className="flex-1">
-            <h3 className="font-bold text-slate-800 mb-3 text-xl">AI-Powered Assistance</h3>
-            <p className="text-lg text-slate-700 leading-relaxed">
-              Smart summaries and intelligent suggestions to boost productivity
-            </p>
-          </div>
-        </div>
+            <div className={styles.feature}>
+              <div className={`${styles.featureIcon} ${styles.featureIconSecondary}`}>
+                <svg
+                  className={styles.featureIconSvg}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+              </div>
+              <div className={styles.featureContent}>
+                <h3 className={styles.featureTitle}>Stay Productive</h3>
+                <p className={styles.featureDescription}>
+                  Access your workspace from anywhere anytime
+                </p>
+              </div>
+            </div>
 
-        <div className="flex items-start gap-6 slide-in delay-200">
-          <div
-            className="w-16 h-16 rounded-xl flex items-center justify-center shrink-0 shadow-md"
-            style={{
-              background:
-                'linear-gradient(135deg, rgba(255, 224, 178, 0.8) 0%, rgba(255, 171, 145, 0.8) 100%)',
-            }}
-          >
-            <svg
-              className="w-8 h-8 text-white"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
-              />
-            </svg>
-          </div>
-          <div className="flex-1">
-            <h3 className="font-bold text-slate-800 mb-3 text-xl">Secure & Private</h3>
-            <p className="text-lg text-slate-700 leading-relaxed">
-              Enterprise-grade security to keep your data safe and protected
-            </p>
-          </div>
-        </div>
+            <div className={styles.feature}>
+              <div className={`${styles.featureIcon} ${styles.featureIconTertiary}`}>
+                <svg
+                  className={styles.featureIconSvg}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+                  />
+                </svg>
+              </div>
+              <div className={styles.featureContent}>
+                <h3 className={styles.featureTitle}>Team Collaboration</h3>
+                <p className={styles.featureDescription}>
+                  Reconnect with your team and keep collaborating
+                </p>
+              </div>
+            </div>
+          </>
+        ) : (
+          <>
+            <div className={styles.feature}>
+              <div className={`${styles.featureIcon} ${styles.featureIconPrimary}`}>
+                <svg
+                  className={styles.featureIconSvg}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+                  />
+                </svg>
+              </div>
+              <div className={styles.featureContent}>
+                <h3 className={styles.featureTitle}>Real-time Collaboration</h3>
+                <p className={styles.featureDescription}>
+                  Work together seamlessly with instant synchronization
+                </p>
+              </div>
+            </div>
+
+            <div className={styles.feature}>
+              <div className={`${styles.featureIcon} ${styles.featureIconSecondary}`}>
+                <svg
+                  className={styles.featureIconSvg}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+                  />
+                </svg>
+              </div>
+              <div className={styles.featureContent}>
+                <h3 className={styles.featureTitle}>AI-Powered Assistance</h3>
+                <p className={styles.featureDescription}>
+                  Smart summaries and suggestions boost your productivity
+                </p>
+              </div>
+            </div>
+
+            <div className={styles.feature}>
+              <div className={`${styles.featureIcon} ${styles.featureIconTertiary}`}>
+                <svg
+                  className={styles.featureIconSvg}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                  />
+                </svg>
+              </div>
+              <div className={styles.featureContent}>
+                <h3 className={styles.featureTitle}>Secure & Private</h3>
+                <p className={styles.featureDescription}>
+                  Enterprise-grade security keeps your data safe
+                </p>
+              </div>
+            </div>
+          </>
+        )}
       </div>
 
       {/* Testimonial Section */}
-      <div className="mt-16 pt-12 border-t border-white/30">
-        <p className="text-lg text-slate-700 italic font-medium leading-relaxed">
-          "The best collaboration tool we've ever used. Simple, powerful, and beautiful."
+      <div className={styles.testimonial}>
+        <p className={styles.testimonialQuote}>
+          {isLogin
+            ? '"Logging back in feels like coming home to my team."'
+            : '"The best collaboration tool we\'ve ever used. Simple, powerful, beautiful."'}
         </p>
-        <p className="text-base text-slate-600 mt-5 font-medium">— Happy User</p>
+        <p className={styles.testimonialAuthor}>
+          {isLogin ? '— Codester' : '— Baddeep'}
+        </p>
       </div>
     </div>
   );

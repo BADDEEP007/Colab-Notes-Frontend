@@ -1,22 +1,24 @@
 .container {
   width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
 }
 
 .header {
   text-align: center;
-  margin-bottom: var(--spacing-16);
+  margin-bottom: var(--spacing-10);
 }
 
 .title {
-  font-size: var(--font-size-4xl);
+  font-size: var(--font-size-2xl);
   font-weight: 700;
-  margin-bottom: var(--spacing-6);
+  margin-bottom: var(--spacing-4);
   color: var(--color-slate-800);
 }
 
 .subtitle {
   color: var(--color-slate-700);
-  font-size: var(--font-size-lg);
+  font-size: var(--font-size-base);
   font-weight: 500;
 }
 
@@ -50,7 +52,7 @@
 .form {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-8);
+  gap: var(--spacing-6);
 }
 
 .fieldGroup {
@@ -120,7 +122,7 @@
 
 .divider {
   position: relative;
-  margin: var(--spacing-14) 0;
+  margin: var(--spacing-8) 0;
 }
 
 .dividerLine {
@@ -150,10 +152,10 @@
 }
 
 .oauthButtons {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-5);
-  margin-bottom: var(--spacing-14);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-3);
+  margin-bottom: var(--spacing-8);
 }
 
 .oauthButton {
@@ -162,14 +164,16 @@
   -webkit-backdrop-filter: blur(10px);
   border: 1px solid var(--glass-border);
   border-radius: var(--radius-xl);
-  padding: var(--spacing-5);
+  padding: var(--spacing-3);
   display: flex;
   align-items: center;
   justify-content: center;
   gap: var(--spacing-3);
   cursor: pointer;
   transition: all var(--duration-fast) var(--easing);
-  min-height: 56px;
+  min-height: 48px;
+  min-width: 48px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04);
 }
 
 .oauthButton:hover:not(:disabled) {
@@ -183,12 +187,13 @@
 }
 
 .oauthIcon {
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
 }
 
 .oauthLabel {
-  font-size: var(--font-size-base);
+  display: none;
+  font-size: var(--font-size-sm);
   font-weight: 600;
   color: var(--color-slate-800);
 }
@@ -198,7 +203,7 @@
 }
 
 .signupText {
-  font-size: var(--font-size-lg);
+  font-size: var(--font-size-base);
   color: var(--color-slate-700);
 }
 
@@ -218,13 +223,66 @@
 }
 
 /* Responsive Styles */
-@media (min-width: 640px) {
+@media (min-width: 480px) {
   .title {
-    font-size: var(--font-size-5xl);
+    font-size: var(--font-size-3xl);
+  }
+
+  .subtitle {
+    font-size: var(--font-size-lg);
+  }
+
+  .oauthLabel {
+    display: inline;
+  }
+}
+
+@media (min-width: 640px) {
+  .header {
+    margin-bottom: var(--spacing-16);
+  }
+
+  .title {
+    font-size: var(--font-size-4xl);
+    margin-bottom: var(--spacing-6);
+  }
+
+  .form {
+    gap: var(--spacing-8);
+  }
+
+  .divider {
+    margin: var(--spacing-14) 0;
   }
 
   .oauthButtons {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-5);
+    margin-bottom: var(--spacing-14);
+  }
+
+  .oauthButton {
+    padding: var(--spacing-5);
+    min-height: 56px;
+  }
+
+  .oauthIcon {
+    width: 24px;
+    height: 24px;
+  }
+
+  .oauthLabel {
+    font-size: var(--font-size-base);
+  }
+
+  .signupText {
+    font-size: var(--font-size-lg);
+  }
+}
+
+@media (min-width: 768px) {
+  .title {
+    font-size: var(--font-size-5xl);
   }
 }

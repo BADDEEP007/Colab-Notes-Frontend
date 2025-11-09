@@ -1,22 +1,24 @@
 .container {
   width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
 }
 
 .header {
   text-align: center;
-  margin-bottom: var(--spacing-16);
+  margin-bottom: var(--spacing-10);
 }
 
 .title {
-  font-size: var(--font-size-4xl);
+  font-size: var(--font-size-2xl);
   font-weight: 700;
-  margin-bottom: var(--spacing-6);
+  margin-bottom: var(--spacing-4);
   color: var(--color-slate-800);
 }
 
 .subtitle {
   color: var(--color-slate-700);
-  font-size: var(--font-size-lg);
+  font-size: var(--font-size-base);
   font-weight: 500;
 }
 
@@ -50,7 +52,7 @@
 .form {
   display: flex;
   flex-direction: column;
-  gap: 1.75rem;
+  gap: var(--spacing-5);
 }
 
 .fieldGroup {
@@ -72,15 +74,16 @@
 
 .termsLabel {
   display: flex;
-  align-items: start;
+  align-items: flex-start;
   gap: var(--spacing-3);
   cursor: pointer;
 }
 
 .termsCheckbox {
-  margin-top: 0.25rem;
-  width: 20px;
-  height: 20px;
+  margin-top: 0.125rem;
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
   border-radius: 4px;
   border: 2px solid #94a3b8;
   color: #2563eb;
@@ -137,7 +140,7 @@
 
 .divider {
   position: relative;
-  margin: var(--spacing-10) 0;
+  margin: var(--spacing-6) 0;
 }
 
 .dividerLine {
@@ -167,10 +170,10 @@
 }
 
 .oauthButtons {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-4);
-  margin-bottom: var(--spacing-10);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-3);
+  margin-bottom: var(--spacing-6);
 }
 
 .oauthButton {
@@ -179,14 +182,16 @@
   -webkit-backdrop-filter: blur(10px);
   border: 1px solid var(--glass-border);
   border-radius: var(--radius-xl);
-  padding: var(--spacing-4);
+  padding: var(--spacing-3);
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: var(--spacing-3);
+  gap: var(--spacing-2);
   cursor: pointer;
   transition: all var(--duration-fast) var(--easing);
-  min-height: 48px;
+  min-height: 44px;
+  min-width: 44px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04);
 }
 
 .oauthButton:hover:not(:disabled) {
@@ -200,12 +205,13 @@
 }
 
 .oauthIcon {
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
 }
 
 .oauthLabel {
-  font-size: var(--font-size-sm);
+  display: none;
+  font-size: var(--font-size-xs);
   font-weight: 600;
   color: var(--color-slate-800);
 }
@@ -215,7 +221,7 @@
 }
 
 .loginText {
-  font-size: var(--font-size-base);
+  font-size: var(--font-size-sm);
   color: var(--color-slate-700);
 }
 
@@ -240,13 +246,64 @@
 }
 
 /* Responsive Styles */
-@media (min-width: 640px) {
+@media (min-width: 480px) {
   .title {
-    font-size: var(--font-size-5xl);
+    font-size: var(--font-size-3xl);
+  }
+
+  .subtitle {
+    font-size: var(--font-size-lg);
+  }
+
+  .oauthIcon {
+    width: 20px;
+    height: 20px;
+  }
+
+  .oauthLabel {
+    display: inline;
+    font-size: var(--font-size-sm);
+  }
+
+  .loginText {
+    font-size: var(--font-size-base);
+  }
+}
+
+@media (min-width: 640px) {
+  .header {
+    margin-bottom: var(--spacing-16);
+  }
+
+  .title {
+    font-size: var(--font-size-4xl);
+    margin-bottom: var(--spacing-6);
+  }
+
+  .form {
+    gap: 1.75rem;
+  }
+
+  .divider {
+    margin: var(--spacing-10) 0;
   }
 
   .oauthButtons {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-4);
+    margin-bottom: var(--spacing-10);
+  }
+
+  .oauthButton {
+    padding: var(--spacing-4);
+    gap: var(--spacing-3);
+    min-height: 48px;
+  }
+}
+
+@media (min-width: 768px) {
+  .title {
+    font-size: var(--font-size-5xl);
   }
 }

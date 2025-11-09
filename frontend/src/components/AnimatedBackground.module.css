@@ -1,5 +1,5 @@
 /* ============================================
-   ANIMATED BACKGROUND COMPONENT
+   ANIMATED BACKGROUND COMPONENT - CLEAN GLASSY STYLE
    ============================================ */
 
 .animatedBackground {
@@ -11,23 +11,50 @@
   overflow: hidden;
   z-index: -1;
   pointer-events: none;
-  background: var(--gradient-bg, linear-gradient(135deg, #e0f2fe 0%, #fef2f2 50%, #ede9fe 100%));
-  animation: fadeIn 0.6s ease-out;
+  background: linear-gradient(135deg, #f0f9ff 0%, #fef9f9 50%, #f5f3ff 100%);
+  animation: flowingGradient 60s ease-in-out infinite, fadeIn 0.6s ease-out;
 }
 
-/* Individual orb styling */
+/* Flowing gradient animation with very smooth, slow transitions */
+@keyframes flowingGradient {
+  0%, 100% {
+    background: linear-gradient(135deg, #f0f9ff 0%, #fef9f9 50%, #f5f3ff 100%);
+  }
+  50% {
+    background: linear-gradient(180deg, #fef9f9 0%, #f5f3ff 50%, #f0f9ff 100%);
+  }
+}
+
+/* Individual orb styling - Clean glassy effect */
 .orb {
   position: absolute;
   border-radius: 50%;
   filter: blur(60px);
   will-change: transform;
   animation: floatOrb ease-in-out infinite;
+  mix-blend-mode: normal;
+}
+
+/* Default glassy colors for orbs */
+.orb[data-color-index="0"] {
+  background: radial-gradient(circle, rgba(179, 229, 252, 0.4) 0%, rgba(179, 229, 252, 0) 70%);
+}
+.orb[data-color-index="1"] {
+  background: radial-gradient(circle, rgba(255, 224, 178, 0.4) 0%, rgba(255, 224, 178, 0) 70%);
+}
+.orb[data-color-index="2"] {
+  background: radial-gradient(circle, rgba(255, 171, 145, 0.35) 0%, rgba(255, 171, 145, 0) 70%);
+}
+.orb[data-color-index="3"] {
+  background: radial-gradient(circle, rgba(237, 233, 254, 0.4) 0%, rgba(237, 233, 254, 0) 70%);
+}
+.orb[data-color-index="4"] {
+  background: radial-gradient(circle, rgba(179, 229, 252, 0.35) 0%, rgba(179, 229, 252, 0) 70%);
 }
 
 /* Floating animation for orbs */
 @keyframes floatOrb {
-  0%,
-  100% {
+  0%, 100% {
     transform: translate(0, 0) scale(1);
   }
   25% {
@@ -61,7 +88,7 @@
 /* Disable animations for reduced motion preference */
 @media (prefers-reduced-motion: reduce) {
   .animatedBackground {
-    animation: none;
+    animation: fadeIn 0.6s ease-out;
   }
 
   .orb {
@@ -81,7 +108,7 @@
   transform: translateZ(0);
 }
 
-/* Ensure background doesn't interfere with content */
+/* Overlay layer */
 .animatedBackground::before {
   content: '';
   position: absolute;
@@ -89,6 +116,356 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(249, 250, 251, 0.3);
+  background: rgba(249, 250, 251, 0.2);
   z-index: 1;
+}
+
+/* Floating Shapes - Soft geometric shapes */
+.shape {
+  position: absolute;
+  will-change: transform, border-radius, opacity;
+  backdrop-filter: blur(2px);
+  mix-blend-mode: normal;
+}
+
+/* Directional animations for shapes */
+.shape[data-direction="0"] { 
+  border-radius: 50%;
+  animation: flowShape0 25s ease-in-out infinite, shapeColorCycle 30s ease-in-out infinite; 
+}
+.shape[data-direction="45"] { 
+  border-radius: 0%;
+  animation: flowShape45 25s ease-in-out infinite, shapeColorCycle 30s ease-in-out infinite; 
+}
+.shape[data-direction="90"] { 
+  border-radius: 50%;
+  animation: flowShape90 25s ease-in-out infinite, shapeColorCycle 30s ease-in-out infinite; 
+}
+.shape[data-direction="135"] { 
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  animation: flowShape135 25s ease-in-out infinite, shapeColorCycle 30s ease-in-out infinite; 
+}
+.shape[data-direction="180"] { 
+  border-radius: 50%;
+  animation: flowShape180 25s ease-in-out infinite, shapeColorCycle 30s ease-in-out infinite; 
+}
+.shape[data-direction="225"] { 
+  border-radius: 0%;
+  animation: flowShape225 25s ease-in-out infinite, shapeColorCycle 30s ease-in-out infinite; 
+}
+.shape[data-direction="270"] { 
+  border-radius: 50%;
+  animation: flowShape270 25s ease-in-out infinite, shapeColorCycle 30s ease-in-out infinite; 
+}
+.shape[data-direction="315"] { 
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  animation: flowShape315 25s ease-in-out infinite, shapeColorCycle 30s ease-in-out infinite; 
+}
+
+/* Fixed colors for shapes - more visible */
+.shape[data-color-index="0"] {
+  background: linear-gradient(135deg, rgba(125, 211, 252, 0.18), rgba(167, 139, 250, 0.14));
+}
+.shape[data-color-index="1"] {
+  background: linear-gradient(135deg, rgba(167, 139, 250, 0.18), rgba(244, 114, 182, 0.14));
+}
+.shape[data-color-index="2"] {
+  background: linear-gradient(135deg, rgba(244, 114, 182, 0.18), rgba(251, 191, 36, 0.14));
+}
+.shape[data-color-index="3"] {
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.18), rgba(74, 222, 128, 0.14));
+}
+.shape[data-color-index="4"] {
+  background: linear-gradient(135deg, rgba(74, 222, 128, 0.18), rgba(125, 211, 252, 0.14));
+}
+.shape[data-color-index="5"] {
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.18), rgba(244, 114, 182, 0.14));
+}
+
+@keyframes shapeColorCycle {
+  0%, 100% { 
+    opacity: 0.6;
+  }
+  50% { 
+    opacity: 0.75;
+  }
+}
+
+/* Gentle shape movements */
+@keyframes flowShape0 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(40px, -30px) scale(1.05); }
+}
+@keyframes flowShape45 {
+  0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+  50% { transform: translate(30px, -40px) rotate(45deg) scale(1.08); }
+}
+@keyframes flowShape90 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-35px, -35px) scale(1.1); }
+}
+@keyframes flowShape135 {
+  0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+  50% { transform: translate(-40px, 30px) rotate(90deg) scale(1.05); }
+}
+@keyframes flowShape180 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-40px, 35px) scale(1.08); }
+}
+@keyframes flowShape225 {
+  0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+  50% { transform: translate(35px, 40px) rotate(180deg) scale(1.1); }
+}
+@keyframes flowShape270 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(30px, 40px) scale(1.05); }
+}
+@keyframes flowShape315 {
+  0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+  50% { transform: translate(40px, -35px) rotate(90deg) scale(1.08); }
+}
+
+/* Particles - Flowing in multiple directions */
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  will-change: transform, opacity;
+  mix-blend-mode: screen;
+}
+
+/* Directional animations for particles */
+.particle[data-direction="up"] { animation: particleUp ease-in-out infinite, particleColorCycle 20s ease-in-out infinite; }
+.particle[data-direction="upRight"] { animation: particleUpRight ease-in-out infinite, particleColorCycle 20s ease-in-out infinite; }
+.particle[data-direction="upLeft"] { animation: particleUpLeft ease-in-out infinite, particleColorCycle 20s ease-in-out infinite; }
+.particle[data-direction="diagonal"] { animation: particleDiagonal ease-in-out infinite, particleColorCycle 20s ease-in-out infinite; }
+.particle[data-direction="wave"] { animation: particleWave ease-in-out infinite, particleColorCycle 20s ease-in-out infinite; }
+
+/* Fixed colors for particles - more visible */
+.particle[data-color-index="0"] {
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.7), transparent);
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.5);
+}
+.particle[data-color-index="1"] {
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.7), transparent);
+  box-shadow: 0 0 12px rgba(139, 92, 246, 0.5);
+}
+.particle[data-color-index="2"] {
+  background: radial-gradient(circle, rgba(236, 72, 153, 0.7), transparent);
+  box-shadow: 0 0 12px rgba(236, 72, 153, 0.5);
+}
+.particle[data-color-index="3"] {
+  background: radial-gradient(circle, rgba(251, 146, 60, 0.7), transparent);
+  box-shadow: 0 0 12px rgba(251, 146, 60, 0.5);
+}
+.particle[data-color-index="4"] {
+  background: radial-gradient(circle, rgba(34, 197, 94, 0.7), transparent);
+  box-shadow: 0 0 12px rgba(34, 197, 94, 0.5);
+}
+.particle[data-color-index="5"] {
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.7), transparent);
+  box-shadow: 0 0 12px rgba(245, 158, 11, 0.5);
+}
+
+@keyframes particleColorCycle {
+  0%, 100% { 
+    opacity: 0.8;
+  }
+  50% { 
+    opacity: 1;
+  }
+}
+
+/* Particle movement patterns */
+@keyframes particleUp {
+  0% { transform: translateY(0) translateX(0) scale(1); opacity: 0; }
+  5% { opacity: 0.8; }
+  50% { transform: translateY(-50vh) translateX(0) scale(1.1); opacity: 1; }
+  95% { opacity: 0.3; }
+  100% { transform: translateY(-100vh) translateX(0) scale(0.6); opacity: 0; }
+}
+@keyframes particleUpRight {
+  0% { transform: translateY(0) translateX(0) scale(1); opacity: 0; }
+  5% { opacity: 0.8; }
+  50% { transform: translateY(-50vh) translateX(50px) scale(1.2); opacity: 1; }
+  95% { opacity: 0.3; }
+  100% { transform: translateY(-100vh) translateX(80px) scale(0.6); opacity: 0; }
+}
+@keyframes particleUpLeft {
+  0% { transform: translateY(0) translateX(0) scale(1); opacity: 0; }
+  5% { opacity: 0.8; }
+  50% { transform: translateY(-50vh) translateX(-50px) scale(1.15); opacity: 1; }
+  95% { opacity: 0.3; }
+  100% { transform: translateY(-100vh) translateX(-80px) scale(0.6); opacity: 0; }
+}
+@keyframes particleDiagonal {
+  0% { transform: translate(0, 0) scale(1); opacity: 0; }
+  5% { opacity: 0.8; }
+  50% { transform: translate(60px, -60vh) scale(1.1); opacity: 1; }
+  95% { opacity: 0.3; }
+  100% { transform: translate(100px, -100vh) scale(0.6); opacity: 0; }
+}
+@keyframes particleWave {
+  0% { transform: translateY(0) translateX(0) scale(1); opacity: 0; }
+  5% { opacity: 0.8; }
+  25% { transform: translateY(-25vh) translateX(40px) scale(1.2); opacity: 1; }
+  50% { transform: translateY(-50vh) translateX(-30px) scale(0.9); opacity: 0.9; }
+  75% { transform: translateY(-75vh) translateX(50px) scale(1.1); opacity: 0.7; }
+  95% { opacity: 0.3; }
+  100% { transform: translateY(-100vh) translateX(-40px) scale(0.6); opacity: 0; }
+}
+
+/* Dynamic Lines - Highly visible with strong colors */
+.dynamicLine {
+  position: absolute;
+  transform-origin: left center;
+  animation: flowLine ease-in-out infinite, lineColorCycle 30s ease-in-out infinite;
+  will-change: transform, opacity;
+  filter: none;
+  mix-blend-mode: normal;
+}
+
+/* Fixed multi-color lines - more subtle */
+.dynamicLine[data-color-index="0"] {
+  background: linear-gradient(90deg, transparent 0%, rgba(125, 211, 252, 0.3) 50%, transparent 100%);
+  height: 2px;
+  box-shadow: 0 0 4px rgba(125, 211, 252, 0.15), 0 0 8px rgba(125, 211, 252, 0.08);
+}
+.dynamicLine[data-color-index="1"] {
+  background: linear-gradient(90deg, transparent 0%, rgba(167, 139, 250, 0.3) 50%, transparent 100%);
+  height: 2px;
+  box-shadow: 0 0 4px rgba(167, 139, 250, 0.15), 0 0 8px rgba(167, 139, 250, 0.08);
+}
+.dynamicLine[data-color-index="2"] {
+  background: linear-gradient(90deg, transparent 0%, rgba(244, 114, 182, 0.3) 50%, transparent 100%);
+  height: 2px;
+  box-shadow: 0 0 4px rgba(244, 114, 182, 0.15), 0 0 8px rgba(244, 114, 182, 0.08);
+}
+.dynamicLine[data-color-index="3"] {
+  background: linear-gradient(90deg, transparent 0%, rgba(251, 191, 36, 0.3) 50%, transparent 100%);
+  height: 2px;
+  box-shadow: 0 0 4px rgba(251, 191, 36, 0.15), 0 0 8px rgba(251, 191, 36, 0.08);
+}
+.dynamicLine[data-color-index="4"] {
+  background: linear-gradient(90deg, transparent 0%, rgba(74, 222, 128, 0.3) 50%, transparent 100%);
+  height: 2px;
+  box-shadow: 0 0 4px rgba(74, 222, 128, 0.15), 0 0 8px rgba(74, 222, 128, 0.08);
+}
+.dynamicLine[data-color-index="5"] {
+  background: linear-gradient(90deg, transparent 0%, rgba(251, 191, 36, 0.3) 50%, transparent 100%);
+  height: 2px;
+  box-shadow: 0 0 4px rgba(251, 191, 36, 0.15), 0 0 8px rgba(251, 191, 36, 0.08);
+}
+
+@keyframes lineColorCycle {
+  0%, 100% { 
+    opacity: 1;
+  }
+  50% { 
+    opacity: 1;
+  }
+}
+
+@keyframes flowLine {
+  0% {
+    transform: scaleX(0) translateY(0);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.8;
+  }
+  30% {
+    transform: scaleX(0.6) translateY(-10px);
+    opacity: 1;
+  }
+  50% {
+    transform: scaleX(1) translateY(0);
+    opacity: 1;
+  }
+  70% {
+    transform: scaleX(0.8) translateY(10px);
+    opacity: 0.9;
+  }
+  85% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: scaleX(0) translateY(0);
+    opacity: 0;
+  }
+}
+
+/* Flowing waves with seamless color transitions and directions */
+.flowWave {
+  position: absolute;
+  width: 200%;
+  height: 200px;
+  animation: waveColorCycle 28s ease-in-out infinite;
+  will-change: transform, background;
+  mix-blend-mode: overlay;
+  filter: blur(20px);
+  transition: background 3s ease-in-out;
+}
+
+/* Directional wave animations */
+.flowWave[data-direction="left"] { animation: waveFlowLeft 12s ease-in-out infinite, waveColorCycle 28s ease-in-out infinite; }
+.flowWave[data-direction="right"] { animation: waveFlowRight 12s ease-in-out infinite, waveColorCycle 28s ease-in-out infinite; }
+
+@keyframes waveColorCycle {
+  0%, 100% {
+    background: linear-gradient(90deg, 
+      transparent 0%, 
+      rgba(56, 189, 248, 0.15) 20%, 
+      rgba(139, 92, 246, 0.15) 40%, 
+      rgba(236, 72, 153, 0.15) 60%, 
+      rgba(251, 146, 60, 0.15) 80%, 
+      transparent 100%);
+    opacity: 0.8;
+  }
+  50% {
+    background: linear-gradient(90deg, 
+      transparent 0%, 
+      rgba(139, 92, 246, 0.15) 20%, 
+      rgba(236, 72, 153, 0.15) 40%, 
+      rgba(251, 146, 60, 0.15) 60%, 
+      rgba(34, 197, 94, 0.15) 80%, 
+      transparent 100%);
+    opacity: 1;
+  }
+}
+
+@keyframes waveFlowLeft {
+  0%, 100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  50% {
+    transform: translateX(0%) translateY(-20px);
+  }
+}
+
+@keyframes waveFlowRight {
+  0%, 100% {
+    transform: translateX(0%) translateY(0);
+  }
+  50% {
+    transform: translateX(-50%) translateY(-20px);
+  }
+}
+
+/* Disable new animations for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .animatedBackground {
+    animation: fadeIn 0.6s ease-out !important;
+  }
+  
+  .shape,
+  .particle,
+  .dynamicLine,
+  .flowWave {
+    animation: none !important;
+    opacity: 0.3;
+  }
+  
+  .animatedBackground::before {
+    animation: none !important;
+  }
 }
